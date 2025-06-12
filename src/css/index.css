@@ -1,0 +1,184 @@
+body {
+    width: 100%;
+    min-height: 100vh;
+}
+
+header {
+    height: 20vh;
+}
+
+.login{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+}
+
+main {
+    min-height: 80vh;
+}
+
+
+
+.card-view-noticias {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    gap: 10vh;
+    padding: 10vh 0 10vh 0;
+}
+
+.card-noticias {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 80%;
+    height: 90vh;
+}
+
+.noticia {
+    display: flex;
+    flex-direction: row;
+    height: 70vh;
+}
+
+.noticia-div-imagem,
+.noticia-div-conteudo {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.noticia-div-imagem {
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+}
+
+.noticia-imagem {
+    width: 90%;
+    height: 90%;
+    border-radius: 5px;
+}
+
+.noticia-div-conteudo {
+    position: relative;
+    justify-content: center;
+    align-items: left;
+    width: 75%;
+}
+
+.autor {
+    font-size: 18px;
+    position: absolute;
+    top: 20px;
+}
+
+.titulo {
+    font-size: 22px;
+    position: absolute;
+    top: 44px;
+}
+
+.conteudo {
+    position: absolute;
+    top: 75px;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+    height: 65%;
+    width: 97.5%;
+}
+
+.data {
+    width: 90%;
+    text-align: end;
+    font-size: 18px;
+    position: absolute;
+    bottom: 20px;
+    color: gray;
+}
+
+.comentario {
+    border-top: 1px solid black;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.card-comentario {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 90%;
+    height: 90%;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.comentario-div-imagem,
+.comentario-div-conteudo {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.comentario-div-imagem {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 25%;
+}
+
+.comentario-imagem {
+    width: 90%;
+    height: 90%;
+    border-radius: 5px;
+}
+
+.comentario-div-conteudo {
+    position: relative;
+    justify-content: center;
+    align-content: center;
+    width: 75%;
+}
+
+.comentario-autor {
+    font-size: 18px;
+    position: absolute;
+    top: 25px;
+
+}
+
+.comentario-conteudo {
+    top: 55px;
+    height: 50%;
+    position: absolute;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+}
+
+.comentario-data {
+    width: 90%;
+    text-align: end;
+    position: absolute;
+    bottom: 10px;
+    color: gray;
+}
+
+footer {
+    height: 40vh;
+}
+
+header,
+footer {
+    background-color: black;
+}
