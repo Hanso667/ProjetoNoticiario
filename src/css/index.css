@@ -1,10 +1,20 @@
 body {
     width: 100%;
     min-height: 100vh;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #fdfaf6;
+    color: #333;
 }
 
 header {
     height: 20vh;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .login {
@@ -21,45 +31,51 @@ main {
 }
 
 .criar-postagem {
-    background: #f5f5f5;
+    background: #fff8dc;
     padding: 20px;
     margin: 20px;
+    border: 2px dashed #003366;
     border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
 }
 
 .criar-postagem h2 {
     font-size: 1.5rem;
     margin-bottom: 10px;
+    color: #003366;
 }
 
 .input-titulo {
-    width: 100%;
+    width: 98%;
     padding: 10px;
     margin-bottom: 10px;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: 2px solid #003366;
     border-radius: 4px;
+    background-color: #fefefe;
 }
 
 #editor {
     height: 200px;
     margin-bottom: 10px;
     background: white;
+    border: 2px solid #003366;
+    padding: 10px;
 }
 
 .botao-postar {
     padding: 10px 20px;
     font-size: 1rem;
-    background: #3498db;
+    background: #4caf50;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .botao-postar:hover {
-    background: #2980b9;
+    background: #388e3c;
 }
 
 .card-view-noticias {
@@ -69,30 +85,31 @@ main {
     align-items: center;
     min-height: 80vh;
     gap: 10vh;
-    padding: 10vh 0 10vh 0;
+    padding: 10vh 0;
 }
 
 .card-noticias {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    border: 2px solid #003366;
     border-radius: 5px;
     width: 80%;
     height: 90vh;
-    transition: 1s;
+    background-color: #fffdf5;
+    transition: 0.5s;
 }
 
 .card-noticias:hover {
     cursor: pointer;
-    transition: 1s;
     transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 51, 102, 0.2);
 }
 
 .noticia {
     display: flex;
     flex-direction: row;
     height: 70vh;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #003366;
 }
 
 .noticia-div-imagem,
@@ -106,49 +123,57 @@ main {
     justify-content: center;
     align-items: center;
     width: 25%;
+    background-color: #f0f8ff;
 }
 
 .noticia-imagem {
     width: 90%;
     height: 90%;
     border-radius: 5px;
+    border: 2px solid #ccc;
 }
 
 .noticia-div-conteudo {
-    position: relative;
-    justify-content: center;
-    align-items: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 75%;
+    height: 80%;
+    padding: 20px;
+    background-color: #fafafa;
+    gap: 10px;
 }
 
 .autor {
     font-size: 18px;
-    position: absolute;
-    top: 20px;
+    font-weight: bold;
+    color: #003366;
 }
 
 .titulo {
     font-size: 22px;
-    position: absolute;
-    top: 44px;
+    font-weight: bold;
 }
 
 .conteudo {
-    position: absolute;
-    top: 75px;
+    width: 100%;
+    height: 70%; /* limite opcional de altura com rolagem */
+    overflow-y: auto;
     overflow-wrap: break-word;
-    overflow-y: scroll;
-    height: 65%;
-    width: 97.5%;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .data {
     width: 90%;
     text-align: end;
     font-size: 18px;
-    position: absolute;
-    bottom: 20px;
-    color: gray;
+    color: #888;
+    font-style: italic;
 }
 
 .comentario {
@@ -157,8 +182,8 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #e6f2ff;
 }
-
 
 .card-comentario {
     display: flex;
@@ -166,8 +191,9 @@ main {
     position: relative;
     width: 90%;
     height: 90%;
-    border: 1px solid black;
+    border: 2px solid #006699;
     border-radius: 5px;
+    background-color: #ffffff;
 }
 
 .comentario-div-imagem,
@@ -179,16 +205,17 @@ main {
 
 .comentario-div-imagem {
     flex-wrap: wrap;
-    display: flex;
     justify-content: center;
     align-content: center;
     width: 25%;
+    background-color: #e0f7fa;
 }
 
 .comentario-imagem {
     width: 90%;
     height: 90%;
     border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 .comentario-div-conteudo {
@@ -196,37 +223,45 @@ main {
     justify-content: center;
     align-content: center;
     width: 75%;
+    padding: 10px;
 }
 
 .comentario-autor {
     font-size: 18px;
     position: absolute;
     top: 25px;
-
+    font-weight: bold;
+    color: #006699;
 }
 
 .comentario-conteudo {
     top: 55px;
-    height: 50%;
-    width: 97.5%;
+    height: 30%;
+    width: 95%;
     position: absolute;
     overflow-wrap: break-word;
     overflow-y: scroll;
+    padding: 10px;
+    background-color: #fefefe;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .comentario-data {
     width: 90%;
     text-align: end;
     position: absolute;
-    bottom: 10px;
-    color: gray;
+    bottom: 30px;
+    color: #777;
+    font-style: italic;
 }
 
 footer {
     height: 40vh;
-}
-
-header,
-footer {
-    background-color: black;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
 }

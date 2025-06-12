@@ -11,26 +11,24 @@ if ($conn->connect_error) {
 
 $titulo = $_POST['titulo'];
 $conteudo = $_POST['conteudo'];
+$id_usuario = 1; // ou pegue da sessão
 
-// Buscar ID do usuário "Anônimo"
-$sql = "SELECT id FROM usuarios WHERE nome = 'Anônimo' LIMIT 1";
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
-$id_anonimo = $row['id'] ?? null;
+$imagem_nome = null;
 
-if ($id_anonimo) {
-    $stmt = $conn->prepare("INSERT INTO postagens (id_usuario, titulo, texto) VALUES (?, ?, ?)");
-    $stmt->bind_param("iss", $id_anonimo, $titulo, $conteudo);
-    if ($stmt->execute()) {
-        header("Location: index.php");
-        exit;
-    } else {
-        echo "Erro ao postar: " . $stmt->error;
+if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+    $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
+    $nome_arquivo = uniqid('post_') . '.' . $ext;
+    $caminho = 'uploads/' . $nome_arquivo;
+
+    if (move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho)) {
+        $imagem_nome = $caminho; // salva o caminho no banco
     }
-    $stmt->close();
-} else {
-    echo "Erro: usuário 'Anônimo' não encontrado.";
 }
 
-$conn->close();
+$stmt = $conn->prepare("INSERT INTO postagens (id_usuario, titulo, texto, imagem) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("isss", $id_usuario, $titulo, $conteudo, $imagem_nome);
+$stmt->execute();
+
+header("Location: index.php");
+exit;
 ?>
