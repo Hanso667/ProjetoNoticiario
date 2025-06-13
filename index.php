@@ -42,6 +42,7 @@ $result = $conn->query($sql);
 <head>
     <link rel="stylesheet" href="src/css/reset.css">
     <link rel="stylesheet" href="src/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal</title>
@@ -49,11 +50,21 @@ $result = $conn->query($sql);
 <body>
 
 <header>
-    <ul class="login">
-        <li><button class="login-button">Login</button></li>
-        <li><button class="sigin-button">Signin</button></li>
-        <li><img src="./src/img/" class="profile-picture"></li>
-    </ul>
+    <div class="header-container">
+        <div class="header-left">
+            <a href="./index.php"><button class="home-button">Home</button></a>
+        </div>
+
+        <div class="header-right">
+            <?php if (isset($_SESSION['usuario_id'])): ?>
+                <a href="./logout.php"><button class="login-button">Logout</button></a>
+            <?php else: ?>
+                <a href="./pages/login.php"><button class="login-button">Login</button></a>
+                <a href="./pages/signin.php"><button class="sigin-button">Signin</button></a>
+            <?php endif; ?>
+            <img src="./src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil">
+        </div>
+    </div>
 </header>
 
 <main>
@@ -61,7 +72,7 @@ $result = $conn->query($sql);
         <input type="text" name="titulo" placeholder="Título da postagem" required class="input-titulo">
         <div id="editor"></div>
         <input type="hidden" name="conteudo" id="conteudo">
-        <input type="file" name="imagem" accept="image/*" required>
+        <input type="file" name="imagem" accept="image/*">
         <button type="submit" class="botao-postar">Postar</button>
     </form>
 
@@ -86,7 +97,7 @@ $result = $conn->query($sql);
                 $data = date('d/m/Y', strtotime($row['data_post']));
 
                 // Imagem da postagem
-                $imagemPostagem = !empty($row['imagem_postagem']) ? 'src/img/' . htmlspecialchars($row['imagem_postagem']) : './src/img/imagem1.jpg';
+                $imagemPostagem = !empty($row['imagem_postagem']) ? htmlspecialchars($row['imagem_postagem']) : './src/img/NoImage.jpg';
 
                 echo '
                 <div class="card-noticias" data-id="' . $id . '">
@@ -106,7 +117,7 @@ $result = $conn->query($sql);
                     $comentario = $row['comentario'];
                     $autorComentario = htmlspecialchars($row['nome_autor_comentario']);
                     $dataComentario = date('d/m/Y', strtotime($row['data_comentario']));
-                    $imagemComentario = !empty($row['imagem_comentario']) ? 'uploads/' . htmlspecialchars($row['imagem_comentario']) : './src/img/imagem1.jpg';
+                    $imagemComentario = !empty($row['imagem_comentario']) ? './src/img' . htmlspecialchars($row['imagem_comentario']) : './src/img/NoProfile.jpg';
 
                     echo '
                     <div class="comentario">
@@ -134,7 +145,25 @@ $result = $conn->query($sql);
     </div>
 </main>
 
-<footer></footer>
+<footer>
+    <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
+
+    <p>Desenvolvido por Hanso667.</p>
+
+    <p>
+        Contato: <a href="mailto:fabriciolacerdamoraes2005@gmai.com" style="color: #ffffff;">fabriciolacerdamoraes2005@gmai.com</a><br>
+    </p>
+
+    <div style="margin-top: 10px;">
+        <a href="https://github.com/Hanso667" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="Github">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+    </div>
+
+</footer>
 
 <script src="./src/scripts/script.js"></script>
 </body>

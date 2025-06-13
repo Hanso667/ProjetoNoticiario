@@ -1,27 +1,29 @@
 <?php
-$host = 'localhost';
-$db = 'noticiario';
-$user = 'root';
-$pass = '';
+session_start();
 
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
+include './src/scripts/Connection.php';
+$connection = new Connection();
+$conn = $connection->connectar();
+
+// Verifica se o usuário está logado
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: ./pages/login.php");
+    exit;
 }
 
 $titulo = $_POST['titulo'];
 $conteudo = $_POST['conteudo'];
-$id_usuario = 1; // ou pegue da sessão
+$id_usuario = $_SESSION['usuario_id']; // ← Aqui pega o ID do usuário logado
 
 $imagem_nome = null;
 
 if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
     $ext = pathinfo($_FILES['imagem']['name'], PATHINFO_EXTENSION);
     $nome_arquivo = uniqid('post_') . '.' . $ext;
-    $caminho = 'uploads/' . $nome_arquivo;
+    $caminho = './src/img/' . $nome_arquivo;
 
     if (move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho)) {
-        $imagem_nome = $caminho; // salva o caminho no banco
+        $imagem_nome = $caminho;
     }
 }
 
@@ -31,4 +33,3 @@ $stmt->execute();
 
 header("Location: index.php");
 exit;
-?>

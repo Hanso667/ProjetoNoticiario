@@ -25,14 +25,15 @@ if (isset($_GET['id'])) {
         exit;
     }
 
-    // Buscar comentários
+    // Buscar comentários 
     $stmt = $conn->prepare("
-        SELECT comentarios_postagem.*, usuarios.nome 
-        FROM comentarios_postagem 
-        JOIN usuarios ON comentarios_postagem.id_usuario = usuarios.id 
-        WHERE id_post = ? 
-        ORDER BY data_comentario DESC
-    ");
+    SELECT comentarios_postagem.*, usuarios.nome, usuarios.imagem 
+    FROM comentarios_postagem 
+    JOIN usuarios ON comentarios_postagem.id_usuario = usuarios.id 
+    WHERE id_post = ? 
+    ORDER BY data_comentario DESC
+");
+
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $comentarios = $stmt->get_result();
@@ -55,16 +56,38 @@ if (isset($_GET['id'])) {
 
 <body>
 
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <a href="../index.php"><button class="home-button">Home</button></a>
+            </div>
+
+            <div class="header-right">
+                <?php if (isset($_SESSION['usuario_id'])): ?>
+                    <a href="../logout.php"><button class="login-button">Logout</button></a>
+                <?php else: ?>
+                    <a href="../pages/login.php"><button class="login-button">Login</button></a>
+                    <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
+                <?php endif; ?>
+                <img src="../src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil" style="width: 40px; height: 40px">
+            </div>
+        </div>
+    </header>
+
+
     <main style="max-width: 800px; margin: auto; padding: 20px;">
         <h1><?= htmlspecialchars($noticia['titulo']) ?></h1>
         <p>
-            <em>por <?= htmlspecialchars($noticia['nome']) ?> em 
-            <?= date('d/m/Y H:i', strtotime($noticia['data_post'])) ?></em>
+            <em>por <?= htmlspecialchars($noticia['nome']) ?> em
+                <?= date('d/m/Y H:i', strtotime($noticia['data_post'])) ?></em>
         </p>
 
-        <?php if (!empty($noticia['imagem'])): ?>
-            <img src="../src/img/<?= htmlspecialchars($noticia['imagem']) ?>" alt="Imagem da notícia" style="max-width: 100%; height: auto; margin: 20px 0;">
-        <?php endif; ?>
+        <?php
+        $imagemNoticia = !empty($noticia['imagem'])
+            ? '.' . htmlspecialchars($noticia['imagem'])
+            : '../src/img/NoImage.jpg';
+        ?>
+        <img src="<?= $imagemNoticia ?>" alt="Imagem da notícia" class="Imagem-postagem">
 
         <div class="conteudo-postagem">
             <?= $noticia['texto'] ?>
@@ -77,10 +100,18 @@ if (isset($_GET['id'])) {
 
             <?php if ($comentarios->num_rows > 0): ?>
                 <?php while ($coment = $comentarios->fetch_assoc()): ?>
-                    <div class="comentario" style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
-                        <strong><?= htmlspecialchars($coment['nome']) ?></strong>
-                        <small>em <?= date('d/m/Y H:i', strtotime($coment['data_comentario'])) ?></small>
-                        <div><?= $coment['comentario'] ?></div>
+                    <div class="comentario" style="border: 1px solid #ccc; padding: 10px; margin: 10px 0; display: flex; gap: 10px; align-items: flex-start;">
+                        <?php if (!empty($coment['imagem'])): ?>
+                            <img src=".<?= htmlspecialchars($coment['imagem']) ?>" alt="Imagem do usuário" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                        <?php else: ?>
+                            <img src="../src/img/NoProfile.jpg" alt="Sem imagem" style="width: 75px; height: 75px; object-fit: cover; border-radius: 50%;">
+                        <?php endif; ?>
+
+                        <div>
+                            <strong><?= htmlspecialchars($coment['nome']) ?></strong>
+                            <small>em <?= date('d/m/Y H:i', strtotime($coment['data_comentario'])) ?></small>
+                            <div><?= $coment['comentario'] ?></div>
+                        </div>
                     </div>
                 <?php endwhile; ?>
             <?php else: ?>
@@ -100,6 +131,26 @@ if (isset($_GET['id'])) {
             </form>
         </section>
     </main>
+
+    <footer>
+        <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
+
+        <p>Desenvolvido por Hanso667.</p>
+
+        <p>
+            Contato: <a href="mailto:fabriciolacerdamoraes2005@gmai.com" style="color: #ffffff;">fabriciolacerdamoraes2005@gmai.com</a><br>
+        </p>
+
+        <div style="margin-top: 10px;">
+            <a href="https://github.com/Hanso667" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="Github">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </div>
+
+    </footer>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
