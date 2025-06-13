@@ -1,13 +1,8 @@
 <?php
-$host = 'localhost';
-$db = 'noticiario';
-$user = 'root';
-$pass = '';
 
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
-}
+include './src/scripts/Connection.php';
+$connection = new Connection();
+$conn = $connection->connectar();
 
 $sql = 'SELECT 
   p.id AS postagem_id,

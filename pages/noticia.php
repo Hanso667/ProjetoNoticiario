@@ -1,10 +1,9 @@
 <?php
 session_start(); // Se quiser lidar com login depois
 
-$conn = new mysqli("localhost", "root", "", "noticiario");
-if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
-}
+include '../src/scripts/Connection.php';
+$connection = new Connection();
+$conn = $connection->connectar();
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
@@ -49,8 +48,8 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($noticia['titulo']) ?></title>
-    <link rel="stylesheet" href="src/css/reset.css">
-    <link rel="stylesheet" href="src/css/noticia.css">
+    <link rel="stylesheet" href="../src/css/reset.css">
+    <link rel="stylesheet" href="../src/css/noticia.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 
