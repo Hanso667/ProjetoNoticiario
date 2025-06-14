@@ -7,6 +7,9 @@ body {
 }
 
 header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
     height: 20vh;
     background-color: #003366;
     color: white;
@@ -15,6 +18,7 @@ header {
     align-items: center;
     font-size: 2rem;
     font-weight: bold;
+    box-shadow: -2px 5px 10px #003366;
 }
 
 .header-container {

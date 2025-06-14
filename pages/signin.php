@@ -1,4 +1,5 @@
 <?php
+session_start();
 $mensagem = '';
 if (isset($_GET['mensagem'])) {
     // Evita XSS: sanitiza a mensagem para uso em JS
@@ -14,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $conn->real_escape_string($_POST['nome']);
     $email = $conn->real_escape_string($_POST['email']);
     $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-    $imagem = null;
 
     // Upload da imagem
     if (!empty($_FILES['imagem']['name'])) {
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         $stmt = $conn->prepare("INSERT INTO usuarios (nome, email, senha, imagem) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $nome, $email, $senha, $imagem);
+        $stmt->bind_param("ssss", $nome, $email, $senha, $novoNomeImagem);
         $stmt->execute();
 
         header("Location: login.php?mensagem=Conta criada com sucesso!");

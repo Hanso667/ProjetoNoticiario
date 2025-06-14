@@ -1,5 +1,5 @@
 <?php
-session_start(); // Se quiser lidar com login depois
+session_start();
 
 include '../src/scripts/Connection.php';
 $connection = new Connection();
@@ -95,6 +95,18 @@ if (isset($_GET['id'])) {
 
         <hr>
 
+         <section class="formulario-comentario">
+            <h3>Deixe um comentário</h3>
+            <form action="../comentar.php" method="POST" onsubmit="return enviarComentario();">
+                <input type="hidden" name="id_post" value="<?= $id ?>">
+                <input type="hidden" name="comentario" id="comentario-hidden">
+                <div id="editor" class="quill-editor" style="height: 150px;"></div>
+                <button type="submit" style="margin-top: 10px;">Enviar</button>
+            </form>
+        </section>
+
+        <hr>
+
         <section class="comentarios">
             <h2>Comentários</h2>
 
@@ -102,7 +114,7 @@ if (isset($_GET['id'])) {
                 <?php while ($coment = $comentarios->fetch_assoc()): ?>
                     <div class="comentario" style="border: 1px solid #ccc; padding: 10px; margin: 10px 0; display: flex; gap: 10px; align-items: flex-start;">
                         <?php if (!empty($coment['imagem'])): ?>
-                            <img src=".<?= htmlspecialchars($coment['imagem']) ?>" alt="Imagem do usuário" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                            <img src="../src/img/<?= htmlspecialchars($coment['imagem']) ?>" alt="Imagem do usuário" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
                         <?php else: ?>
                             <img src="../src/img/NoProfile.jpg" alt="Sem imagem" style="width: 75px; height: 75px; object-fit: cover; border-radius: 50%;">
                         <?php endif; ?>
@@ -119,17 +131,7 @@ if (isset($_GET['id'])) {
             <?php endif; ?>
         </section>
 
-        <hr>
-
-        <section class="formulario-comentario">
-            <h3>Deixe um comentário</h3>
-            <form action="../comentar.php" method="POST" onsubmit="return enviarComentario();">
-                <input type="hidden" name="id_post" value="<?= $id ?>">
-                <input type="hidden" name="comentario" id="comentario-hidden">
-                <div id="editor" class="quill-editor" style="height: 150px;"></div>
-                <button type="submit" style="margin-top: 10px;">Enviar</button>
-            </form>
-        </section>
+       
     </main>
 
     <footer>

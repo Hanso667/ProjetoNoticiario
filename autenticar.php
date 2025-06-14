@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_email'] = $usuario['email'];
             $_SESSION['usuario_imagem'] = $usuario['imagem'];
 
-            // Redirecionar para a página principal (ajuste conforme necessário)
+            // Redirecionar para a página principal
             header("Location: index.php");
             exit;
         } else {
