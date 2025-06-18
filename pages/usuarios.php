@@ -58,7 +58,13 @@ if ($searchTerm !== '') {
                     <a href="../pages/login.php"><button class="login-button">Login</button></a>
                     <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
                 <?php endif; ?>
-                <img src="../src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil">
+                <?php if (isset($_SESSION['usuario_id'])): ?>
+                    <a href="../pages/dashboard.php?id=<?= $_SESSION['usuario_id'] ?>">
+                        <img src="../src/img/<?= $_SESSION['usuario_imagem'] ?>" class="profile-picture" alt="Foto de perfil">
+                    </a>
+                <?php else: ?>
+                    <img src="../src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
+                <?php endif; ?>
             </div>
         </div>
     </header>

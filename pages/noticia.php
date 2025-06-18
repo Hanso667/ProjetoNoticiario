@@ -9,12 +9,12 @@ if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
 
     // Buscar a notícia
-    $stmt = $conn->prepare("
-        SELECT postagens.*, usuarios.nome 
+    $stmt = $conn->prepare('
+        SELECT postagens.*, usuarios.nome, usuarios.id as postagem_usuario_id  
         FROM postagens 
         JOIN usuarios ON postagens.id_usuario = usuarios.id 
         WHERE postagens.id = ?
-    ");
+    ');
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $noticia = $stmt->get_result()->fetch_assoc();
@@ -68,8 +68,8 @@ if (isset($_GET['id'])) {
                     <button id="all_usuarios_button"> Usuarios </button>
                 </form>
 
-                <form class="search"  action="../pages/usuarios.php">
-                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios" >
+                <form class="search" action="../pages/usuarios.php">
+                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
                     <button id="Search_usuario_button"> </button>
                 </form>
 
@@ -79,13 +79,27 @@ if (isset($_GET['id'])) {
                     <a href="../pages/login.php"><button class="login-button">Login</button></a>
                     <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
                 <?php endif; ?>
-                <img src="../src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil">
+                <?php if (isset($_SESSION['usuario_id'])): ?>
+                    <a href="../pages/dashboard.php?id=<?= $_SESSION['usuario_id'] ?>">
+                        <img src="../src/img/<?= $_SESSION['usuario_imagem'] ?>" class="profile-picture" alt="Foto de perfil">
+                    </a>
+                <?php else: ?>
+                    <img src="../src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
+                <?php endif; ?>
             </div>
         </div>
     </header>
 
 
     <main style="max-width: 800px; margin: auto; padding: 20px;">
+        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id']  == $noticia['postagem_usuario_id']): ?>
+            <form class="deletar-postagem" action="../deletarPost.php" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar esta postagem?')">
+                <input hidden name="id" value="<?php echo $noticia['id']?>">
+                <input hidden name="imagem" value="<?php echo $noticia['imagem'] ?>">
+                <button type="submit">Deletar</button>
+            </form>
+        <?php endif; ?>
+
         <h1><?= htmlspecialchars($noticia['titulo']) ?></h1>
         <p>
             <em>por <?= htmlspecialchars($noticia['nome']) ?> em
@@ -105,7 +119,7 @@ if (isset($_GET['id'])) {
 
         <hr>
 
-         <section class="formulario-comentario">
+        <section class="formulario-comentario">
             <h3>Deixe um comentário</h3>
             <form class="comment" action="../comentar.php" method="POST" onsubmit="return enviarComentario();">
                 <input type="hidden" name="id_post" value="<?= $id ?>">
@@ -141,7 +155,7 @@ if (isset($_GET['id'])) {
             <?php endif; ?>
         </section>
 
-       
+
     </main>
 
     <footer>
