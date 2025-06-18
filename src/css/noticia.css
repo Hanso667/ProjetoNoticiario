@@ -33,11 +33,13 @@ h3 {
 
 /* Imagens */
 img {
+    max-width: 100%;
+    max-height: 80%;
     border: 2px solid #ccc;
     border-radius: 6px;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
 }
@@ -83,12 +85,15 @@ header {
     align-items: center;
     gap: 10px;
 }
-.header-left{
+
+.header-left {
     margin-left: 35px;
 }
-.header-right{
+
+.header-right {
     margin-right: 35px;
 }
+
 
 .home-button,
 .login-button,
@@ -101,7 +106,56 @@ header {
     cursor: pointer;
     font-weight: bold;
 }
-.home-button{
+
+.search {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#Search_usuario {
+    width: 500px;
+    height: 20px;
+}
+
+#Search_usuario_button {
+    width: 28px;
+    height: 28px;
+    background-image: url("../img/Search.png");
+    background-size: contain;
+}
+
+#Search_usuario_button:hover {
+    cursor: pointer;
+}
+
+#all_usuarios_button {
+    height: 28px;
+}
+
+#all_usuarios_button:hover {
+    cursor: pointer;
+}
+
+#Search_postagem {
+    width: 800px;
+    height: 40px;
+}
+
+#Search_postagem_button {
+    width: 45px;
+    height: 45px;
+    background-image: url("../img/Search.png");
+    background-size: contain;
+}
+
+#Search_postagem_button:hover {
+    cursor: pointer;
+}
+
+.home-button {
     padding: 16px 42px;
 }
 
@@ -112,13 +166,13 @@ header {
 }
 
 .profile-picture {
-    width: 35px;
-    height: 35px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
     object-fit: cover;
     margin-left: 10px;
+    border: none;
 }
-
 
 footer {
     height: 30vh;
@@ -154,7 +208,7 @@ p {
 }
 
 /* Formulário */
-form {
+.comment {
     background-color: #fff8dc;
     padding: 20px;
     border: 2px dashed #003366;
@@ -174,7 +228,7 @@ form {
 }
 
 /* Botão */
-button {
+.comment-button {
     background-color: #4caf50;
     color: white;
     font-weight: bold;

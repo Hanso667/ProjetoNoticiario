@@ -63,13 +63,23 @@ if (isset($_GET['id'])) {
             </div>
 
             <div class="header-right">
+
+                <form class="search" action="../pages/usuarios.php">
+                    <button id="all_usuarios_button"> Usuarios </button>
+                </form>
+
+                <form class="search"  action="../pages/usuarios.php">
+                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios" >
+                    <button id="Search_usuario_button"> </button>
+                </form>
+
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../logout.php"><button class="login-button">Logout</button></a>
                 <?php else: ?>
                     <a href="../pages/login.php"><button class="login-button">Login</button></a>
                     <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
                 <?php endif; ?>
-                <img src="../src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil" style="width: 40px; height: 40px">
+                <img src="../src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil">
             </div>
         </div>
     </header>
@@ -97,11 +107,11 @@ if (isset($_GET['id'])) {
 
          <section class="formulario-comentario">
             <h3>Deixe um comentário</h3>
-            <form action="../comentar.php" method="POST" onsubmit="return enviarComentario();">
+            <form class="comment" action="../comentar.php" method="POST" onsubmit="return enviarComentario();">
                 <input type="hidden" name="id_post" value="<?= $id ?>">
                 <input type="hidden" name="comentario" id="comentario-hidden">
                 <div id="editor" class="quill-editor" style="height: 150px;"></div>
-                <button type="submit" style="margin-top: 10px;">Enviar</button>
+                <button class="comment-button" type="submit" style="margin-top: 10px;">Enviar</button>
             </form>
         </section>
 

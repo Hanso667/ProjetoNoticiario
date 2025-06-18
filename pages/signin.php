@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <link rel="stylesheet" href="../src/css/reset.css">
     <link rel="stylesheet" href="../src/css/login.css">
@@ -69,66 +70,81 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signin - Criar Conta</title>
 </head>
+
 <body>
 
-<header>
-    <div class="header-container">
-        <div class="header-left">
-            <a href="../index.php"><button class="home-button">Home</button></a>
-        </div>
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <a href="../index.php"><button class="home-button">Home</button></a>
+            </div>
 
-        <div class="header-right">
-            <?php if (isset($_SESSION['usuario_id'])): ?>
-                <a href="../logout.php"><button class="login-button">Logout</button></a>
+            <div class="header-right">
+
+                <form class="search" action="../pages/usuarios.php">
+                    <button id="all_usuarios_button"> Usuarios </button>
+                </form>
+
+                <form class="search" action="../pages/usuarios.php">
+                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
+                    <button id="Search_usuario_button"> </button>
+                </form>
+
+                <?php if (isset($_SESSION['usuario_id'])): ?>
+                    <a href="../logout.php"><button class="login-button">Logout</button></a>
+                <?php else: ?>
+                    <a href="../pages/login.php"><button class="login-button">Login</button></a>
+                    <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
+                <?php endif; ?>
+                <img src="../src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <form action="signin.php" method="POST" enctype="multipart/form-data" style="width: 50%; background: #fff8dc; padding: 20px; border: 2px dashed #003366; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);">
+            <h2 style="color: #003366; margin-bottom: 20px;">Criar nova conta</h2>
+
+            <?php if (!empty($erro)): ?>
+                <p style="color: red;"><?= $erro ?></p>
             <?php endif; ?>
-            <img src="../src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil">
+
+            <input type="text" name="nome" placeholder="Seu nome" required class="input-titulo" style="margin-bottom: 10px;">
+            <input type="email" name="email" placeholder="Seu e-mail" required class="input-titulo" style="margin-bottom: 10px;">
+            <input type="password" name="senha" placeholder="Sua senha" required class="input-titulo" style="margin-bottom: 10px;">
+
+            <label style="color: #003366;">Imagem de perfil (opcional):</label>
+            <input type="file" name="imagem" accept="image/*" class="input-titulo" style="margin-bottom: 20px;">
+
+            <button type="submit" class="botao-postar" style="width: 100%;">Criar Conta</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
+
+        <p>Desenvolvido por Hanso667.</p>
+
+        <p>
+            Contato: <a href="mailto:fabriciolacerdamoraes2005@gmai.com" style="color: #ffffff;">fabriciolacerdamoraes2005@gmai.com</a><br>
+        </p>
+
+        <div style="margin-top: 10px;">
+            <a href="https://github.com/Hanso667" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="Github">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
         </div>
-    </div>
-</header>
 
-<main>
-    <form action="signin.php" method="POST" enctype="multipart/form-data" style="width: 50%; background: #fff8dc; padding: 20px; border: 2px dashed #003366; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);">
-        <h2 style="color: #003366; margin-bottom: 20px;">Criar nova conta</h2>
+    </footer>
 
-        <?php if (!empty($erro)): ?>
-            <p style="color: red;"><?= $erro ?></p>
-        <?php endif; ?>
-
-        <input type="text" name="nome" placeholder="Seu nome" required class="input-titulo" style="margin-bottom: 10px;">
-        <input type="email" name="email" placeholder="Seu e-mail" required class="input-titulo" style="margin-bottom: 10px;">
-        <input type="password" name="senha" placeholder="Sua senha" required class="input-titulo" style="margin-bottom: 10px;">
-        
-        <label style="color: #003366;">Imagem de perfil (opcional):</label>
-        <input type="file" name="imagem" accept="image/*" class="input-titulo" style="margin-bottom: 20px;">
-
-        <button type="submit" class="botao-postar" style="width: 100%;">Criar Conta</button>
-    </form>
-</main>
-
-<footer>
-    <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
-
-    <p>Desenvolvido por Hanso667.</p>
-
-    <p>
-        Contato: <a href="mailto:fabriciolacerdamoraes2005@gmai.com" style="color: #ffffff;">fabriciolacerdamoraes2005@gmai.com</a><br>
-    </p>
-
-    <div style="margin-top: 10px;">
-        <a href="https://github.com/Hanso667" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="Github">
-            <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="LinkedIn">
-            <i class="fab fa-linkedin-in"></i>
-        </a>
-    </div>
-
-</footer>
-
-<?php if (!empty($mensagem)): ?>
+    <?php if (!empty($mensagem)): ?>
         <script>
             alert("<?= $mensagem ?>");
         </script>
     <?php endif; ?>
 </body>
+
 </html>

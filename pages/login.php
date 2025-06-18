@@ -16,15 +16,28 @@ session_start();
 
 <body>
 
-    <header>
+     <header>
         <div class="header-container">
             <div class="header-left">
                 <a href="../index.php"><button class="home-button">Home</button></a>
             </div>
 
             <div class="header-right">
+
+                <form class="search" action="../pages/usuarios.php">
+                    <button id="all_usuarios_button"> Usuarios </button>
+                </form>
+
+                <form class="search"  action="../pages/usuarios.php">
+                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios" >
+                    <button id="Search_usuario_button"> </button>
+                </form>
+
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../logout.php"><button class="login-button">Logout</button></a>
+                <?php else: ?>
+                    <a href="../pages/login.php"><button class="login-button">Login</button></a>
+                    <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
                 <?php endif; ?>
                 <img src="../src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil">
             </div>

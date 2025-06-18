@@ -5,35 +5,63 @@ include './src/scripts/Connection.php';
 $connection = new Connection();
 $conn = $connection->connectar();
 
-$sql = 'SELECT 
-  p.id AS postagem_id,
-  p.imagem AS imagem_postagem,
-  p.titulo,
-  p.texto,
-  p.data_post,
-  u.nome AS nome_autor_postagem,
+$searchTerm = isset($_GET['search_postagem']) ? trim($_GET['search_postagem']) : '';
 
-  c.comentario,
-  c.data_comentario,
-  uc.nome AS nome_autor_comentario,
-  uc.imagem AS imagem_comentario
+if ($searchTerm !== '') {
+    // Para evitar SQL Injection use prepared statements, mas para simplicidade vou mostrar assim (apenas lembre-se que é perigoso)
+    $searchTermEscaped = $conn->real_escape_string($searchTerm);
 
-FROM postagens p
-JOIN usuarios u ON p.id_usuario = u.id
-
-LEFT JOIN (
-  SELECT cp1.*
-  FROM comentarios_postagem cp1
-  INNER JOIN (
-    SELECT id_post, MAX(data_comentario) AS max_data
-    FROM comentarios_postagem
-    GROUP BY id_post
-  ) cp2 ON cp1.id_post = cp2.id_post AND cp1.data_comentario = cp2.max_data
-) c ON p.id = c.id_post
-
-LEFT JOIN usuarios uc ON c.id_usuario = uc.id
-
-ORDER BY p.data_post DESC;';
+    $sql = "SELECT 
+      p.id AS postagem_id,
+      p.imagem AS imagem_postagem,
+      p.titulo,
+      p.texto,
+      p.data_post,
+      u.nome AS nome_autor_postagem,
+      c.comentario,
+      c.data_comentario,
+      uc.nome AS nome_autor_comentario,
+      uc.imagem AS imagem_comentario
+    FROM postagens p
+    JOIN usuarios u ON p.id_usuario = u.id
+    LEFT JOIN (
+      SELECT cp1.*
+      FROM comentarios_postagem cp1
+      INNER JOIN (
+        SELECT id_post, MAX(data_comentario) AS max_data
+        FROM comentarios_postagem
+        GROUP BY id_post
+      ) cp2 ON cp1.id_post = cp2.id_post AND cp1.data_comentario = cp2.max_data
+    ) c ON p.id = c.id_post
+    LEFT JOIN usuarios uc ON c.id_usuario = uc.id
+    WHERE p.titulo LIKE '%$searchTermEscaped%'
+    ORDER BY p.data_post DESC;";
+} else {
+    $sql = 'SELECT 
+      p.id AS postagem_id,
+      p.imagem AS imagem_postagem,
+      p.titulo,
+      p.texto,
+      p.data_post,
+      u.nome AS nome_autor_postagem,
+      c.comentario,
+      c.data_comentario,
+      uc.nome AS nome_autor_comentario,
+      uc.imagem AS imagem_comentario
+    FROM postagens p
+    JOIN usuarios u ON p.id_usuario = u.id
+    LEFT JOIN (
+      SELECT cp1.*
+      FROM comentarios_postagem cp1
+      INNER JOIN (
+        SELECT id_post, MAX(data_comentario) AS max_data
+        FROM comentarios_postagem
+        GROUP BY id_post
+      ) cp2 ON cp1.id_post = cp2.id_post AND cp1.data_comentario = cp2.max_data
+    ) c ON p.id = c.id_post
+    LEFT JOIN usuarios uc ON c.id_usuario = uc.id
+    ORDER BY p.data_post DESC;';
+}
 
 $result = $conn->query($sql);
 ?>
@@ -59,6 +87,16 @@ $result = $conn->query($sql);
             </div>
 
             <div class="header-right">
+
+                <form class="search" action="./pages/usuarios.php">
+                    <button id="all_usuarios_button"> Usuarios </button>
+                </form>
+
+                <form class="search" action="./pages/usuarios.php">
+                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
+                    <button id="Search_usuario_button"> </button>
+                </form>
+
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="./logout.php"><button class="login-button">Logout</button></a>
                 <?php else: ?>
@@ -82,7 +120,13 @@ $result = $conn->query($sql);
             <button type="submit" class="botao-postar">Postar</button>
         </form>
 
-        <br><h1> Postagens recentes: </h1>
+        <br>
+        <h1> Postagens recentes: </h1>
+
+        <form class="search" method="GET" action="./index.php">
+            <input type="text" name="search_postagem" id="Search_postagem" placeholder=">Pesquisar postagens" value="<?php echo isset($_GET['search_postagem']) ? htmlspecialchars($_GET['search_postagem']) : ''; ?>">
+            <button type="submit" id="Search_postagem_button"></button>
+        </form>
 
         <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
         <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
