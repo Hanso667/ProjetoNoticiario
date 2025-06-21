@@ -89,16 +89,22 @@ if ($searchTerm !== '') {
 
     <footer>
         <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
+
         <p>Desenvolvido por Hanso667.</p>
-        <p>Contato: <a href="mailto:fabriciolacerdamoraes2005@gmai.com" style="color: #ffffff;">fabriciolacerdamoraes2005@gmai.com</a></p>
-        <div style="margin-top: 10px;">
-            <a href="https://github.com/Hanso667" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="Github">
+
+        <p>
+            Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
+        </p>
+
+        <div class="footer-social">
+            <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github">
                 <i class="fab fa-github"></i>
             </a>
-            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
             </a>
         </div>
+
     </footer>
 
 </body>

@@ -4,13 +4,15 @@ body {
     font-family: 'Comic Sans MS', cursive, sans-serif;
     background-color: #fdfaf6;
     color: #333;
+    margin: 0;
 }
 
 header {
     position: sticky;
     top: 0;
     z-index: 2;
-    height: 20vh;
+    height: auto;
+    padding: 10px 0;
     background-color: #003366;
     color: white;
     display: flex;
@@ -24,9 +26,10 @@ header {
 
 .header-container {
     width: 100%;
-    height: 100%;
+    max-width: 1200px;
+    padding: 0 10px;
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
@@ -35,79 +38,28 @@ header {
 .header-right {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
-}
-
-.header-left {
-    margin-left: 35px;
-}
-
-.header-right {
-    margin-right: 35px;
+    margin: 5px 0;
 }
 
 .home-button,
 .login-button,
 .sigin-button {
-    padding: 8px 16px;
+    height: 2rem;
+    width: 3rem;
     border: none;
     background-color: #555;
     color: white;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-}
-
-.search {
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-#Search_usuario {
-    width: 500px;
-    height: 20px;
-}
-
-#Search_usuario_button {
-    width: 28px;
-    height: 28px;
-    background-image: url("../img/Search.png");
-    background-size: contain;
-}
-
-#Search_usuario_button:hover {
-    cursor: pointer;
-}
-
-#all_usuarios_button {
-    height: 28px;
-}
-
-#all_usuarios_button:hover {
-    cursor: pointer;
-}
-
-#Search_postagem {
-    width: 800px;
-    height: 40px;
-}
-
-#Search_postagem_button {
-    width: 45px;
-    height: 45px;
-    background-image: url("../img/Search.png");
-    background-size: contain;
-}
-
-#Search_postagem_button:hover {
-    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .home-button {
-    padding: 16px 42px;
+    height: 2rem;
+    width: 3rem;
 }
 
 .home-button:hover,
@@ -116,9 +68,62 @@ header {
     background-color: #777;
 }
 
+.search {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#Search_usuario,
+#Search_postagem {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#Search_usuario {
+    width: 500px;
+    height: 30px;
+}
+
+#Search_postagem {
+    width: 800px;
+    height: 40px;
+}
+
+#Search_usuario_button,
+#Search_postagem_button {
+    background-image: url("../img/Search.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+}
+
+#Search_usuario_button {
+    width: 28px;
+    height: 28px;
+}
+
+#Search_postagem_button {
+    width: 45px;
+    height: 45px;
+}
+
+#Search_usuario_button:hover,
+#Search_postagem_button:hover,
+#all_usuarios_button:hover {
+    cursor: pointer;
+}
+
+#all_usuarios_button {
+    height: 28px;
+}
+
 .profile-picture {
-    width: 65px;
-    height: 65px;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
     object-fit: cover;
     margin-left: 10px;
@@ -129,6 +134,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 20px;
     min-height: 80vh;
 }
 
@@ -139,50 +145,27 @@ main h1 {
 }
 
 .criar-postagem {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    max-width: 900px;
     background: #fff8dc;
-    width: 80%;
     padding: 20px;
-    margin: 20px;
     border: 2px dashed #003366;
     border-radius: 8px;
     box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
-    gap: 5px;
-}
-
-.criar-postagem h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #003366;
-}
-
-.criar-postagem h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #003366;
 }
 
 .input-titulo {
-    width: 80%;
+    width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
     font-size: 1rem;
     border: 2px solid #003366;
     border-radius: 4px;
     background-color: #fefefe;
 }
 
-.ql-toolbar ql-snow {
-    width: 100%;
-}
-
 #editor {
     height: 200px;
     width: 100%;
-    margin-bottom: 10px;
     background: white;
     border: 2px solid #003366;
     padding: 10px;
@@ -197,6 +180,7 @@ main h1 {
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 .botao-postar:hover {
@@ -206,65 +190,52 @@ main h1 {
 .card-view-noticias {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    min-height: 80vh;
-    gap: 10vh;
-    padding: 10vh 0;
+    padding: 5vh 10px;
+    gap: 5vh;
 }
 
 .card-noticias {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
     border: 2px solid #003366;
     border-radius: 5px;
-    width: 90%;
-    height: 100vh;
     background-color: #fffdf5;
-    transition: 0.5s;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .card-noticias:hover {
-    cursor: pointer;
-    transform: scale(1.05);
+    transform: scale(1.02);
     box-shadow: 0 0 10px rgba(0, 51, 102, 0.2);
 }
 
 .noticia {
     display: flex;
-    flex-direction: row;
-    height: 70vh;
+    flex-wrap: wrap;
     border-bottom: 2px solid #003366;
 }
 
-.noticia-div-imagem,
-.noticia-div-conteudo {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
 .noticia-div-imagem {
+    flex: 1 1 250px;
+    display: flex;
     justify-content: center;
     align-items: center;
-    width: 25%;
     background-color: #f0f8ff;
 }
 
 .noticia-imagem {
     width: 90%;
-    height: 90%;
+    height: auto;
+    max-height: 300px;
     border-radius: 5px;
     border: 2px solid #ccc;
 }
 
 .noticia-div-conteudo {
+    flex: 2 1 500px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
-    width: 75%;
-    height: 80%;
     padding: 20px;
     background-color: #fafafa;
     gap: 10px;
@@ -283,18 +254,14 @@ main h1 {
 
 .conteudo {
     width: 100%;
-    height: 100%;
     overflow-y: auto;
-    overflow-wrap: break-word;
     background-color: #ffffff;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
 }
 
 .data {
-    width: 90%;
     text-align: end;
     font-size: 18px;
     color: #888;
@@ -302,70 +269,51 @@ main h1 {
 }
 
 .comentario {
-    height: 35%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
     background-color: #e6f2ff;
 }
 
 .card-comentario {
     display: flex;
-    flex-direction: row;
-    position: relative;
-    width: 90%;
-    height: 90%;
+    flex-wrap: wrap;
     border: 2px solid #006699;
     border-radius: 5px;
     background-color: #ffffff;
-}
-
-.comentario-div-imagem,
-.comentario-div-conteudo {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    padding: 10px;
 }
 
 .comentario-div-imagem {
-    flex-wrap: wrap;
+    flex: 1 1 150px;
+    display: flex;
     justify-content: center;
-    align-content: center;
-    width: 25%;
+    align-items: center;
     background-color: #e0f7fa;
 }
 
 .comentario-imagem {
     width: 90%;
-    height: 90%;
+    height: auto;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
 .comentario-div-conteudo {
-    position: relative;
-    justify-content: center;
-    align-content: center;
-    width: 75%;
+    flex: 3 1 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     padding: 10px;
 }
 
 .comentario-autor {
     font-size: 18px;
-    position: absolute;
-    top: 25px;
     font-weight: bold;
     color: #006699;
 }
 
 .comentario-conteudo {
-    top: 55px;
-    height: 30%;
-    width: 70%;
-    position: absolute;
     overflow-wrap: break-word;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding: 10px;
     background-color: #fefefe;
     border: 1px solid #ccc;
@@ -373,16 +321,12 @@ main h1 {
 }
 
 .comentario-data {
-    width: 90%;
     text-align: end;
-    position: absolute;
-    bottom: 30px;
     color: #777;
     font-style: italic;
 }
 
 footer {
-    height: 30vh;
     background-color: #003366;
     color: white;
     display: flex;
@@ -391,5 +335,69 @@ footer {
     align-items: center;
     font-size: 1.2rem;
     text-align: center;
-    gap: 5px;
+    gap: 10px;
+    padding: 20px 10px;
+}
+
+.footer-social {
+    margin-top: 10px;
+}
+
+.footer-contato {
+    color: #ffffff;
+}
+
+.social-btn {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1200px) {
+    #Search_postagem {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .noticia {
+        flex-direction: column;
+    }
+
+    .comentario-div-conteudo {
+        padding: 10px 0;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .home-button,
+    .login-button,
+    .sigin-button {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .profile-picture {
+        width: 50px;
+        height: 50px;
+    }
+
+    .autor,
+    .titulo,
+    .comentario-autor {
+        font-size: 16px;
+    }
+
+    #Search_usuario,
+    #Search_postagem {
+        width: 100%;
+    }
+
+    .noticia-div-conteudo,
+    .comentario-div-conteudo {
+        padding: 10px;
+    }
 }

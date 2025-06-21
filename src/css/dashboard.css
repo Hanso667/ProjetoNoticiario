@@ -414,3 +414,17 @@ footer {
     text-align: center;
     gap: 5px;
 }
+
+.footer-social {
+    margin-top: 10px;
+}
+
+.footer-contato {
+    color: #ffffff;
+}
+
+.social-btn {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
+}

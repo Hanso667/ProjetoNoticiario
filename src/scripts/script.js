@@ -8,3 +8,11 @@ cards.forEach(card => {
     })
 });
 
+
+let form = document.getElementById("form-search-usuarios");
+form.style.display = "none";
+let formAll = document.getElementById("form-search-all-usuarios");
+formAll.style.display = "none";
+
+let hamButton = document.getElementById("");
+

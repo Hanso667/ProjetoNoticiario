@@ -174,18 +174,6 @@ header {
     border: none;
 }
 
-footer {
-    height: 30vh;
-    background-color: #003366;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    text-align: center;
-    gap: 5px;
-}
 
 .Imagem-postagem {
     width: 100%;
@@ -256,4 +244,31 @@ button:hover {
 .conteudo-postagem h1 {
     border-bottom: 0px;
     color: inherit;
+}
+
+footer {
+    height: 30vh;
+    background-color: #003366;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    text-align: center;
+    gap: 5px;
+}
+
+.footer-social {
+    margin-top: 10px;
+}
+
+.footer-contato {
+    color: #ffffff;
+}
+
+.social-btn {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
 }

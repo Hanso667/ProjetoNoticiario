@@ -88,20 +88,20 @@ $result = $conn->query($sql);
 
             <div class="header-right">
 
-                <form class="search" action="./pages/usuarios.php">
+                <form id="form-search-all-usuarios" class="search" action="./pages/usuarios.php" >
                     <button id="all_usuarios_button"> Usuarios </button>
                 </form>
 
-                <form class="search" action="./pages/usuarios.php">
+                <form id="form-search-usuarios" class="search" action="./pages/usuarios.php" >
                     <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
                     <button id="Search_usuario_button"> </button>
                 </form>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
-                    <a href="./logout.php"><button class="login-button">Logout</button></a>
+                    <a href="./logout.php"><button class="login-button" hidden>Logout</button></a>
                 <?php else: ?>
-                    <a href="./pages/login.php"><button class="login-button">Login</button></a>
-                    <a href="./pages/signin.php"><button class="sigin-button">Signin</button></a>
+                    <a href="./pages/login.php"><button class="login-button" hidden>Login</button></a>
+                    <a href="./pages/signin.php"><button class="sigin-button" hidden>Signin</button></a>
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
@@ -213,14 +213,14 @@ $result = $conn->query($sql);
         <p>Desenvolvido por Hanso667.</p>
 
         <p>
-            Contato: <a href="mailto:fabriciolacerdamoraes2005@gmai.com" style="color: #ffffff;">fabriciolacerdamoraes2005@gmai.com</a><br>
+            Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
         </p>
 
-        <div style="margin-top: 10px;">
-            <a href="https://github.com/Hanso667" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="Github">
+        <div class="footer-social">
+            <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github">
                 <i class="fab fa-github"></i>
             </a>
-            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" style="color: white; margin: 0 10px; font-size: 20px;" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
             </a>
         </div>
