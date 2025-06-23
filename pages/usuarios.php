@@ -47,11 +47,6 @@ if ($searchTerm !== '') {
                     <button id="all_usuarios_button"> Usuarios </button>
                 </form>
 
-                <form class="search" action="../pages/usuarios.php">
-                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
-                    <button id="Search_usuario_button"> </button>
-                </form>
-
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../logout.php"><button class="login-button">Logout</button></a>
                 <?php else: ?>
@@ -70,6 +65,11 @@ if ($searchTerm !== '') {
     </header>
 
     <main>
+        <br>
+        <form class="search" action="../pages/usuarios.php">
+            <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
+            <button id="Search_usuario_button"> </button>
+        </form>
         <h1>Usuários encontrados para "<?php echo htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8'); ?>"</h1>
         <ul>
             <?php

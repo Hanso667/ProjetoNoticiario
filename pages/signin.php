@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="password" name="senha" placeholder="Sua senha" required class="input-titulo" style="margin-bottom: 10px;">
 
             <label style="color: #003366;">Imagem de perfil (opcional):</label>
-            <input type="file" name="imagem" accept="image/*" class="input-titulo" style="margin-bottom: 20px;">
+            <input type="file" name="imagem" accept="image/*" class="input-titulo" style="margin-bottom: 20px;" required>
 
             <button type="submit" class="botao-postar" style="width: 100%;">Criar Conta</button>
         </form>

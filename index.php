@@ -8,9 +8,6 @@ $conn = $connection->connectar();
 $searchTerm = isset($_GET['search_postagem']) ? trim($_GET['search_postagem']) : '';
 
 if ($searchTerm !== '') {
-    // Para evitar SQL Injection use prepared statements, mas para simplicidade vou mostrar assim (apenas lembre-se que é perigoso)
-    $searchTermEscaped = $conn->real_escape_string($searchTerm);
-
     $sql = "SELECT 
       p.id AS postagem_id,
       p.imagem AS imagem_postagem,
@@ -34,8 +31,23 @@ if ($searchTerm !== '') {
       ) cp2 ON cp1.id_post = cp2.id_post AND cp1.data_comentario = cp2.max_data
     ) c ON p.id = c.id_post
     LEFT JOIN usuarios uc ON c.id_usuario = uc.id
-    WHERE p.titulo LIKE '%$searchTermEscaped%'
-    ORDER BY p.data_post DESC;";
+    WHERE p.titulo LIKE ?
+    ORDER BY p.data_post DESC";
+
+    // Cria o prepared statement
+    $stmt = $conn->prepare($sql);
+
+    // Monta o parâmetro (LIKE com %)
+    $param = "%$searchTerm%";
+
+    // Faz o bind do parâmetro
+    $stmt->bind_param("s", $param);
+
+    // Executa
+    $stmt->execute();
+
+    // Obtém o resultado
+    $result = $stmt->get_result();
 } else {
     $sql = 'SELECT 
       p.id AS postagem_id,
@@ -60,10 +72,11 @@ if ($searchTerm !== '') {
       ) cp2 ON cp1.id_post = cp2.id_post AND cp1.data_comentario = cp2.max_data
     ) c ON p.id = c.id_post
     LEFT JOIN usuarios uc ON c.id_usuario = uc.id
-    ORDER BY p.data_post DESC;';
-}
+    ORDER BY p.data_post DESC';
 
-$result = $conn->query($sql);
+    // Neste caso, como não tem parâmetros, pode executar diretamente
+    $result = $conn->query($sql);
+}
 ?>
 
 <!DOCTYPE html>
@@ -83,25 +96,22 @@ $result = $conn->query($sql);
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="./index.php"><button class="home-button">Home</button></a>
+                <a href="./index.php"><img src="./src/img/Logo.png" class="home-button"></button></a>
             </div>
 
             <div class="header-right">
 
-                <form id="form-search-all-usuarios" class="search" action="./pages/usuarios.php" >
+                <button id="hamButton" style="display: none;">></button>
+
+                <form id="form-search-all-usuarios" class="search" action="./pages/usuarios.php">
                     <button id="all_usuarios_button"> Usuarios </button>
                 </form>
 
-                <form id="form-search-usuarios" class="search" action="./pages/usuarios.php" >
-                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
-                    <button id="Search_usuario_button"> </button>
-                </form>
-
                 <?php if (isset($_SESSION['usuario_id'])): ?>
-                    <a href="./logout.php"><button class="login-button" hidden>Logout</button></a>
+                    <a href="./logout.php"><button class="login-button">Logout</button></a>
                 <?php else: ?>
-                    <a href="./pages/login.php"><button class="login-button" hidden>Login</button></a>
-                    <a href="./pages/signin.php"><button class="sigin-button" hidden>Signin</button></a>
+                    <a href="./pages/login.php"><button class="login-button">Login</button></a>
+                    <a href="./pages/signin.php"><button class="sigin-button">Signin</button></a>
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
@@ -159,13 +169,17 @@ $result = $conn->query($sql);
                     $data = date('d/m/Y', strtotime($row['data_post']));
 
                     // Imagem da postagem
-                    $imagemPostagem = htmlspecialchars($row['imagem_postagem']);
+                    if ($row['imagem_postagem']) {
+                        $imagemPostagem = htmlspecialchars($row['imagem_postagem']);
+                    } else {
+                        $imagemPostagem = 'noImage.jpg';
+                    }
 
                     echo '
                 <div class="card-noticias" data-id="' . $id . '">
                     <div class="noticia">
                         <div class="noticia-div-imagem">
-                            <img src="' . $imagemPostagem . '" class="noticia-imagem">
+                            <img src="./src/img/' . $imagemPostagem . '" class="noticia-imagem">
                         </div>
                         <div class="noticia-div-conteudo">
                             <h2 class="autor">Autor: ' . $autor . '</h2>

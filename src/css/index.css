@@ -16,12 +16,13 @@ header {
     background-color: #003366;
     color: white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
     font-weight: bold;
     box-shadow: -2px 5px 10px #003366;
+    overflow-x: auto;
 }
 
 .header-container {
@@ -29,25 +30,43 @@ header {
     max-width: 1200px;
     padding: 0 10px;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
 }
 
 .header-left,
 .header-right {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 10px;
-    margin: 5px 0;
+    flex-grow: 1;
 }
 
-.home-button,
+.header-left {
+    justify-content: flex-start;
+}
+
+.header-right {
+    justify-content: flex-end;
+}
+
+
+.home-button{
+    width: 4rem;
+    height: 4rem;
+}
+
 .login-button,
-.sigin-button {
+.sigin-button,
+#all_usuarios_button {
     height: 2rem;
-    width: 3rem;
+    min-width: 3rem;
+    padding: 0 10px;
     border: none;
     background-color: #555;
     color: white;
@@ -55,25 +74,35 @@ header {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s;
+    flex-shrink: 0;
 }
 
-.home-button {
-    height: 2rem;
-    width: 3rem;
-}
-
-.home-button:hover,
 .login-button:hover,
-.sigin-button:hover {
+.sigin-button:hover,
+#all_usuarios_button:hover {
     background-color: #777;
+}
+
+#hamButton {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background-color: #555;
+    color: white;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .search {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    flex-wrap: nowrap;
 }
 
 #Search_usuario,
@@ -99,6 +128,7 @@ header {
     background-repeat: no-repeat;
     background-position: center;
     border: none;
+    flex-shrink: 0;
 }
 
 #Search_usuario_button {
@@ -112,13 +142,8 @@ header {
 }
 
 #Search_usuario_button:hover,
-#Search_postagem_button:hover,
-#all_usuarios_button:hover {
+#Search_postagem_button:hover {
     cursor: pointer;
-}
-
-#all_usuarios_button {
-    height: 28px;
 }
 
 .profile-picture {
@@ -127,6 +152,7 @@ header {
     border-radius: 50%;
     object-fit: cover;
     margin-left: 10px;
+    flex-shrink: 0;
 }
 
 main {
@@ -211,6 +237,7 @@ main h1 {
 
 .noticia {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     border-bottom: 2px solid #003366;
 }
@@ -221,6 +248,7 @@ main h1 {
     justify-content: center;
     align-items: center;
     background-color: #f0f8ff;
+    
 }
 
 .noticia-imagem {
@@ -229,10 +257,11 @@ main h1 {
     max-height: 300px;
     border-radius: 5px;
     border: 2px solid #ccc;
+    padding: 50px 100px;
 }
 
 .noticia-div-conteudo {
-    flex: 2 1 500px;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -354,48 +383,47 @@ footer {
 }
 
 /* MEDIA QUERIES */
-@media (max-width: 1200px) {
+@media only screen and (max-width: 1200px) {
     #Search_postagem {
         width: 100%;
     }
 }
-
-@media (max-width: 768px) {
-
+@media only screen and (max-width: 980px) {
+    #form-search-usuarios {
+        width: 100%;
+    }
+    #Search_usuario {
+        width: 50%;
+    }
+}
+@media only screen and (max-width: 768px) {
     .noticia {
         flex-direction: column;
     }
-
     .comentario-div-conteudo {
         padding: 10px 0;
     }
 }
-
-@media (max-width: 480px) {
-
+@media only screen and (max-width: 480px) {
     .home-button,
     .login-button,
     .sigin-button {
         padding: 10px;
         font-size: 0.9rem;
     }
-
     .profile-picture {
         width: 50px;
         height: 50px;
     }
-
     .autor,
     .titulo,
     .comentario-autor {
         font-size: 16px;
     }
-
     #Search_usuario,
     #Search_postagem {
         width: 100%;
     }
-
     .noticia-div-conteudo,
     .comentario-div-conteudo {
         padding: 10px;
