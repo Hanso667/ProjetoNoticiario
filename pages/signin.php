@@ -14,6 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nome = $conn->real_escape_string($_POST['nome']);
     $email = $conn->real_escape_string($_POST['email']);
+
+    // Verifica se as senhas coincidem antes de gerar hash
+    if ($_POST['senha'] !== $_POST['senhaC']) {
+        header("Location: signin.php?mensagem=As senhas não coincidem.");
+        exit;
+    }
+
     $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
 
     // Upload da imagem
@@ -76,7 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a><h1>Cadastro</h1>
+                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a>
+                <h1>Cadastro</h1>
             </div>
 
             <div class="header-right">
@@ -107,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" name="nome" placeholder="Seu nome" required class="input-titulo" style="margin-bottom: 10px;">
             <input type="email" name="email" placeholder="Seu e-mail" required class="input-titulo" style="margin-bottom: 10px;">
             <input type="password" name="senha" placeholder="Sua senha" required class="input-titulo" style="margin-bottom: 10px;">
-
+            <input type="password" name="senhaC" placeholder="confirme Sua senha" required class="input-titulo" style="margin-bottom: 10px;">
             <label style="color: #003366;">Imagem de perfil (opcional):</label>
             <input type="file" name="imagem" accept="image/*" class="input-titulo" style="margin-bottom: 20px;" required>
 
