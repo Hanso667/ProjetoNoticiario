@@ -14,11 +14,17 @@ header {
     background-color: #003366;
     color: white;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
     font-weight: bold;
     box-shadow: -2px 5px 10px #003366;
+}
+
+.home-button {
+    width: 4rem;
+    height: 4rem;
 }
 
 .header-container {
@@ -28,6 +34,8 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .header-left,
@@ -35,18 +43,9 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
-.header-left {
-    margin-left: 35px;
-}
-
-.header-right {
-    margin-right: 35px;
-}
-
-
-.home-button,
 .login-button,
 .sigin-button {
     padding: 8px 16px;
@@ -58,17 +57,25 @@ header {
     font-weight: bold;
 }
 
+.login-button:hover,
+.sigin-button:hover {
+    background-color: #777;
+}
+
 .search {
     height: 40px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #Search_usuario {
     width: 500px;
     height: 20px;
+    padding: 5px;
 }
 
 #Search_usuario_button {
@@ -76,23 +83,31 @@ header {
     height: 28px;
     background-image: url("../img/Search.png");
     background-size: contain;
-}
-
-#Search_usuario_button:hover {
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
     cursor: pointer;
 }
 
 #all_usuarios_button {
     height: 28px;
+    padding: 5px 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 #all_usuarios_button:hover {
+    background-color: #777;
     cursor: pointer;
 }
 
 #Search_postagem {
     width: 800px;
     height: 40px;
+    padding: 5px;
 }
 
 #Search_postagem_button {
@@ -100,20 +115,10 @@ header {
     height: 45px;
     background-image: url("../img/Search.png");
     background-size: contain;
-}
-
-#Search_postagem_button:hover {
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
     cursor: pointer;
-}
-
-.home-button {
-    padding: 16px 42px;
-}
-
-.home-button:hover,
-.login-button:hover,
-.sigin-button:hover {
-    background-color: #777;
 }
 
 .profile-picture {
@@ -123,8 +128,6 @@ header {
     object-fit: cover;
     margin-left: 10px;
 }
-
-
 
 main {
     display: flex;

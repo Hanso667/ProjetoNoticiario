@@ -96,12 +96,10 @@ if ($searchTerm !== '') {
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="./index.php"><img src="./src/img/Logo.png" class="home-button"></button></a>
+                <a href="./index.php"><img src="./src/img/Logo.png" class="home-button"></button></a><h1>Portal do aluno</h1>
             </div>
 
             <div class="header-right">
-
-                <button id="hamButton" style="display: none;">></button>
 
                 <form id="form-search-all-usuarios" class="search" action="./pages/usuarios.php">
                     <button id="all_usuarios_button"> Usuarios </button>
@@ -141,7 +139,7 @@ if ($searchTerm !== '') {
         <h1> Postagens recentes: </h1>
 
         <form class="search" method="GET" action="./index.php">
-            <input type="text" name="search_postagem" id="Search_postagem" placeholder=">Pesquisar postagens" value="<?php echo isset($_GET['search_postagem']) ? htmlspecialchars($_GET['search_postagem']) : ''; ?>">
+            <input type="text" name="search_postagem" id="Search_postagem" placeholder=">Pesquisar postagens recentes" value="<?php echo isset($_GET['search_postagem']) ? htmlspecialchars($_GET['search_postagem']) : ''; ?>">
             <button type="submit" id="Search_postagem_button"></button>
         </form>
 

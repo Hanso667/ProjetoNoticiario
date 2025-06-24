@@ -38,7 +38,7 @@ if ($searchTerm !== '') {
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="../index.php"><button class="home-button">Home</button></a>
+                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a><h1>Usuarios</h1>
             </div>
 
             <div class="header-right">
@@ -65,13 +65,19 @@ if ($searchTerm !== '') {
     </header>
 
     <main>
+
         <br>
+
         <form class="search" action="../pages/usuarios.php">
             <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
             <button id="Search_usuario_button"> </button>
         </form>
+
+
         <h1>Usuários encontrados para "<?php echo htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8'); ?>"</h1>
+
         <ul>
+
             <?php
             if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -84,7 +90,9 @@ if ($searchTerm !== '') {
                 echo "<li>Nenhum usuário encontrado.</li>";
             }
             ?>
+
         </ul>
+        
     </main>
 
     <footer>

@@ -76,18 +76,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="../index.php"><button class="home-button">Home</button></a>
+                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a><h1>Cadastro</h1>
             </div>
 
             <div class="header-right">
 
                 <form class="search" action="../pages/usuarios.php">
                     <button id="all_usuarios_button"> Usuarios </button>
-                </form>
-
-                <form class="search" action="../pages/usuarios.php">
-                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
-                    <button id="Search_usuario_button"> </button>
                 </form>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>

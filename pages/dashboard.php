@@ -85,7 +85,7 @@ $resultPosts = $stmtPosts->get_result();
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="../index.php"><button class="home-button">Home</button></a>
+                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a><h1>Dashboard</h1>
             </div>
 
             <div class="header-right">
@@ -94,10 +94,6 @@ $resultPosts = $stmtPosts->get_result();
                     <button id="all_usuarios_button"> Usuarios </button>
                 </form>
 
-                <form class="search" action="../pages/usuarios.php">
-                    <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuarios">
-                    <button id="Search_usuario_button"> </button>
-                </form>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../logout.php"><button class="login-button">Logout</button></a>
@@ -146,7 +142,7 @@ $resultPosts = $stmtPosts->get_result();
                         $autor = htmlspecialchars($row['nome_autor_postagem']);
                         $data = date('d/m/Y', strtotime($row['data_post']));
 
-                        $imagemPostagem = "." . $row['imagem_postagem'];
+                        $imagemPostagem = $row['imagem_postagem'] ? "../src/img/" . $row['imagem_postagem'] : "../src/img/" . 'NoImage.jpg';
 
                         echo '
                     <div class="card-noticias" data-id="' . $id . '">

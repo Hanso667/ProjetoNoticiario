@@ -22,6 +22,11 @@ header {
     box-shadow: -2px 5px 10px #003366;
 }
 
+.home-button {
+    width: 4rem;
+    height: 4rem;
+}
+
 .header-container {
     width: 100%;
     height: 100%;
@@ -29,6 +34,8 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .header-left,
@@ -36,17 +43,9 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
-.header-left {
-    margin-left: 35px;
-}
-
-.header-right {
-    margin-right: 35px;
-}
-
-.home-button,
 .login-button,
 .sigin-button {
     padding: 8px 16px;
@@ -58,17 +57,25 @@ header {
     font-weight: bold;
 }
 
+.login-button:hover,
+.sigin-button:hover {
+    background-color: #777;
+}
+
 .search {
     height: 40px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #Search_usuario {
     width: 500px;
     height: 20px;
+    padding: 5px;
 }
 
 #Search_usuario_button {
@@ -76,23 +83,31 @@ header {
     height: 28px;
     background-image: url("../img/Search.png");
     background-size: contain;
-}
-
-#Search_usuario_button:hover {
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
     cursor: pointer;
 }
 
 #all_usuarios_button {
     height: 28px;
+    padding: 5px 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 #all_usuarios_button:hover {
+    background-color: #777;
     cursor: pointer;
 }
 
 #Search_postagem {
     width: 800px;
     height: 40px;
+    padding: 5px;
 }
 
 #Search_postagem_button {
@@ -100,20 +115,10 @@ header {
     height: 45px;
     background-image: url("../img/Search.png");
     background-size: contain;
-}
-
-#Search_postagem_button:hover {
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
     cursor: pointer;
-}
-
-.home-button {
-    padding: 16px 42px;
-}
-
-.home-button:hover,
-.login-button:hover,
-.sigin-button:hover {
-    background-color: #777;
 }
 
 .profile-picture {
@@ -131,24 +136,34 @@ main {
     justify-content: start;
     align-items: center;
     min-height: 80vh;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 main h1 {
     top: 50px;
     position: absolute;
     font-size: 2rem;
+    margin-top: 30px;
     margin-bottom: 10px;
     color: #003366;
+    text-align: center;
 }
 
 ul {
     font-size: larger;
     margin: 120px 0px;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    max-width: 800px;
 }
 
 li {
     padding: 5px 30px;
     border: 1px solid black;
+    margin-bottom: 10px;
+    background-color: #fff;
 }
 
 li a {
@@ -157,6 +172,8 @@ li a {
     justify-content: start;
     align-items: center;
     gap: 40px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .userPic {
@@ -166,9 +183,8 @@ li a {
     border: 1px solid black;
 }
 
-
 footer {
-    height: 30vh;
+    height: auto;
     background-color: #003366;
     color: white;
     display: flex;
@@ -177,6 +193,7 @@ footer {
     align-items: center;
     font-size: 1.2rem;
     text-align: center;
+    padding: 20px;
     gap: 5px;
 }
 
@@ -192,4 +209,100 @@ footer {
     color: white;
     margin: 0 10px;
     font-size: 20px;
+}
+
+
+@media (max-width: 1024px) {
+    #Search_usuario {
+        width: 300px;
+    }
+
+    #Search_postagem {
+        width: 90%;
+    }
+
+    .header-container {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .header-left,
+    .header-right {
+        margin: 0;
+        justify-content: center;
+    }
+
+    header {
+        height: auto;
+        padding: 15px 0;
+    }
+
+    main h1 {
+        position: static;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        margin: 20px 0;
+    }
+
+    li a {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-button {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .login-button,
+    .sigin-button,
+    #all_usuarios_button {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+    }
+
+    #Search_usuario,
+    #Search_postagem {
+        width: 100%;
+    }
+
+    .profile-picture {
+        width: 50px;
+        height: 50px;
+        margin-left: 0;
+    }
+
+    .search {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    li {
+        padding: 10px;
+    }
+
+    li a {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    main h1 {
+        font-size: 1.5rem;
+    }
+
+    footer {
+        font-size: 1rem;
+    }
+
+    .social-btn {
+        font-size: 18px;
+    }
 }

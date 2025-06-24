@@ -1,15 +1,21 @@
-/* Fonte */
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Layout */
 body {
     width: 100%;
     min-height: 100vh;
     font-family: 'Comic Sans MS', cursive, sans-serif;
     background-color: #fdfaf6;
     color: #333;
-    margin: auto;
     line-height: 1.6;
 }
 
-/* Títulos */
+/* Headings */
 h1,
 h2,
 h3 {
@@ -31,30 +37,21 @@ h3 {
     font-size: 1.2em;
 }
 
-/* Imagens */
-img {
+/* Paragraphs */
+p {
+    margin: 10px 0;
+}
+
+/* Images */
+.comentario img,
+main img {
     max-width: 100%;
-    max-height: 80%;
+    height: auto;
     border: 2px solid #ccc;
     border-radius: 6px;
 }
 
-main {
-    display: flex;
-    flex-direction: column;
-}
-
-header {
-    height: 20vh;
-    background-color: #003366;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: bold;
-}
-
+/* Header */
 header {
     position: sticky;
     top: 0;
@@ -63,11 +60,17 @@ header {
     background-color: #003366;
     color: white;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
     font-weight: bold;
     box-shadow: -2px 5px 10px #003366;
+}
+
+.home-button {
+    width: 4rem;
+    height: 4rem;
 }
 
 .header-container {
@@ -77,6 +80,8 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .header-left,
@@ -84,18 +89,9 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
-.header-left {
-    margin-left: 35px;
-}
-
-.header-right {
-    margin-right: 35px;
-}
-
-
-.home-button,
 .login-button,
 .sigin-button {
     padding: 8px 16px;
@@ -107,17 +103,25 @@ header {
     font-weight: bold;
 }
 
+.login-button:hover,
+.sigin-button:hover {
+    background-color: #777;
+}
+
 .search {
     height: 40px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #Search_usuario {
     width: 500px;
     height: 20px;
+    padding: 5px;
 }
 
 #Search_usuario_button {
@@ -125,23 +129,31 @@ header {
     height: 28px;
     background-image: url("../img/Search.png");
     background-size: contain;
-}
-
-#Search_usuario_button:hover {
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
     cursor: pointer;
 }
 
 #all_usuarios_button {
     height: 28px;
+    padding: 5px 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 #all_usuarios_button:hover {
+    background-color: #777;
     cursor: pointer;
 }
 
 #Search_postagem {
     width: 800px;
     height: 40px;
+    padding: 5px;
 }
 
 #Search_postagem_button {
@@ -149,20 +161,10 @@ header {
     height: 45px;
     background-image: url("../img/Search.png");
     background-size: contain;
-}
-
-#Search_postagem_button:hover {
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
     cursor: pointer;
-}
-
-.home-button {
-    padding: 16px 42px;
-}
-
-.home-button:hover,
-.login-button:hover,
-.sigin-button:hover {
-    background-color: #777;
 }
 
 .profile-picture {
@@ -171,21 +173,37 @@ header {
     border-radius: 50%;
     object-fit: cover;
     margin-left: 10px;
-    border: none;
 }
 
+/* Main Content */
+main {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
 
 .Imagem-postagem {
     width: 100%;
     height: auto;
 }
 
-/* Parágrafos */
-p {
-    margin: 10px 0;
+/* Post Content */
+.conteudo-postagem {
+    background-color: #e6f2ff;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    overflow-wrap: break-word;
 }
 
-/* Comentários */
+.conteudo-postagem h1 {
+    border-bottom: 0;
+    color: inherit;
+}
+
+/* Comments */
 .comentario {
     background-color: #e6f2ff;
     border-left: 4px solid #003366;
@@ -193,9 +211,19 @@ p {
     margin-bottom: 20px;
     box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
     border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
 }
 
-/* Formulário */
+.comentario img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Comment Form */
 .comment {
     background-color: #fff8dc;
     padding: 20px;
@@ -205,7 +233,6 @@ p {
     box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
 }
 
-/* Editor Quill */
 #editor {
     background: #ffffff;
     height: 200px;
@@ -215,7 +242,6 @@ p {
     padding: 10px;
 }
 
-/* Botão */
 .comment-button {
     background-color: #4caf50;
     color: white;
@@ -228,47 +254,111 @@ p {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
+.comment-button:hover {
     background-color: #388e3c;
 }
 
-.conteudo-postagem {
-    background-color: #e6f2ff;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-.conteudo-postagem h1 {
-    border-bottom: 0px;
-    color: inherit;
-}
-
+/* Footer */
 footer {
-    height: 30vh;
     background-color: #003366;
     color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     font-size: 1.2rem;
     text-align: center;
-    gap: 5px;
-}
-
-.footer-social {
-    margin-top: 10px;
+    padding: 20px;
+    gap: 10px;
 }
 
 .footer-contato {
     color: #ffffff;
 }
 
+.footer-social {
+    margin-top: 10px;
+}
+
 .social-btn {
     color: white;
     margin: 0 10px;
     font-size: 20px;
+}
+
+.comentario-conteudo {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    word-wrap: break-word;
+    overflow-x: auto;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.comentario-conteudo p,
+.comentario-conteudo h1,
+.comentario-conteudo h2,
+.comentario-conteudo h3 {
+    width: 100%;
+    word-break: break-word;
+    margin: 10px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-left,
+    .header-right {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #Search_usuario {
+        width: 90%;
+    }
+
+    .comentario {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.6em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    h3 {
+        font-size: 1em;
+    }
+
+    .home-button,
+    .login-button,
+    .sigin-button,
+    .comment-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .header-left,
+    .header-right {
+        gap: 5px;
+    }
 }

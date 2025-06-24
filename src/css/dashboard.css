@@ -22,6 +22,11 @@ header {
     box-shadow: -2px 5px 10px #003366;
 }
 
+.home-button {
+    width: 4rem;
+    height: 4rem;
+}
+
 .header-container {
     width: 100%;
     height: 100%;
@@ -29,6 +34,8 @@ header {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .header-left,
@@ -36,17 +43,9 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
-.header-left {
-    margin-left: 35px;
-}
-
-.header-right {
-    margin-right: 35px;
-}
-
-.home-button,
 .login-button,
 .sigin-button {
     padding: 8px 16px;
@@ -58,17 +57,25 @@ header {
     font-weight: bold;
 }
 
+.login-button:hover,
+.sigin-button:hover {
+    background-color: #777;
+}
+
 .search {
     height: 40px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 #Search_usuario {
     width: 500px;
     height: 20px;
+    padding: 5px;
 }
 
 #Search_usuario_button {
@@ -76,23 +83,31 @@ header {
     height: 28px;
     background-image: url("../img/Search.png");
     background-size: contain;
-}
-
-#Search_usuario_button:hover {
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
     cursor: pointer;
 }
 
 #all_usuarios_button {
     height: 28px;
+    padding: 5px 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 #all_usuarios_button:hover {
+    background-color: #777;
     cursor: pointer;
 }
 
 #Search_postagem {
     width: 800px;
     height: 40px;
+    padding: 5px;
 }
 
 #Search_postagem_button {
@@ -100,20 +115,10 @@ header {
     height: 45px;
     background-image: url("../img/Search.png");
     background-size: contain;
-}
-
-#Search_postagem_button:hover {
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
     cursor: pointer;
-}
-
-.home-button {
-    padding: 16px 42px;
-}
-
-.home-button:hover,
-.login-button:hover,
-.sigin-button:hover {
-    background-color: #777;
 }
 
 .profile-picture {
@@ -240,7 +245,7 @@ main h1 {
     border: 2px solid #003366;
     border-radius: 5px;
     width: 90%;
-    height: 100vh;
+    height: 110vh;
     background-color: #fffdf5;
     transition: 0.5s;
 }
@@ -285,10 +290,11 @@ main h1 {
     justify-content: flex-start;
     align-items: flex-start;
     width: 75%;
-    height: 80%;
+    height: 90%;
     padding: 20px;
     background-color: #fafafa;
     gap: 10px;
+    border-left: 2px solid #003366;
 }
 
 .autor {
@@ -304,14 +310,23 @@ main h1 {
 
 .conteudo {
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    overflow-wrap: break-word;
+    height: 70%;
     background-color: #ffffff;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    word-wrap: break-word;
+    overflow-x: auto;
     box-sizing: border-box;
+}
+
+.conteudo p,
+.conteudo h1,
+.conteudo h2,
+.conteudo h3 {
+    width: 100%;
+    word-break: break-word;
+    margin: 10px 0;
 }
 
 .data {
@@ -381,16 +396,25 @@ main h1 {
 }
 
 .comentario-conteudo {
-    top: 55px;
-    height: 30%;
-    width: 70%;
-    position: absolute;
-    overflow-wrap: break-word;
-    overflow-y: scroll;
+    width: 100%;
+    height: 70%;
     padding: 10px;
-    background-color: #fefefe;
-    border: 1px solid #ccc;
     border-radius: 4px;
+    margin-top: 45px;
+    margin-bottom: 45px;
+    word-wrap: break-word;
+    overflow-x: auto;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.comentario-conteudo p,
+.comentario-conteudo h1,
+.comentario-conteudo h2,
+.comentario-conteudo h3 {
+    width: 100%;
+    word-break: break-word;
+    margin: 10px 0;
 }
 
 .comentario-data {
@@ -427,4 +451,216 @@ footer {
     color: white;
     margin: 0 10px;
     font-size: 20px;
+}
+
+@media (max-width: 1024px) {
+    .header-container {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 20px;
+        gap: 10px;
+    }
+
+    .header-left,
+    .header-right {
+        margin: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    #Search_usuario {
+        width: 300px;
+    }
+
+    #Search_postagem {
+        width: 90%;
+        max-width: 600px;
+    }
+
+    .user-info {
+        width: 90%;
+        height: auto;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .user-info img {
+        max-width: 100%;
+        max-height: none;
+    }
+
+    .criar-postagem {
+        width: 90%;
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .card-noticias {
+        width: 95%;
+        height: auto;
+    }
+
+    .noticia {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .noticia-div-imagem,
+    .noticia-div-conteudo {
+        width: 100%;
+        height: auto;
+    }
+
+    .noticia-imagem {
+        width: 100%;
+        height: auto;
+    }
+
+    .comentario-div-imagem,
+    .comentario-div-conteudo {
+        width: 100%;
+        height: auto;
+        position: static;
+        padding: 10px 0;
+    }
+
+    .comentario-autor,
+    .comentario-conteudo,
+    .comentario-data {
+        position: static;
+        width: 100%;
+        text-align: left;
+        margin: 5px 0;
+    }
+
+    main h1 {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        height: auto;
+        font-size: 1.5rem;
+        padding: 15px 10px;
+    }
+
+    .home-button {
+        width: 3rem;
+        height: 3rem;
+        padding: 10px 20px;
+    }
+
+    .login-button,
+    .sigin-button,
+    #all_usuarios_button {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 6px;
+    }
+
+    .search {
+        flex-direction: column;
+        height: auto;
+        gap: 10px;
+        padding: 0 10px;
+    }
+
+    #Search_usuario,
+    #Search_postagem {
+        width: 100%;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    #Search_usuario_button,
+    #Search_postagem_button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .profile-picture {
+        width: 50px;
+        height: 50px;
+        margin-left: 0;
+    }
+
+    .user-info {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .criar-postagem {
+        width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+    }
+
+    .botao-postar {
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+
+    .card-view-noticias {
+        padding: 5vh 10px;
+        gap: 5vh;
+    }
+
+    .card-noticias {
+        width: 100%;
+        height: auto;
+    }
+
+    .noticia {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .noticia-div-imagem,
+    .noticia-div-conteudo {
+        width: 100%;
+        height: auto;
+    }
+
+    .noticia-imagem {
+        width: 100%;
+        height: auto;
+    }
+
+    .comentario-div-imagem,
+    .comentario-div-conteudo {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .comentario-autor,
+    .comentario-conteudo,
+    .comentario-data {
+        position: static;
+        width: 100%;
+        margin: 5px 0;
+        text-align: left;
+    }
+
+    main h1 {
+        font-size: 1.5rem;
+    }
+
+    footer {
+        font-size: 1rem;
+        height: auto;
+        padding: 20px 10px;
+    }
+
+    .social-btn {
+        font-size: 18px;
+        margin: 0 5px;
+    }
 }
