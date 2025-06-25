@@ -7,7 +7,7 @@ $conn = $connection->connectar();
 
 $userId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Busca os dados do usuário
+// Busca os dados do usuário 
 $user = null;
 if ($userId > 0) {
     $stmtUser = $conn->prepare("SELECT id, nome, email, imagem FROM usuarios WHERE id = ?");
@@ -78,6 +78,7 @@ $resultPosts = $stmtPosts->get_result();
         }
         ?>
     </title>
+    <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
 </head>
 
 <body>
@@ -117,10 +118,16 @@ $resultPosts = $stmtPosts->get_result();
         <?php if ($user): ?>
             <section class="user-info" style="margin-bottom: 2rem;">
                 <img src="../src/img/<?php echo htmlspecialchars($user['imagem'] ?? 'NoProfile.jpg'); ?>" alt="Foto de perfil" />
-                <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $user['id'] || $_SESSION['usuario_id'] == 12): ?>
+                <?php if (isset($_SESSION['usuario_id']) && ($_SESSION['usuario_id'] == $user['id'] || $_SESSION['usuario_id'] == 12)): ?>
                     <div style="margin-bottom: 1rem;">
-                        <button onclick="document.getElementById('form-editar-usuario').style.display = 'block'; this.style.display = 'none'; document.getElementById('botao-deletar').style.display = 'none';" style="padding: 10px 20px; margin-right: 10px;">Editar Perfil</button>
-
+                        <button onclick=edt() style="padding: 10px 20px; margin-right: 10px;">Editar Perfil</button>
+                        <script>
+                            function edt() {
+                                document.getElementById('form-editar-usuario').style.display = 'block';
+                                this.style.display = 'none';
+                                document.getElementById('botao-deletar').style.display = 'none';
+                            }
+                        </script>
                         <form class="deletar-usuario" id="botao-deletar" action="../deletarUser.php" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar seu perfil?')" style="display: inline;">
                             <input hidden name="id" value="<?= $user['id'] ?>">
                             <input hidden name="imagem" value="<?= htmlspecialchars($user['imagem']) ?>">

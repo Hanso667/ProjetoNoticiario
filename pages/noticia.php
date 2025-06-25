@@ -49,6 +49,7 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../src/css/reset.css">
     <link rel="stylesheet" href="../src/css/noticia.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
 </head>
 
 <body>

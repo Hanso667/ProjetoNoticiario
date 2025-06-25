@@ -76,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signin - Criar Conta</title>
+    <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
 </head>
 
 <body>
@@ -105,21 +106,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <main>
-        <form action="signin.php" method="POST" enctype="multipart/form-data" style="width: 50%; background: #fff8dc; padding: 20px; border: 2px dashed #003366; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);">
+        <form action="signin.php" method="POST" enctype="multipart/form-data" style="height: 400px; width: 50%; background: #fff8dc; padding: 20px; border: 2px dashed #003366; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);">
             <h2 style="color: #003366; margin-bottom: 20px;">Criar nova conta</h2>
 
             <?php if (!empty($erro)): ?>
                 <p style="color: red;"><?= $erro ?></p>
             <?php endif; ?>
 
-            <input type="text" name="nome" placeholder="Seu nome" required class="input-titulo" style="margin-bottom: 10px;">
-            <input type="email" name="email" placeholder="Seu e-mail" required class="input-titulo" style="margin-bottom: 10px;">
-            <input type="password" name="senha" placeholder="Sua senha" required class="input-titulo" style="margin-bottom: 10px;">
-            <input type="password" name="senhaC" placeholder="confirme Sua senha" required class="input-titulo" style="margin-bottom: 10px;">
-            <label style="color: #003366;">Imagem de perfil (opcional):</label>
-            <input type="file" name="imagem" accept="image/*" class="input-titulo" style="margin-bottom: 20px;" required>
+            <input type="text" name="nome" placeholder="Seu nome" required class="input-titulo" style="height: 10%; margin-bottom: 10px;">
+            <input type="email" name="email" placeholder="Seu e-mail" required class="input-titulo" style="height: 10%; margin-bottom: 10px;">
+            <input type="password" name="senha" placeholder="Sua senha" required class="input-titulo" style="height: 10%; margin-bottom: 10px;">
+            <input type="password" name="senhaC" placeholder="confirme Sua senha" required class="input-titulo" style="height: 10%; margin-bottom: 10px;">
+            <label style="color: #003366;">Imagem de perfil (opcional):</label><br>
+            <input type="file" name="imagem" accept="image/*" class="input-titulo" style=" margin-bottom: 20px;" required>
 
-            <button type="submit" class="botao-postar" style="width: 100%;">Criar Conta</button>
+            <button type="submit" class="botao-postar" style="height: 8%; width: 100%;">Criar Conta</button>
         </form>
     </main>
 
