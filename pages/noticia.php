@@ -57,7 +57,7 @@ if (isset($_GET['id'])) {
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>Noticia | <?= $noticia['titulo'] ?>
+                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a><p id="nome-pagina">Noticia | <?= $noticia['titulo'] ?></p>
             </div>
 
             <div class="header-right">

@@ -97,7 +97,7 @@ if ($searchTerm !== '') {
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="./index.php"><img src="./src/img/Logo.png" class="home-button"></button></a><h1>Portal do aluno</h1>
+                <a href="./index.php"><img src="./src/img/Logo.png" class="home-button"></button></a><h1 id="nome-pagina">Portal do aluno</h1>
             </div>
 
             <div class="header-right">

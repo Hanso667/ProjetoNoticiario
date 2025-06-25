@@ -9,7 +9,7 @@ $userId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Busca os dados do usuário 
 $user = null;
-if ($userId > 0) {
+if ($userId >= 0) {
     $stmtUser = $conn->prepare("SELECT id, nome, email, imagem FROM usuarios WHERE id = ?");
     $stmtUser->bind_param('i', $userId);
     $stmtUser->execute();
@@ -87,7 +87,7 @@ $resultPosts = $stmtPosts->get_result();
         <div class="header-container">
             <div class="header-left">
                 <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a>
-                <h1>Dashboard</h1>
+                <h1 id="nome-pagina">Dashboard</h1>
             </div>
 
             <div class="header-right">
@@ -118,7 +118,7 @@ $resultPosts = $stmtPosts->get_result();
         <?php if ($user): ?>
             <section class="user-info" style="margin-bottom: 2rem;">
                 <img src="../src/img/<?php echo htmlspecialchars($user['imagem'] ?? 'NoProfile.jpg'); ?>" alt="Foto de perfil" />
-                <?php if (isset($_SESSION['usuario_id']) && ($_SESSION['usuario_id'] == $user['id'] || $_SESSION['usuario_id'] == 12)): ?>
+                <?php if (isset($_SESSION['usuario_id']) && ($_SESSION['usuario_id'] == $user['id'] || $_SESSION['usuario_id'] == 0)): ?>
                     <div style="margin-bottom: 1rem;">
                         <button onclick=edt() style="padding: 10px 20px; margin-right: 10px;">Editar Perfil</button>
                         <script>
@@ -128,11 +128,14 @@ $resultPosts = $stmtPosts->get_result();
                                 document.getElementById('botao-deletar').style.display = 'none';
                             }
                         </script>
-                        <form class="deletar-usuario" id="botao-deletar" action="../deletarUser.php" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar seu perfil?')" style="display: inline;">
-                            <input hidden name="id" value="<?= $user['id'] ?>">
-                            <input hidden name="imagem" value="<?= htmlspecialchars($user['imagem']) ?>">
-                            <button type="submit" style="padding: 10px 20px; background-color: crimson; color: white;">Deletar Perfil</button>
-                        </form>
+                        <?php if ($user['id'] != 0): ?>
+                            <form class="deletar-usuario" id="botao-deletar" action="../deletarUser.php" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar seu perfil?')" style="display: inline;">
+                                <input hidden name="userId" value="<?= $_SESSION['usuario_id'] ?>">
+                                <input hidden name="id" value="<?= $user['id'] ?>">
+                                <input hidden name="imagem" value="<?= htmlspecialchars($user['imagem']) ?>">
+                                <button type="submit" style="padding: 10px 20px; background-color: crimson; color: white;">Deletar Perfil</button>
+                            </form>
+                        <?php endif; ?>
                     </div>
 
                     <form id="form-editar-usuario" action="../editarUser.php" method="POST" enctype="multipart/form-data" style="display: none; margin-bottom: 2rem; border: 1px solid #ccc; padding: 1rem; border-radius: 8px;">

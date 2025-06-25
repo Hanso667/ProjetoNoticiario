@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="header-container">
             <div class="header-left">
                 <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a>
-                <h1>Cadastro</h1>
+                <h1 id="nome-pagina">Cadastro</h1>
             </div>
 
             <div class="header-right">
