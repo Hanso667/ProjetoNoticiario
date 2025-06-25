@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </header>
 
     <main>
-        <form action="signin.php" method="POST" enctype="multipart/form-data" style="height: 400px; width: 50%; background: #fff8dc; padding: 20px; border: 2px dashed #003366; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);">
+        <form action="signin.php" method="POST" enctype="multipart/form-data" class="signup-form">
             <h2 style="color: #003366; margin-bottom: 20px;">Criar nova conta</h2>
 
             <?php if (!empty($erro)): ?>

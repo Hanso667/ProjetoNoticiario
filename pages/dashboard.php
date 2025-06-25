@@ -7,7 +7,6 @@ $conn = $connection->connectar();
 
 $userId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Busca os dados do usuário 
 $user = null;
 if ($userId >= 0) {
     $stmtUser = $conn->prepare("SELECT id, nome, email, imagem FROM usuarios WHERE id = ?");
@@ -19,7 +18,12 @@ if ($userId >= 0) {
     }
 }
 
-// Busca as postagens do usuário, junto com o último comentário (se houver)
+// Paginação
+$postagensPorPagina = 5;
+$paginaAtual = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($paginaAtual - 1) * $postagensPorPagina;
+
+// Busca as postagens do usuário com paginação
 $sql = "
 SELECT 
   p.id AS postagem_id,
@@ -28,15 +32,12 @@ SELECT
   p.texto,
   p.data_post,
   u.nome AS nome_autor_postagem,
-
   c.comentario,
   c.data_comentario,
   uc.nome AS nome_autor_comentario,
   uc.imagem AS imagem_comentario
-
 FROM postagens p
 JOIN usuarios u ON p.id_usuario = u.id
-
 LEFT JOIN (
   SELECT cp1.*
   FROM comentarios_postagem cp1
@@ -46,18 +47,23 @@ LEFT JOIN (
     GROUP BY id_post
   ) cp2 ON cp1.id_post = cp2.id_post AND cp1.data_comentario = cp2.max_data
 ) c ON p.id = c.id_post
-
 LEFT JOIN usuarios uc ON c.id_usuario = uc.id
-
 WHERE p.id_usuario = ?
-
 ORDER BY p.data_post DESC
-";
+LIMIT ? OFFSET ?";
 
 $stmtPosts = $conn->prepare($sql);
-$stmtPosts->bind_param('i', $userId);
+$stmtPosts->bind_param('iii', $userId, $postagensPorPagina, $offset);
 $stmtPosts->execute();
 $resultPosts = $stmtPosts->get_result();
+
+// Contar total de postagens
+$countStmt = $conn->prepare("SELECT COUNT(*) AS total FROM postagens WHERE id_usuario = ?");
+$countStmt->bind_param('i', $userId);
+$countStmt->execute();
+$countResult = $countStmt->get_result();
+$totalPostagens = $countResult->fetch_assoc()['total'];
+$totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 ?>
 
 <!DOCTYPE html>
@@ -221,6 +227,17 @@ $resultPosts = $stmtPosts->get_result();
         <?php else: ?>
             <p>Usuário não encontrado ou ID inválido.</p>
         <?php endif; ?>
+        <?php if ($totalPaginas > 1): ?>
+            <div class="paginacao" style="text-align:center; margin: 20px 0;">
+                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                    <a href="?id=<?= $userId ?>&page=<?= $i ?>"
+                        class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
+                        <?= $i ?>
+                    </a>
+                <?php endfor; ?>
+            </div>
+        <?php endif; ?>
+
     </main>
 
     <footer>

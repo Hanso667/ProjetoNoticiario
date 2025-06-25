@@ -1,7 +1,7 @@
 body {
     width: 100%;
     min-height: 100vh;
-    font-family: Arial, sans-serif;: 'Comic Sans MS', cursive, sans-serif;
+    font-family: Arial, sans-serif, 'Comic Sans MS', cursive, sans-serif;
     background-color: #f5f5f5;
     color: #333;
 }
@@ -21,7 +21,6 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
     position: sticky;
     top: 0;
     z-index: 2;
@@ -215,7 +214,6 @@ footer {
 
 .footer-social a:hover {
     color: #3498db;
-}
     height: auto;
     background-color: #2c3e50;
     color: white;
@@ -267,21 +265,20 @@ footer {
     }
 
     header {
-    background-color: #2c3e50;
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        background-color: #2c3e50;
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.header-container {
-    max-width: 1200px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .header-container {
+        max-width: 1200px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         height: auto;
         padding: 15px 0;
     }
@@ -346,23 +343,23 @@ footer {
     }
 
     footer {
-    background-color: #2c3e50;
-    color: white;
-    padding: 2rem 1rem;
-    text-align: center;
-    margin-top: 4rem;
-}
+        background-color: #2c3e50;
+        color: white;
+        padding: 2rem 1rem;
+        text-align: center;
+        margin-top: 4rem;
+    }
 
-.footer-social a {
-    color: white;
-    margin: 0 0.5rem;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-}
+    .footer-social a {
+        color: white;
+        margin: 0 0.5rem;
+        font-size: 1.5rem;
+        transition: color 0.3s;
+    }
 
-.footer-social a:hover {
-    color: #3498db;
-}
+    .footer-social a:hover {
+        color: #3498db;
+
         font-size: 1rem;
     }
 

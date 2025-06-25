@@ -42,7 +42,7 @@ session_start();
     </header>
 
     <main style="display: flex; justify-content: center; align-items: center;">
-        <form action="../autenticar.php" method="POST" style="background-color: #fffdf5; border: 2px solid #003366; border-radius: 10px; padding: 40px; width: 400px; box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2); display: flex; flex-direction: column; gap: 20px;">
+        <form action="../autenticar.php" method="POST" class="login-form">
             <h2 style="font-size: 24px; color: #003366; text-align: center;">Login</h2>
 
             <label for="email" style="font-weight: bold; color: #003366;">E-mail:</label>
