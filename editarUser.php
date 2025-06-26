@@ -27,7 +27,7 @@ if (isset($_POST['id'], $_POST['nome'], $_POST['email'], $_SESSION['usuario_id']
             if (in_array($extensao, $permitidas)) {
                 // Nome único
                 $novo_nome = uniqid('user_') . '.' . $extensao;
-                $destino = '../src/img/' . $novo_nome;
+                $destino = './src/img/' . $novo_nome;
 
                 if (move_uploaded_file($tmp_arquivo, $destino)) {
                     // Deletar imagem antiga se não for NoProfile.jpg

@@ -17,7 +17,7 @@ $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 
-if ($userID != 12) {
+if ($userID != 0) {
     header("Location: logout.php");
     exit;
 }

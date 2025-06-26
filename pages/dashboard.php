@@ -180,7 +180,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                         $autor = htmlspecialchars($row['nome_autor_postagem']);
                         $data = date('d/m/Y', strtotime($row['data_post']));
 
-                        $imagemPostagem = $row['imagem_postagem'] ? "../src/img/" . $row['imagem_postagem'] : "../src/img/" . 'NoImage.jpg';
+                        $imagemPostagem = $row['imagem_postagem'] ? "." . $row['imagem_postagem'] : "../src/img/" . 'NoImage.jpg';
 
                         echo '
                     <div class="card-noticias" data-id="' . $id . '">

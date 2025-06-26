@@ -186,12 +186,12 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
           $conteudo = $row['texto'];
           $autor = htmlspecialchars($row['nome_autor_postagem']);
           $data = date('d/m/Y', strtotime($row['data_post']));
-          $imagemPostagem = $row['imagem_postagem'] ? htmlspecialchars($row['imagem_postagem']) : 'noImage.jpg';
+          $imagemPostagem = $row['imagem_postagem'] ? htmlspecialchars($row['imagem_postagem']) : './src/img/noImage.jpg';
 
           echo '<div class="card-noticias" data-id="' . $id . '">
             <div class="noticia">
               <div class="noticia-div-imagem">
-                <img src="./src/img/' . $imagemPostagem . '" class="noticia-imagem">
+                <img src="' . $imagemPostagem . '" class="noticia-imagem">
               </div>
               <div class="noticia-div-conteudo">
                 <h2 class="autor">Autor: ' . $autor . '</h2>

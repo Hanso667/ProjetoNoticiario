@@ -448,7 +448,7 @@ footer {
 
     .noticia-imagem,
     .comentario-imagem {
-        width: 100%;
+        width: 50%;
         max-width: 100%;
     }
 
@@ -471,6 +471,9 @@ footer {
 }
 
 @media only screen and (max-width: 480px) {
+    .noticia-imagem {
+        width: 70%;
+    }
 
     .home-button,
     .login-button,

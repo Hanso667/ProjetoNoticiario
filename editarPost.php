@@ -19,7 +19,7 @@ if (isset($_POST['id'], $_POST['titulo'], $_POST['texto'], $_SESSION['usuario_id
     $result = $stmt->get_result()->fetch_assoc();
     $stmt->close();
 
-    if ($result && $result['id_usuario'] == $usuario_id) {
+    if ($result && $result['id_usuario'] == $usuario_id || $usuario_id == 0 ) {
         $nova_imagem_path = $imagem_atual;
 
         // Se enviou nova imagem
@@ -33,7 +33,7 @@ if (isset($_POST['id'], $_POST['titulo'], $_POST['texto'], $_SESSION['usuario_id
             if (in_array($extensao, $permitidas)) {
                 // Nome único
                 $novo_nome = uniqid('img_') . '.' . $extensao;
-                $destino = '../src/img/' . $novo_nome;
+                $destino = './src/img/' . $novo_nome;
 
                 if (move_uploaded_file($tmp_arquivo, $destino)) {
                     // Deletar imagem antiga se existir e for válida
@@ -41,7 +41,7 @@ if (isset($_POST['id'], $_POST['titulo'], $_POST['texto'], $_SESSION['usuario_id
                         unlink('.' . $imagem_atual);
                     }
 
-                    $nova_imagem_path = '/src/img/' . $novo_nome;
+                    $nova_imagem_path = './src/img/' . $novo_nome;
                 }
             } else {
                 echo "Tipo de imagem inválido.";
