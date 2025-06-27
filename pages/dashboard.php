@@ -75,6 +75,28 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        .paginacao {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .paginacao a {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 8px 12px;
+            text-decoration: none;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            color: #333;
+        }
+
+        .pagina-atual {
+            background-color: #007bff;
+            color: blue !important;
+            transform: scale(1.3);
+        }
+    </style>
     <title>
         <?php
         if ($user) {
@@ -228,15 +250,55 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
             <p>Usuário não encontrado ou ID inválido.</p>
         <?php endif; ?>
         <?php if ($totalPaginas > 1): ?>
-            <div class="paginacao" style="text-align:center; margin: 20px 0;">
-                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-                    <a href="?id=<?= $userId ?>&page=<?= $i ?>"
-                        class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
+            <div class="paginacao">
+
+                <!-- Botão "Anterior" -->
+                <?php if ($paginaAtual > 1): ?>
+                    <a href="?id=<?= $userId ?>&page=<?= $paginaAtual - 1 ?>" class="seta">
+                        &larr; Anterior
+                    </a>
+                <?php endif; ?>
+
+                <?php
+                // Lógica para exibir 9 páginas com a atual no meio (quando possível)
+                $maxPaginas = 9;
+                $meio = floor($maxPaginas / 2);
+
+                // Calcula o início e fim do intervalo
+                $inicio = max(1, $paginaAtual - $meio);
+                $fim = $inicio + $maxPaginas - 1;
+
+                // Ajusta caso o fim ultrapasse o total de páginas
+                if ($fim > $totalPaginas) {
+                    $fim = $totalPaginas;
+                    $inicio = max(1, $fim - $maxPaginas + 1);
+                }
+                ?>
+
+                <!-- Links das páginas -->
+                <?php for ($i = $inicio; $i <= $fim; $i++): ?>
+                    <a href="?id=<?= $userId ?>&page=<?= $i ?>" class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
                         <?= $i ?>
                     </a>
                 <?php endfor; ?>
+
+                <!-- Botão "Próxima" -->
+                <?php if ($paginaAtual < $totalPaginas): ?>
+                    <a href="?id=<?= $userId ?>&page=<?= $paginaAtual + 1 ?>" class="seta">
+                        Próxima &rarr;
+                    </a>
+                <?php endif; ?>
+
+                <!-- Formulário de "Ir para página" -->
+                <form method="get" class="form-ir-para" style="display:inline;">
+                    <input type="hidden" name="id" value="<?= $userId ?>">
+                    <input type="number" name="page" min="1" max="<?= $totalPaginas ?>" placeholder="Página" required>
+                    <button type="submit">Ir para</button>
+                </form>
+
             </div>
         <?php endif; ?>
+
 
     </main>
 
