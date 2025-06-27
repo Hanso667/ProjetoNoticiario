@@ -30,8 +30,8 @@ ProjetoNoticiario/
 │ │ ├── Search.jpg
 │ │ └── imagens dos usuarios...
 │ ├── scripts/
-│ ├── script.js
-│ └── dashScript.js
+│ │ ├── script.js
+│ │ └── dashScript.js
 ├── pages/
 │ ├── dashboard.php
 │ ├── login.php
