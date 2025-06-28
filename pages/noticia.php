@@ -52,7 +52,6 @@ if (isset($_GET['id'])) {
     $stmt->close();
 
     $totalPaginas = ceil($totalComentarios / $comentariosPorPagina);
-
 } else {
     echo "ID não informado.";
     exit;
@@ -61,6 +60,7 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($noticia['titulo']) ?></title>
@@ -68,6 +68,7 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../src/css/noticia.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         .paginacao {
             margin-top: 20px;
@@ -93,8 +94,8 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-<header>
-    <div class="header-container">
+    <header>
+        <div class="header-container">
             <div class="header-left">
                 <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>
                 <h1 id="nome-pagina">Usuários</h1>
@@ -121,102 +122,113 @@ if (isset($_GET['id'])) {
                 <?php endif; ?>
             </div>
         </div>
-</header>
+    </header>
 
-<main style="max-width: 800px; margin: auto; padding: 20px;">
+    <main style="max-width: 800px; margin: auto; padding: 20px;">
 
-    <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $noticia['postagem_usuario_id']): ?>
-        <!-- Botões de edição/deletar -->
-        <!-- ... -->
-    <?php endif; ?>
+        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $noticia['postagem_usuario_id']): ?>
+            <!-- Botões de edição/deletar -->
+            <!-- ... -->
+        <?php endif; ?>
 
-    <!-- Form editar -->
-    <!-- ... (form de edição omitido por brevidade) -->
+        <!-- Form editar -->
+        <!-- ... (form de edição omitido por brevidade) -->
 
-    <!-- Visualização padrão -->
-    <div id="visualizacao-postagem">
-        <h1><?= htmlspecialchars($noticia['titulo']) ?></h1>
-        <p><em>por <?= htmlspecialchars($noticia['nome']) ?> em <?= date('d/m/Y H:i', strtotime($noticia['data_post'])) ?></em></p>
-        <?php
-        $imagemNoticia = !empty($noticia['imagem']) ? '.' . htmlspecialchars($noticia['imagem']) : '../src/img/NoImage.jpg';
-        ?>
-        <img src="<?= $imagemNoticia ?>" alt="Imagem da notícia" class="Imagem-postagem">
-        <div class="conteudo-postagem"><?= $noticia['texto'] ?></div>
-    </div>
+        <!-- Visualização padrão -->
+        <div id="visualizacao-postagem">
+            <h1><?= htmlspecialchars($noticia['titulo']) ?></h1>
+            <p><em>por <?= htmlspecialchars($noticia['nome']) ?> em <?= date('d/m/Y H:i', strtotime($noticia['data_post'])) ?></em></p>
+            <?php
+            $imagemNoticia = !empty($noticia['imagem']) ? '.' . htmlspecialchars($noticia['imagem']) : '../src/img/NoImage.jpg';
+            ?>
+            <img src="<?= $imagemNoticia ?>" alt="Imagem da notícia" class="Imagem-postagem">
+            <div class="conteudo-postagem"><?= $noticia['texto'] ?></div>
+        </div>
 
-    <hr>
+        <hr>
 
-    <!-- Comentário Form -->
-    <section class="formulario-comentario">
-        <h3>Deixe um comentário</h3>
-        <form class="comment" action="../comentar.php" method="POST" onsubmit="return enviarComentario();">
-            <input type="hidden" name="id_post" value="<?= $id ?>">
-            <input type="hidden" name="comentario" id="comentario-hidden">
-            <div id="editor" class="quill-editor" style="height: 150px;"></div>
-            <button class="comment-button" type="submit" style="margin-top: 10px;">Enviar</button>
-        </form>
-    </section>
-
-    <hr>
-
-    <section class="comentarios">
-        <h2>Comentários</h2>
-        <?php if ($comentarios->num_rows > 0): ?>
-            <?php while ($coment = $comentarios->fetch_assoc()): ?>
-                <div class="comentario" style="border: 1px solid #ccc; padding: 10px; margin: 10px 0; display: flex; gap: 10px;">
-                    <img src="../src/img/<?= !empty($coment['imagem']) ? htmlspecialchars($coment['imagem']) : 'NoProfile.jpg' ?>" alt="Imagem do usuário" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
-                    <div>
-                        <strong><?= htmlspecialchars($coment['nome']) ?></strong>
-                        <small>em <?= date('d/m/Y H:i', strtotime($coment['data_comentario'])) ?></small>
-                        <div class="comentario-conteudo"><?= $coment['comentario'] ?></div>
-                    </div>
-                </div>
-            <?php endwhile; ?>
+        <!-- Comentário Form -->
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <section class="formulario-comentario">
+                <h3>Deixe um comentário</h3>
+                <form class="comment" action="../comentar.php" method="POST" onsubmit="return enviarComentario();">
+                    <input type="hidden" name="id_post" value="<?= $id ?>">
+                    <input type="hidden" name="comentario" id="comentario-hidden">
+                    <div id="editor" class="quill-editor" style="height: 150px;"></div>
+                    <button class="comment-button" type="submit" style="margin-top: 10px;">Enviar</button>
+                </form>
+            </section>
         <?php else: ?>
-            <p>Seja o primeiro a comentar!</p>
+            <a href="./login.php" style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 10px 0px; text-decoration: none;"><button class="comment-button">Faça login para comentar!</button></a>
         <?php endif; ?>
 
-        <!-- PAGINAÇÃO -->
-        <?php if ($totalPaginas > 1): ?>
-            <div class="paginacao">
-                <?php if ($paginaAtual > 1): ?>
-                    <a href="?id=<?= $id ?>&page=<?= $paginaAtual - 1 ?>">&laquo; Anterior</a>
-                <?php endif; ?>
+        <hr>
 
-                <?php
-                $maxPaginas = 7;
-                $inicio = max(1, $paginaAtual - floor($maxPaginas / 2));
-                $fim = min($totalPaginas, $inicio + $maxPaginas - 1);
-                if ($fim - $inicio < $maxPaginas - 1) {
-                    $inicio = max(1, $fim - $maxPaginas + 1);
-                }
-                for ($i = $inicio; $i <= $fim; $i++): ?>
-                    <a href="?id=<?= $id ?>&page=<?= $i ?>" class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
-                        <?= $i ?>
-                    </a>
-                <?php endfor; ?>
+        <section class="comentarios">
+            <h2>Comentários</h2>
+            <?php if ($comentarios->num_rows > 0): ?>
+                <?php while ($coment = $comentarios->fetch_assoc()): ?>
+                    <div class="comentario" style="border: 1px solid #ccc; padding: 10px; margin: 10px 0; display: flex; gap: 10px;">
+                        <img src="../src/img/<?= !empty($coment['imagem']) ? htmlspecialchars($coment['imagem']) : 'NoProfile.jpg' ?>" alt="Imagem do usuário" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                        <div>
+                            <strong><?= htmlspecialchars($coment['nome']) ?></strong>
+                            <small>em <?= date('d/m/Y H:i', strtotime($coment['data_comentario'])) ?></small>
+                            <div class="comentario-conteudo"><?= $coment['comentario'] ?></div>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>Seja o primeiro a comentar!</p>
+            <?php endif; ?>
 
-                <?php if ($paginaAtual < $totalPaginas): ?>
-                    <a href="?id=<?= $id ?>&page=<?= $paginaAtual + 1 ?>">Próxima &raquo;</a>
-                <?php endif; ?>
-            </div>
+            <!-- PAGINAÇÃO -->
+            <?php if ($totalPaginas > 1): ?>
+                <div class="paginacao">
+                    <?php if ($paginaAtual > 1): ?>
+                        <a href="?id=<?= $id ?>&page=<?= $paginaAtual - 1 ?>">&laquo; Anterior</a>
+                    <?php endif; ?>
+
+                    <?php
+                    $maxPaginas = 7;
+                    $inicio = max(1, $paginaAtual - floor($maxPaginas / 2));
+                    $fim = min($totalPaginas, $inicio + $maxPaginas - 1);
+                    if ($fim - $inicio < $maxPaginas - 1) {
+                        $inicio = max(1, $fim - $maxPaginas + 1);
+                    }
+                    for ($i = $inicio; $i <= $fim; $i++): ?>
+                        <a href="?id=<?= $id ?>&page=<?= $i ?>" class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
+                            <?= $i ?>
+                        </a>
+                    <?php endfor; ?>
+
+                    <?php if ($paginaAtual < $totalPaginas): ?>
+                        <a href="?id=<?= $id ?>&page=<?= $paginaAtual + 1 ?>">Próxima &raquo;</a>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
+        <p>Desenvolvido por Hanso667.</p>
+        <p>Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
+        <div class="footer-social">
+            <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <br>
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <a class="publicidade" href=""><button>Publicidade</button></a>
+        <?php else: ?>
+            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
         <?php endif; ?>
-    </section>
+    </footer>
 
-</main>
-
-<footer>
-    <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
-    <p>Desenvolvido por Hanso667.</p>
-    <p>Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
-    <div class="footer-social">
-        <a href="https://github.com/Hanso667" class="social-btn"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
-    </div>
-</footer>
-
-<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script src="../src/scripts/noticiaScript.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="../src/scripts/noticiaScript.js"></script>
 
 </body>
+
 </html>

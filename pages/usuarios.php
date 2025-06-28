@@ -192,15 +192,16 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
         <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
         <p>Desenvolvido por Hanso667.</p>
         <p>Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
-
         <div class="footer-social">
-            <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
+            <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
+        <br>
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <a class="publicidade" href=""><button>Publicidade</button></a>
+        <?php else: ?>
+            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
+        <?php endif; ?>
     </footer>
 
 </body>

@@ -17,10 +17,11 @@ session_start();
 
 <body>
 
-     <header>
+    <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a><h1 id="nome-pagina">Login</h1>
+                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a>
+                <h1 id="nome-pagina">Login</h1>
             </div>
 
             <div class="header-right">
@@ -74,6 +75,12 @@ session_start();
                 <i class="fab fa-linkedin-in"></i>
             </a>
         </div>
+        <br>
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <a class="publicidade" href=""><button>Publicidade</button></a>
+        <?php else: ?>
+            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
+        <?php endif; ?>
 
     </footer>
 

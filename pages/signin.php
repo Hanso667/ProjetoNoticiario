@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <link rel="stylesheet" href="../src/css/reset.css">
     <link rel="stylesheet" href="../src/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signin - Criar Conta</title>
@@ -141,6 +142,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <i class="fab fa-linkedin-in"></i>
             </a>
         </div>
+        <br>
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <a class="publicidade" href=""><button>Publicidade</button></a>
+        <?php else: ?>
+            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
+        <?php endif; ?>
 
     </footer>
 

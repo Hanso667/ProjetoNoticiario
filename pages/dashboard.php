@@ -92,8 +92,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
         }
 
         .pagina-atual {
-            background-color: #007bff;
-            color: blue !important;
+            background-color: rgba(0, 123, 255, 0.32) !important;
             transform: scale(1.3);
         }
     </style>
@@ -319,6 +318,12 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                 <i class="fab fa-linkedin-in"></i>
             </a>
         </div>
+        <br>
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <a class="publicidade" href=""><button>Publicidade</button></a>
+        <?php else: ?>
+            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
+        <?php endif; ?>
 
     </footer>
 

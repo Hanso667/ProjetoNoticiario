@@ -113,8 +113,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     }
 
     .pagina-atual {
-      background-color: #007bff;
-      color: blue !important;
+      background-color: rgba(0, 123, 255, 0.32) !important;
       transform: scale(1.3);
     }
   </style>
@@ -152,38 +151,67 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
   </header>
 
   <main>
-    <?php if (isset($_SESSION['Usuario_id'])): ?>
-      <form class="criar-postagem" action="postar.php" method="POST" onsubmit="return enviarPostagem();" enctype="multipart/form-data" style="margin-top: 20px;">
-        <h1> Faça uma Postagem!</h1><br>
-        <input type="text" name="titulo" placeholder="Título da postagem" required class="input-titulo">
-        <div id="editor"></div>
-        <input type="hidden" name="conteudo" id="conteudo">
-        <label for="imagem">Selecione a imagem</label>
-        <input type="file" name="imagem" accept="image/*">
-        <button type="submit" class="botao-postar">Postar</button>
-      </form>
-    <?php endif; ?>
+
 
     <br>
     <h1> Noticias recentes: </h1>
+
+    <?php if ($totalPaginas > 1): ?>
+      <div class="paginacao">
+
+        <!-- Botão "Anterior" -->
+        <?php if ($paginaAtual > 1): ?>
+          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual - 1); ?>" class="seta">
+            &larr; Anterior
+          </a>
+        <?php endif; ?>
+
+        <?php
+        // Lógica para exibir 9 páginas com a atual no meio (quando possível)
+        $maxPaginas = 9;
+        $meio = floor($maxPaginas / 2);
+
+        // Calcula o início e fim do intervalo
+        $inicio = max(1, $paginaAtual - $meio);
+        $fim = $inicio + $maxPaginas - 1;
+
+        // Ajusta caso o fim ultrapasse o total de páginas
+        if ($fim > $totalPaginas) {
+          $fim = $totalPaginas;
+          $inicio = max(1, $fim - $maxPaginas + 1);
+        }
+        ?>
+
+        <!-- Links das páginas -->
+        <?php for ($i = $inicio; $i <= $fim; $i++): ?>
+          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . $i; ?>"
+            class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
+            <?= $i ?>
+          </a>
+        <?php endfor; ?>
+
+        <!-- Botão "Próxima" -->
+        <?php if ($paginaAtual < $totalPaginas): ?>
+          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual + 1); ?>" class="seta">
+            Próxima &rarr;
+          </a>
+        <?php endif; ?>
+
+        <!-- Formulário de "Ir para página" -->
+        <form method="get" class="form-ir-para" style="display:inline;">
+          <input type="hidden" name="search_postagem" value="<?= htmlspecialchars($searchTerm) ?>">
+          <input type="number" name="page" min="1" max="<?= $totalPaginas ?>" placeholder="Página" required>
+          <button type="submit">Ir para</button>
+        </form>
+
+      </div>
+    <?php endif; ?>
 
     <form class="search" method="GET" action="./index.php">
       <input type="text" name="search_postagem" id="Search_postagem" placeholder=">Pesquisar Noticias recentes" value="<?php echo isset($_GET['search_postagem']) ? htmlspecialchars($_GET['search_postagem']) : ''; ?>">
       <button type="submit" id="Search_postagem_button"></button>
     </form>
 
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-    <script>
-      const quill = new Quill('#editor', {
-        theme: 'snow'
-      });
-
-      function enviarPostagem() {
-        document.querySelector('input[name=conteudo]').value = quill.root.innerHTML;
-        return true;
-      }
-    </script>
 
     <div class="card-view-noticias">
       <?php
@@ -288,6 +316,31 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
       </div>
     <?php endif; ?>
 
+    <?php if (isset($_SESSION['usuario_id'])): ?>
+      <form class="criar-postagem" action="postar.php" method="POST" onsubmit="return enviarPostagem();" enctype="multipart/form-data">
+        <h1> Faça uma Postagem!</h1><br>
+        <input type="text" name="titulo" placeholder="Título da postagem" required class="input-titulo">
+        <div id="editor"></div>
+        <input type="hidden" name="conteudo" id="conteudo">
+        <label for="imagem">Selecione a imagem</label>
+        <input type="file" name="imagem" accept="image/*">
+        <button type="submit" class="botao-postar">Postar</button>
+      </form>
+      <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+      <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+      <script>
+        const quill = new Quill('#editor', {
+          theme: 'snow'
+        });
+
+        function enviarPostagem() {
+          document.querySelector('input[name=conteudo]').value = quill.root.innerHTML;
+          return true;
+        }
+      </script>
+
+    <?php endif; ?>
+
   </main>
 
   <footer>
@@ -298,6 +351,12 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
       <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
       <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     </div>
+    <br>
+    <?php if (isset($_SESSION['usuario_id'])): ?>
+      <a class="publicidade" href=""><button>Publicidade</button></a>
+    <?php else: ?>
+      <a class="publicidade" href="./pages/login.php"><button>Publicidade</button></a>
+    <?php endif; ?>
   </footer>
 
   <script src="./src/scripts/script.js"></script>

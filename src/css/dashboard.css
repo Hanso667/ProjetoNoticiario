@@ -89,7 +89,7 @@ main {
     background-color: white;
     padding: 1.5rem;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .user-info img {
@@ -119,12 +119,12 @@ main {
 .card-noticias {
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     padding: 1rem;
 }
 
-.card-noticias:hover{
+.card-noticias:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.616);
 }
 
@@ -192,15 +192,6 @@ footer {
     margin-top: 4rem;
 }
 
-.footer-contato {
-    color: #ffffff;
-    text-decoration: underline;
-}
-
-.footer-social {
-    margin-top: 1rem;
-}
-
 .footer-social a {
     color: white;
     margin: 0 0.5rem;
@@ -210,6 +201,38 @@ footer {
 
 .footer-social a:hover {
     color: #3498db;
+}
+
+.footer-social {
+    margin-top: 10px;
+}
+
+.footer-contato {
+    color: #ffffff;
+}
+
+.social-btn {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
+}
+
+.publicidade button {
+    background-color: white;
+    color: #2c3e50;
+    border: 2px dotted black;
+    width: 100px;
+    height: 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 8px #ffffff;
+}
+
+.publicidade button:hover {
+    cursor: pointer;
+    background-color: rgb(0, 138, 7);
+    color: white;
+    border: 2px dotted white;
+    box-shadow: 0 0 15px rgb(0, 138, 7);
 }
 
 /* Responsivo */
