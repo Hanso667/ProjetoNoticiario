@@ -431,6 +431,7 @@ footer {
     height: 50px;
     border-radius: 15px;
     box-shadow: 0 0 8px #ffffff;
+    transition: 0.2s;
 }
 .publicidade button:hover{
     cursor: pointer;

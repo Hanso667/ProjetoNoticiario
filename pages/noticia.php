@@ -127,12 +127,37 @@ if (isset($_GET['id'])) {
     <main style="max-width: 800px; margin: auto; padding: 20px;">
 
         <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $noticia['postagem_usuario_id']): ?>
-            <!-- Botões de edição/deletar -->
-            <!-- ... -->
+            <div style="position: relative; display: inline-block; margin-bottom: 10px;">
+                <button type="button" onclick="toggleMenu()" style="padding: 5px 10px;">...</button>
+                <div id="post-menu" style="display: none; position: absolute; background: #fff; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.2); right: 0; z-index: 10;">
+                    <form action="../deletarPost.php" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar esta postagem?')" style="margin: 0;">
+                        <input type="hidden" name="id" value="<?= $noticia['id'] ?>">
+                        <input type="hidden" name="imagem" value="<?= $noticia['imagem'] ?>">
+                        <button type="submit" style="display: block; width: 100%; border: none; background: none; padding: 10px; text-align: left;">Deletar</button>
+                    </form>
+                    <button type="button" onclick="ativarEdicao()" style="display: block; width: 100%; border: none; background: none; padding: 10px; text-align: left;">Editar</button>
+                </div>
+            </div>
         <?php endif; ?>
 
         <!-- Form editar -->
-        <!-- ... (form de edição omitido por brevidade) -->
+        <form id="form-editar-postagem" action="../editarPost.php" method="POST" enctype="multipart/form-data" style="display: none;">
+            <input type="hidden" name="id" value="<?= $noticia['id'] ?>">
+            <input type="hidden" name="imagem_atual" value="<?= htmlspecialchars($noticia['imagem']) ?>">
+
+            <label for="titulo">Título:</label>
+            <input type="text" name="titulo" id="titulo-editar" value="<?= htmlspecialchars($noticia['titulo']) ?>" style="width: 100%; padding: 5px; font-size: 1.2em; margin-bottom: 10px;">
+
+            <label for="conteudo">Conteúdo:</label>
+            <div id="editor-editar" class="quill-editor" style="height: 200px; margin-bottom: 10px;"></div>
+
+            <input type="hidden" name="texto" id="texto-hidden-editar">
+
+            <label for="nova_imagem">Nova imagem:</label>
+            <input type="file" name="nova_imagem" accept="image/*" style="margin-bottom: 10px;">
+
+            <button type="submit" onclick="salvarEdicao()" style="padding: 10px 20px;">Salvar Alterações</button>
+        </form>
 
         <!-- Visualização padrão -->
         <div id="visualizacao-postagem">
@@ -227,7 +252,43 @@ if (isset($_GET['id'])) {
     </footer>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script src="../src/scripts/noticiaScript.js"></script>
+    <script>
+        const quillComentario = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+        function enviarComentario() {
+            const hiddenInput = document.getElementById('comentario-hidden');
+            hiddenInput.value = quillComentario.root.innerHTML.trim();
+            return hiddenInput.value.length > 0;
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('post-menu');
+            menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
+        }
+
+        let quillEditar = null;
+
+        function ativarEdicao() {
+            document.getElementById('visualizacao-postagem').style.display = 'none';
+            document.getElementById('form-editar-postagem').style.display = 'block';
+
+            if (!quillEditar) {
+                quillEditar = new Quill('#editor-editar', {
+                    theme: 'snow'
+                });
+                quillEditar.root.innerHTML = `<?= addslashes($noticia['texto']) ?>`;
+            }
+
+            document.getElementById('post-menu').style.display = 'none';
+        }
+
+        function salvarEdicao() {
+            const hiddenInput = document.getElementById('texto-hidden-editar');
+            hiddenInput.value = quillEditar.root.innerHTML.trim();
+        }
+    </script>
 
 </body>
 

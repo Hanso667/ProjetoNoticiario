@@ -335,6 +335,7 @@ footer {
     height: 50px;
     border-radius: 15px;
     box-shadow: 0 0 8px #ffffff;
+    transition: 1s;
 }
 
 .publicidade button:hover {
@@ -343,6 +344,8 @@ footer {
     color: white;
     border: 2px dotted white;
     box-shadow: 0 0 15px rgb(0, 138, 7);
+    transition: 1s;
+    
 }
 
 /* Responsive Styles */
