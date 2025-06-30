@@ -17,6 +17,27 @@ if ($userId >= 0) {
         $user = $resultUser->fetch_assoc();
     }
 }
+$favoritos = [];
+
+if (isset($_SESSION['usuario_id'])) {
+    $idUsuarioLogado = $_SESSION['usuario_id'];
+
+    $stmtFav = $conn->prepare("
+        SELECT p.id, p.titulo, p.imagem
+        FROM favoritos_postagens f
+        JOIN postagens p ON f.id_post = p.id
+        WHERE f.id_usuario = ?
+        ORDER BY p.data_post DESC
+        LIMIT 5
+    ");
+    $stmtFav->bind_param("i", $idUsuarioLogado);
+    $stmtFav->execute();
+    $resultFav = $stmtFav->get_result();
+
+    while ($fav = $resultFav->fetch_assoc()) {
+        $favoritos[] = $fav;
+    }
+}
 
 // Paginação
 $postagensPorPagina = 5;
@@ -188,6 +209,23 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                     <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
                 </div>
             </section>
+            <aside class="sidebar-favoritos">
+                <h2>Favoritos</h2>
+                <?php if (!empty($favoritos)): ?>
+                    <ul>
+                        <?php foreach ($favoritos as $fav): ?>
+                            <li class="favorito-item">
+                                <a href="./noticia.php?id=<?= $fav['id'] ?>">
+                                    <img src="<?= $fav['imagem'] ? '.' . $fav['imagem'] : '../src/img/NoImage.jpg' ?>" alt="Imagem" class="favorito-imagem">
+                                    <?= htmlspecialchars($fav['titulo']) ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p>Sem favoritos ainda.</p>
+                <?php endif; ?>
+            </aside>
 
             <h2>Postagens recentes de <?php echo htmlspecialchars($user['nome']); ?>:</h2>
 

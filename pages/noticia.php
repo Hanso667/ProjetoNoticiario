@@ -169,6 +169,51 @@ if (isset($_GET['id'])) {
             <img src="<?= $imagemNoticia ?>" alt="Imagem da notícia" class="Imagem-postagem">
             <div class="conteudo-postagem"><?= $noticia['texto'] ?></div>
         </div>
+        <?php
+        // Contagens
+        $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM likes_postagens WHERE id_post = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $likes = $stmt->get_result()->fetch_assoc()['total'];
+
+        $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM favoritos_postagens WHERE id_post = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $favoritos = $stmt->get_result()->fetch_assoc()['total'];
+
+        // Verificações do usuário
+        $jaCurtiu = $jaFavoritou = false;
+
+        if (isset($_SESSION['usuario_id'])) {
+            $usuarioId = $_SESSION['usuario_id'];
+
+            $stmt = $conn->prepare("SELECT 1 FROM likes_postagens WHERE id_usuario = ? AND id_post = ?");
+            $stmt->bind_param("ii", $usuarioId, $id);
+            $stmt->execute();
+            $jaCurtiu = $stmt->get_result()->num_rows > 0;
+
+            $stmt = $conn->prepare("SELECT 1 FROM favoritos_postagens WHERE id_usuario = ? AND id_post = ?");
+            $stmt->bind_param("ii", $usuarioId, $id);
+            $stmt->execute();
+            $jaFavoritou = $stmt->get_result()->num_rows > 0;
+        }
+        ?>
+
+        <div style="margin-bottom: 15px;">
+            <?php if (isset($_SESSION['usuario_id'])): ?>
+                <button onclick="curtirPostagem()" id="btn-like">
+                    <?= $jaCurtiu ? '❤️ Curtido' : '🤍 Curtir' ?>
+                </button>
+                <span id="like-count"><?= $likes ?></span>
+
+                <button onclick="favoritarPostagem()" id="btn-fav">
+                    <?= $jaFavoritou ? '⭐ Favoritado' : '☆ Favoritar' ?>
+                </button>
+                <span id="fav-count"><?= $favoritos ?></span>
+            <?php else: ?>
+                <p><a href="./login.php">Faça login para curtir ou favoritar</a></p>
+            <?php endif; ?>
+        </div>
 
         <hr>
 
@@ -288,7 +333,40 @@ if (isset($_GET['id'])) {
             const hiddenInput = document.getElementById('texto-hidden-editar');
             hiddenInput.value = quillEditar.root.innerHTML.trim();
         }
+
+        function curtirPostagem() {
+            fetch('../likePost.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'id_post=<?= $id ?>'
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log("Resposta do like:", data);
+                    location.reload();
+                })
+                .catch(error => console.error('Erro no like:', error));
+        }
+
+        function favoritarPostagem() {
+            fetch('../favoritarPost.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'id_post=<?= $id ?>'
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log("Resposta do favorito:", data);
+                    location.reload();
+                })
+                .catch(error => console.error('Erro no favorito:', error));
+        }
     </script>
+
 
 </body>
 

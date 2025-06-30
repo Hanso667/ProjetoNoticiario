@@ -1,4 +1,41 @@
 /* ../src/css/dashboard.css */
+.sidebar-favoritos {
+    position: absolute;
+    right: 2rem;
+    top: 10rem;
+    width: 250px;
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-favoritos h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.favorito-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+.favorito-item a, .favorito-item a:hover, .favorito-item a:active, .favorito-item a:visited{
+    color: #555;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.favorito-item img.favorito-imagem {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+}
 
 body {
     font-family: Arial, sans-serif;

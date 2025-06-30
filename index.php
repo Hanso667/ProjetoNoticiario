@@ -6,13 +6,37 @@ $connection = new Connection();
 $conn = $connection->connectar();
 
 $searchTerm = isset($_GET['search_postagem']) ? trim($_GET['search_postagem']) : '';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'recentes';
 
-// Paginação
+$orderBy = "p.data_post DESC"; // padrão: mais recentes
+
+switch ($sort) {
+  case 'antigas':
+    $orderBy = "p.data_post ASC";
+    break;
+  case 'mais_curtidas':
+    $orderBy = "(SELECT COUNT(*) FROM likes_postagens lp WHERE lp.id_post = p.id) DESC";
+    break;
+  case 'menos_curtidas':
+    $orderBy = "(SELECT COUNT(*) FROM likes_postagens lp WHERE lp.id_post = p.id) ASC";
+    break;
+  case 'mais_favoritadas':
+    $orderBy = "(SELECT COUNT(*) FROM favoritos_postagens lp WHERE lp.id_post = p.id) DESC";
+    break;
+  case 'menos_favoritadas':
+    $orderBy = "(SELECT COUNT(*) FROM favoritos_postagens lp WHERE lp.id_post = p.id) ASC";
+    break;
+}
+
+// Pagination setup
 $postagensPorPagina = 3;
 $paginaAtual = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($paginaAtual - 1) * $postagensPorPagina;
 
 if ($searchTerm !== '') {
+  $param = "%$searchTerm%";
+
+  // Note: Can't bind LIMIT/OFFSET so embed safely after casting to int
   $sql = "SELECT 
       p.id AS postagem_id,
       p.imagem AS imagem_postagem,
@@ -23,7 +47,9 @@ if ($searchTerm !== '') {
       c.comentario,
       c.data_comentario,
       uc.nome AS nome_autor_comentario,
-      uc.imagem AS imagem_comentario
+      uc.imagem AS imagem_comentario,
+      (SELECT COUNT(*) FROM likes_postagens lp WHERE lp.id_post = p.id) AS total_likes,
+      (SELECT COUNT(*) FROM favoritos_postagens fp WHERE fp.id_post = p.id) AS total_favoritos
     FROM postagens p
     JOIN usuarios u ON p.id_usuario = u.id
     LEFT JOIN (
@@ -37,20 +63,22 @@ if ($searchTerm !== '') {
     ) c ON p.id = c.id_post
     LEFT JOIN usuarios uc ON c.id_usuario = uc.id
     WHERE p.titulo LIKE ?
-    ORDER BY p.data_post DESC
-    LIMIT ? OFFSET ?";
+    ORDER BY $orderBy
+    LIMIT $postagensPorPagina OFFSET $offset";
 
   $stmt = $conn->prepare($sql);
-  $param = "%$searchTerm%";
-  $stmt->bind_param("sii", $param, $postagensPorPagina, $offset);
+  $stmt->bind_param("s", $param);
   $stmt->execute();
   $result = $stmt->get_result();
 
+  // Count total posts for pagination
   $countStmt = $conn->prepare("SELECT COUNT(*) AS total FROM postagens WHERE titulo LIKE ?");
   $countStmt->bind_param("s", $param);
   $countStmt->execute();
   $countResult = $countStmt->get_result();
 } else {
+  // No search term - fetch all posts with pagination
+
   $sql = "SELECT 
       p.id AS postagem_id,
       p.imagem AS imagem_postagem,
@@ -61,7 +89,9 @@ if ($searchTerm !== '') {
       c.comentario,
       c.data_comentario,
       uc.nome AS nome_autor_comentario,
-      uc.imagem AS imagem_comentario
+      uc.imagem AS imagem_comentario,
+      (SELECT COUNT(*) FROM likes_postagens lp WHERE lp.id_post = p.id) AS total_likes,
+      (SELECT COUNT(*) FROM favoritos_postagens fp WHERE fp.id_post = p.id) AS total_favoritos
     FROM postagens p
     JOIN usuarios u ON p.id_usuario = u.id
     LEFT JOIN (
@@ -74,10 +104,11 @@ if ($searchTerm !== '') {
       ) cp2 ON cp1.id_post = cp2.id_post AND cp1.data_comentario = cp2.max_data
     ) c ON p.id = c.id_post
     LEFT JOIN usuarios uc ON c.id_usuario = uc.id
-    ORDER BY p.data_post DESC
-    LIMIT {$postagensPorPagina} OFFSET {$offset}";
+    ORDER BY $orderBy
+    LIMIT $postagensPorPagina OFFSET $offset";
 
   $result = $conn->query($sql);
+
   $countResult = $conn->query("SELECT COUNT(*) AS total FROM postagens");
 }
 
@@ -161,7 +192,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
         <!-- Botão "Anterior" -->
         <?php if ($paginaAtual > 1): ?>
-          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual - 1); ?>" class="seta">
+          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual - 1) . "&sort=" . urlencode($sort); ?>" class="seta">
             &larr; Anterior
           </a>
         <?php endif; ?>
@@ -184,7 +215,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
         <!-- Links das páginas -->
         <?php for ($i = $inicio; $i <= $fim; $i++): ?>
-          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . $i; ?>"
+          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . $i . "&sort=" . urlencode($sort); ?>"
             class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
             <?= $i ?>
           </a>
@@ -192,7 +223,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
         <!-- Botão "Próxima" -->
         <?php if ($paginaAtual < $totalPaginas): ?>
-          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual + 1); ?>" class="seta">
+          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual + 1)  . "&sort=" . urlencode($sort); ?>" class="seta">
             Próxima &rarr;
           </a>
         <?php endif; ?>
@@ -207,8 +238,19 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
       </div>
     <?php endif; ?>
 
-    <form class="search" method="GET" action="./index.php">
-      <input type="text" name="search_postagem" id="Search_postagem" placeholder=">Pesquisar Noticias recentes" value="<?php echo isset($_GET['search_postagem']) ? htmlspecialchars($_GET['search_postagem']) : ''; ?>">
+    <form class="search" method="GET" action="./index.php" style="margin-bottom: 15px;">
+      <input type="text" name="search_postagem" id="Search_postagem" placeholder=">Pesquisar Noticias recentes" value="<?= htmlspecialchars($searchTerm) ?>">
+
+
+      <select style="height: 50px;" name="sort" onchange="this.form.submit()">
+        <option value="recentes" <?= (isset($_GET['sort']) && $_GET['sort'] == 'recentes') ? 'selected' : '' ?>>Mais Recentes</option>
+        <option value="antigas" <?= (isset($_GET['sort']) && $_GET['sort'] == 'antigas') ? 'selected' : '' ?>>Mais Antigas</option>
+        <option value="mais_curtidas" <?= (isset($_GET['sort']) && $_GET['sort'] == 'mais_curtidas') ? 'selected' : '' ?>>Mais Curtidas</option>
+        <option value="menos_curtidas" <?= (isset($_GET['sort']) && $_GET['sort'] == 'menos_curtidas') ? 'selected' : '' ?>>Menos Curtidas</option>
+        <option value="mais_favoritadas" <?= (isset($_GET['sort']) && $_GET['sort'] == 'mais_favoritadas') ? 'selected' : '' ?>>Mais Favoritadas</option>
+        <option value="menos_favoritadas" <?= (isset($_GET['sort']) && $_GET['sort'] == 'menos_favoritadas') ? 'selected' : '' ?>>Menos Favoritadas</option>
+      </select>
+
       <button type="submit" id="Search_postagem_button"></button>
     </form>
 
@@ -223,6 +265,8 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
           $autor = htmlspecialchars($row['nome_autor_postagem']);
           $data = date('d/m/Y', strtotime($row['data_post']));
           $imagemPostagem = $row['imagem_postagem'] ? htmlspecialchars($row['imagem_postagem']) : './src/img/noImage.jpg';
+          $totalLikes = $row['total_likes'];
+          $totalFavoritos = $row['total_favoritos'];
 
           echo '<div class="card-noticias" data-id="' . $id . '">
             <div class="noticia">
@@ -232,7 +276,9 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
               <div class="noticia-div-conteudo">
                 <h2 class="autor">Autor: ' . $autor . '</h2>
                 <h1 class="titulo">Título: ' . $titulo . '</h1>
-                <div class="conteudo">' . $conteudo . '</div>
+                <div class="conteudo">' . $conteudo . '</div>    
+                <span><i class="fa fa-thumbs-up"></i> Likes: ' . $totalLikes . '</span>
+                <span><i class="fa fa-star"></i> Favoritos: ' . $totalFavoritos . '</span>
                 <h3 class="data">' . $data . '</h3>
               </div>
             </div>';
@@ -270,7 +316,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
         <!-- Botão "Anterior" -->
         <?php if ($paginaAtual > 1): ?>
-          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual - 1); ?>" class="seta">
+          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual - 1) . "&sort=" . urlencode($sort); ?>" class="seta">
             &larr; Anterior
           </a>
         <?php endif; ?>
@@ -293,7 +339,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
         <!-- Links das páginas -->
         <?php for ($i = $inicio; $i <= $fim; $i++): ?>
-          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . $i; ?>"
+          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . $i  . "&sort=" . urlencode($sort); ?>"
             class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
             <?= $i ?>
           </a>
@@ -301,14 +347,14 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
         <!-- Botão "Próxima" -->
         <?php if ($paginaAtual < $totalPaginas): ?>
-          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual + 1); ?>" class="seta">
+          <a href="?<?php echo "search_postagem=" . urlencode($searchTerm) . "&page=" . ($paginaAtual + 1)  . "&sort=" . urlencode($sort); ?>" class="seta">
             Próxima &rarr;
           </a>
         <?php endif; ?>
 
         <!-- Formulário de "Ir para página" -->
         <form method="get" class="form-ir-para" style="display:inline;">
-          <input type="hidden" name="search_postagem" value="<?= htmlspecialchars($searchTerm) ?>">
+          <input type="hidden" name="search_postagem" value="<?= htmlspecialchars($searchTerm)  ?>">
           <input type="number" name="page" min="1" max="<?= $totalPaginas ?>" placeholder="Página" required>
           <button type="submit">Ir para</button>
         </form>
