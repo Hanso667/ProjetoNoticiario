@@ -3,8 +3,8 @@ body {
     width: 100%;
     min-height: 100vh;
     font-family: Arial, sans-serif, 'Comic Sans MS', cursive, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: #333;
+    color: #f5f5f5;
     margin: 0;
 }
 
@@ -152,7 +152,7 @@ main .search {
     margin-left: 10px;
 }
 
-#DarkButton:hover {
+#DarkButton:hover{
     cursor: pointer;
 }
 
@@ -168,7 +168,7 @@ main {
 main h1 {
     font-size: 2rem;
     margin-bottom: 10px;
-    color: #2c3e50;
+    color: #beddfc;
 }
 
 .criar-postagem {
@@ -179,7 +179,7 @@ main h1 {
     align-items: center;
     width: 100%;
     max-width: 900px;
-    background: #fff8dc;
+    background: #c2c2c2;
     padding: 20px;
     border: 2px dashed #2c3e50;
     border-radius: 8px;
@@ -193,7 +193,7 @@ main h1 {
     font-size: 1rem;
     border: 2px solid #2c3e50;
     border-radius: 4px;
-    background-color: #fefefe;
+    background-color: #636363;
     margin-bottom: 10px;
 }
 
@@ -229,21 +229,20 @@ main h1 {
 .card-noticias {
     width: 100%;
     max-width: 1200px;
-    border: 2px solid #2c3e50;
+    border: 2px solid #000000;
     border-radius: 5px;
-    background-color: #fffdf5;
     transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2)
 }
 
 .card-noticias:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.767);
+    box-shadow: 0 0 20px rgba(129, 129, 129, 0.767);
 }
 
 .noticia {
     display: flex;
     flex-direction: row;
-    border-bottom: 2px solid #2c3e50;
+    border-bottom: 2px solid #000000;
     flex-wrap: wrap;
 }
 
@@ -252,7 +251,7 @@ main h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f8ff;
+    background-color: #8f8f8f;
     padding: 20px;
 }
 
@@ -269,9 +268,9 @@ main h1 {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background-color: #fafafa;
+    background-color: #a7a7a7;
     gap: 10px;
-    border-left: 2px solid #2c3e50;
+    border-left: 2px solid #000000;
 }
 
 .autor {
@@ -288,9 +287,9 @@ main h1 {
 .conteudo {
     width: 100%;
     height: 400px;
-    background-color: #ffffff;
+    background-color: #777;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     border-radius: 4px;
     overflow-y: scroll;
     word-wrap: break-word;
@@ -309,7 +308,7 @@ main h1 {
 .data {
     text-align: end;
     font-size: 18px;
-    color: #888;
+    color: #ffffff;
     font-style: italic;
 }
 
@@ -317,15 +316,15 @@ main h1 {
 .comentario {
     height: 50%;
     padding: 20px;
-    background-color: #e6f2ff;
+    background-color: #575757;
 }
 
 .card-comentario {
     display: flex;
     flex-wrap: wrap;
-    border: 2px solid #006699;
+    border: 2px solid #000000;
     border-radius: 5px;
-    background-color: #ffffff;
+    background-color: #7c7c7c;
     padding: 10px;
 }
 
@@ -334,7 +333,7 @@ main h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e0f7fa;
+    background-color: #5e5e5e;
     padding: 10px;
 }
 
@@ -344,15 +343,15 @@ main h1 {
     max-height: 100%;
     height: auto;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
 }
 
 .comentario-div-conteudo {
     width: 100%;
     height: 200px;
-    background-color: #ffffff;
+    background-color: #c0c0c0;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #000000;
     border-radius: 4px;
     word-wrap: break-word;
     overflow-y: scroll;
@@ -372,21 +371,21 @@ main h1 {
 .comentario-autor {
     font-size: 18px;
     font-weight: bold;
-    color: #006699;
+    color: #ffffff;
 }
 
 .comentario-conteudo {
     padding: 10px;
     height: 80%;
-    background-color: #fefefe;
-    border: 1px solid #ccc;
+    background-color: #838383;
+    border: 1px solid #000000;
     border-radius: 4px;
     overflow-y: scroll;
 }
 
 .comentario-data {
     text-align: end;
-    color: #777;
+    color: #ffffff;
     font-style: italic;
 }
 
@@ -424,9 +423,9 @@ footer {
     font-size: 20px;
 }
 
-.publicidade button {
+.publicidade button{
     background-color: white;
-    color: #2c3e50;
+    color: #2c3e50 ;
     border: 2px dotted black;
     width: 100px;
     height: 50px;
@@ -434,11 +433,10 @@ footer {
     box-shadow: 0 0 8px #ffffff;
     transition: 0.2s;
 }
-
-.publicidade button:hover {
+.publicidade button:hover{
     cursor: pointer;
     background-color: rgb(0, 138, 7);
-    color: white;
+    color: white ;
     border: 2px dotted white;
     box-shadow: 0 0 15px rgb(0, 138, 7);
 }

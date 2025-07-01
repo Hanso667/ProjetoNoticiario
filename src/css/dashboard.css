@@ -1,23 +1,33 @@
 /* ../src/css/dashboard.css */
 .sidebar-favoritos {
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
     right: 2rem;
     top: 10rem;
-    width: 250px;
+    padding: 1.5rem;
     background-color: #f9f9f9;
-    padding: 1rem;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+.favoritos{
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+}
 .sidebar-favoritos h2 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 
 .favorito-item {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-bottom: 0.8rem;
 }
 .favorito-item a, .favorito-item a:hover, .favorito-item a:active, .favorito-item a:visited{
@@ -30,8 +40,8 @@
 }
 
 .favorito-item img.favorito-imagem {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     border-radius: 5px;
     margin-right: 10px;

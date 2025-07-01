@@ -211,8 +211,16 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
             </section>
             <aside class="sidebar-favoritos">
                 <h2>Favoritos</h2>
+
+                <?php
+                $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM favoritos_postagens WHERE id_usuario = ?");
+                $stmt->bind_param("i", $user['id']);
+                $stmt->execute();
+                $favoritosCount = $stmt->get_result()->fetch_assoc()['total'];
+                ?>
+
                 <?php if (!empty($favoritos)): ?>
-                    <ul>
+                    <div class="favoritos" style="grid-template-columns: repeat(2,470px) ; grid-template-rows: repeat(<?php echo ceil($favoritosCount / 2) ?>,100px);">
                         <?php foreach ($favoritos as $fav): ?>
                             <li class="favorito-item">
                                 <a href="./noticia.php?id=<?= $fav['id'] ?>">
@@ -221,10 +229,11 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                                 </a>
                             </li>
                         <?php endforeach; ?>
-                    </ul>
+                    </div>
                 <?php else: ?>
                     <p>Sem favoritos ainda.</p>
                 <?php endif; ?>
+                </div>
             </aside>
 
             <h2>Postagens recentes de <?php echo htmlspecialchars($user['nome']); ?>:</h2>

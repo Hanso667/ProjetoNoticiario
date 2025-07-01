@@ -121,7 +121,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
 <head>
   <link rel="stylesheet" href="src/css/reset.css">
-  <link rel="stylesheet" href="src/css/index.css">
+  <link id="style" data-mode="light" rel="stylesheet" href="src/css/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -138,13 +138,13 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
       margin: 0 5px;
       padding: 8px 12px;
       text-decoration: none;
-      background-color: #f2f2f2;
+      background-color:rgb(90, 90, 90);
       border-radius: 5px;
-      color: #333;
+      color: white;
     }
 
     .pagina-atual {
-      background-color: rgba(0, 123, 255, 0.32) !important;
+      background-color: #2c3e50 !important;
       transform: scale(1.3);
     }
   </style>
@@ -159,6 +159,9 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
       </div>
 
       <div class="header-right">
+        
+        
+
         <form id="form-search-all-usuarios" class="search" action="./pages/usuarios.php">
           <button id="all_usuarios_button">Usuarios</button>
         </form>
@@ -177,6 +180,8 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
         <?php else: ?>
           <img src="./src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
         <?php endif; ?>
+
+        <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger; ">🌑</button>
       </div>
     </div>
   </header>
