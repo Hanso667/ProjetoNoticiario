@@ -13,13 +13,13 @@ body {
     width: 100%;
     min-height: 100vh;
     font-family: Arial, sans-serif, 'Comic Sans MS', cursive, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: #121212;
+    color: #e0e0e0;
 }
 
 /* Header */
 header {
-    background-color: #2c3e50;
+    background-color: #1f1f1f;
     color: white;
     padding: 1rem 2rem;
     display: flex;
@@ -34,12 +34,10 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 20vh;
-    background-color: #2c3e50;
     color: white;
     flex-direction: row;
     font-size: 2rem;
     font-weight: bold;
-    box-shadow: -2px 5px 10px #2c3e50;
     padding: 0 20px;
 }
 
@@ -91,6 +89,9 @@ header {
     width: 500px;
     height: 20px;
     padding: 5px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: white;
 }
 
 #Search_usuario_button,
@@ -109,6 +110,9 @@ header {
     width: 800px;
     height: 40px;
     padding: 5px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    color: white;
 }
 
 .profile-picture {
@@ -131,13 +135,13 @@ main {
 
 /* Login Form Styling */
 .login-form {
-    background-color: #fffdf5;
-    border: 2px solid #003366;
+    background-color: #1e1e1e;
+    border: 2px solid #66b2ff;
     border-radius: 10px;
     padding: 40px;
     width: 100%;
     max-width: 400px;
-    box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
+    box-shadow: 2px 2px 10px rgba(102, 178, 255, 0.2);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -147,23 +151,25 @@ main {
 
 .login-form h2 {
     font-size: 24px;
-    color: #003366;
+    color: #66b2ff;
     text-align: center;
 }
 
 .login-form label {
     font-weight: bold;
-    color: #003366;
+    color: #66b2ff;
     align-self: flex-start;
 }
 
 .login-form input[type="email"],
 .login-form input[type="password"] {
     padding: 10px;
-    border: 2px solid #003366;
+    border: 2px solid #66b2ff;
     border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
+    background-color: #121212;
+    color: white;
 }
 
 .login-form .botao-postar {
@@ -186,12 +192,12 @@ main {
 }
 
 .login-form a {
-    color: #003366;
+    color: #66b2ff;
 }
 
 /* Footer */
 footer {
-    background-color: #2c3e50;
+    background-color: #1f1f1f;
     color: white;
     padding: 2rem 1rem;
     text-align: center;
@@ -206,7 +212,7 @@ footer {
 }
 
 .footer-social a:hover {
-    color: #3498db;
+    color: #66b2ff;
 }
 
 .footer-social {
@@ -223,14 +229,15 @@ footer {
     font-size: 20px;
 }
 
+/* Signup Form */
 .signup-form {
-    background-color: #fff8dc;
-    border: 2px dashed #003366;
+    background-color: #1e1e1e;
+    border: 2px dashed #66b2ff;
     border-radius: 10px;
     padding: 40px;
     width: 100%;
     max-width: 500px;
-    box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
+    box-shadow: 2px 2px 10px rgba(102, 178, 255, 0.2);
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -240,7 +247,7 @@ footer {
 
 .signup-form h2 {
     font-size: 24px;
-    color: #003366;
+    color: #66b2ff;
     text-align: center;
     margin-bottom: 10px;
 }
@@ -250,16 +257,18 @@ footer {
 .signup-form input[type="password"],
 .signup-form input[type="file"] {
     padding: 10px;
-    border: 2px solid #003366;
+    border: 2px solid #66b2ff;
     border-radius: 5px;
     width: 100%;
     box-sizing: border-box;
     font-size: 1rem;
+    background-color: #121212;
+    color: white;
 }
 
 .signup-form label {
     font-weight: bold;
-    color: #003366;
+    color: #66b2ff;
 }
 
 .signup-form .botao-postar {
@@ -278,13 +287,13 @@ footer {
 }
 
 .publicidade button {
-    background-color: white;
-    color: #2c3e50;
-    border: 2px dotted black;
+    background-color: #2e2e2e;
+    color: #66b2ff;
+    border: 2px dotted #66b2ff;
     width: 100px;
     height: 50px;
     border-radius: 15px;
-    box-shadow: 0 0 8px #ffffff;
+    box-shadow: 0 0 8px #66b2ff;
 }
 
 .publicidade button:hover {
@@ -305,22 +314,7 @@ footer {
     .signup-form h2 {
         font-size: 22px;
     }
-}
 
-@media (max-width: 480px) {
-    .signup-form {
-        padding: 20px;
-        gap: 10px;
-    }
-
-    .signup-form h2 {
-        font-size: 20px;
-    }
-}
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
     .header-container {
         flex-direction: column;
         height: auto;
@@ -347,6 +341,15 @@ footer {
 }
 
 @media (max-width: 480px) {
+    .signup-form {
+        padding: 20px;
+        gap: 10px;
+    }
+
+    .signup-form h2 {
+        font-size: 20px;
+    }
+
     .login-form {
         padding: 20px;
     }

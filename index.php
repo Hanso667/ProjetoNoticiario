@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+
+
 include './src/scripts/Connection.php';
 $connection = new Connection();
 $conn = $connection->connectar();
@@ -121,13 +123,30 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
 <head>
   <link rel="stylesheet" href="src/css/reset.css">
-  <link id="style" data-mode="light" rel="stylesheet" href="src/css/index.css">
+  <?php if ($_SESSION['Mode'] == "Light"): ?>
+    <link id="style" data-mode="light" rel="stylesheet" href="src/css/index.css">
+  <?php else: ?>
+    <link id="style" data-mode="dark" rel="stylesheet" href="src/css/indexdark.css">
+  <?php endif; ?>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal</title>
   <link rel="icon" type="image/x-icon" href="./src/img/Logo.png">
   <style>
+    .tempo-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .tempo-icone {
+      width: 50px;
+      height: 50px;
+    }
+
     .paginacao {
       text-align: center;
       margin: 20px 0;
@@ -138,7 +157,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
       margin: 0 5px;
       padding: 8px 12px;
       text-decoration: none;
-      background-color:rgb(90, 90, 90);
+      background-color: rgb(90, 90, 90);
       border-radius: 5px;
       color: white;
     }
@@ -146,6 +165,13 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     .pagina-atual {
       background-color: #2c3e50 !important;
       transform: scale(1.3);
+    }
+
+    .ad {
+      margin: 20px 0;
+      width: 800px;
+      height: 200px;
+      border-radius: 15px;
     }
   </style>
 </head>
@@ -159,8 +185,8 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
       </div>
 
       <div class="header-right">
-        
-        
+
+
 
         <form id="form-search-all-usuarios" class="search" action="./pages/usuarios.php">
           <button id="all_usuarios_button">Usuarios</button>
@@ -181,13 +207,23 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
           <img src="./src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
         <?php endif; ?>
 
-        <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger; ">🌑</button>
+        <?php if ($_SESSION['Mode'] == "Dark"): ?>
+          <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌕</button>
+        <?php else: ?>
+          <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌑</button>
+        <?php endif; ?>
       </div>
     </div>
   </header>
 
   <main>
 
+    <div id="previsao-tempo" style="display: flex; justify-content: center; align-items: center; gap: 10px; background-color: #e6e6e6;color: black; padding: 10px; border-radius: 5px; max-width: fit-content;">
+      <p>Carregando previsão do tempo...</p>
+    </div>
+
+    <img src="https://placehold.co/800x200?text=ad" class="ad">
+    </img>
 
     <br>
     <h1> Noticias recentes: </h1>
@@ -392,6 +428,10 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
     <?php endif; ?>
 
+    <img src="https://placehold.co/800x200?text=ad" class="ad">
+    </img>
+
+
   </main>
 
   <footer>
@@ -411,6 +451,78 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
   </footer>
 
   <script src="./src/scripts/script.js"></script>
+  <script>
+    document.getElementById('DarkButton').addEventListener('click', function() {
+      fetch('toggle_mode.php')
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            location.reload();
+          }
+        })
+        .catch(err => console.error('Erro ao trocar modo:', err));
+    });
+  </script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const apiKey = '1cd1f2df98496f64d72e8e747b61d2ed'; // <--- Substitua pela sua chave da OpenWeather
+
+      // Verifica se o navegador permite geolocalização
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=pt_br`)
+              .then(response => response.json())
+              .then(data => {
+                const climaDiv = document.getElementById('previsao-tempo');
+                const temperatura = data.main.temp.toFixed(1);
+                const descricao = data.weather[0].description;
+                const cidade = data.name;
+                const icone = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+                climaDiv.innerHTML = `
+                <div class="tempo-info">
+                  <img src="${icone}" alt="Ícone do clima" class="tempo-icone">
+                  <span><strong>${cidade}</strong>: ${descricao}, ${temperatura}°C</span>
+                </div>
+              `;
+              })
+              .catch(error => {
+                console.error('Erro ao obter clima:', error);
+                document.getElementById('previsao-tempo').innerHTML = "<p>Erro ao carregar o clima.</p>";
+              });
+          },
+          function(error) {
+            console.warn('Erro na geolocalização:', error);
+            document.getElementById('previsao-tempo').innerHTML = "<p>Localização não permitida.</p>";
+          }
+        );
+      } else {
+        document.getElementById('previsao-tempo').innerHTML = "<p>Navegador não suporta geolocalização.</p>";
+      }
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('get_ads.php')
+        .then(response => response.json())
+        .then(imagens => {
+          const adElements = document.querySelectorAll('img.ad');
+          adElements.forEach((img, i) => {
+            // Se houver menos imagens do que elementos, reinicia a contagem
+            const index = i % imagens.length;
+            img.src = imagens[index];
+          });
+        })
+        .catch(error => {
+          console.error('Erro ao carregar imagens de anúncios:', error);
+        });
+    });
+  </script>
 </body>
 
 </html>

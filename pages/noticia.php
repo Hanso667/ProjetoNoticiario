@@ -65,7 +65,11 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($noticia['titulo']) ?></title>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <link rel="stylesheet" href="../src/css/noticia.css">
+    <?php if ($_SESSION['Mode'] == "Light"): ?>
+        <link id="style" data-mode="light" rel="stylesheet" href="../src/css/noticia.css">
+    <?php else: ?>
+        <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/noticiadark.css">
+    <?php endif; ?>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -98,7 +102,7 @@ if (isset($_GET['id'])) {
         <div class="header-container">
             <div class="header-left">
                 <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>
-                <h1 id="nome-pagina">Usuários</h1>
+                <h1 style="font-size: larger; text-decoration: none; color: white; border: none;" id="nome-pagina"><?php echo $noticia['titulo'] ?></h1>
             </div>
 
             <div class="header-right">
@@ -119,6 +123,11 @@ if (isset($_GET['id'])) {
                     </a>
                 <?php else: ?>
                     <img src="../src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
+                <?php endif; ?>
+                <?php if ($_SESSION['Mode'] == "Dark"): ?>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌕</button>
+                <?php else: ?>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌑</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -367,6 +376,18 @@ if (isset($_GET['id'])) {
         }
     </script>
 
+    <script>
+        document.getElementById('DarkButton').addEventListener('click', function() {
+            fetch('../toggle_mode.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(err => console.error('Erro ao trocar modo:', err));
+        });
+    </script>
 
 </body>
 

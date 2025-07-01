@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -7,7 +8,11 @@ session_start();
 
 <head>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <link rel="stylesheet" href="../src/css/login.css">
+    <?php if ($_SESSION['Mode'] == "Light"): ?>
+        <link id="style" data-mode="light" rel="stylesheet" href="../src/css/login.css">
+    <?php else: ?>
+        <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/logindark.css">
+    <?php endif; ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +43,11 @@ session_start();
                     <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
                 <?php endif; ?>
                 <img src="../src/img/<?php echo $_SESSION['usuario_imagem'] ?? 'NoProfile.jpg'; ?>" class="profile-picture" alt="Foto de perfil">
+                <?php if ($_SESSION['Mode'] == "Dark"): ?>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌕</button>
+                <?php else: ?>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌑</button>
+                <?php endif; ?>
             </div>
         </div>
     </header>
@@ -84,6 +94,18 @@ session_start();
 
     </footer>
 
+    <script>
+        document.getElementById('DarkButton').addEventListener('click', function() {
+            fetch('../toggle_mode.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(err => console.error('Erro ao trocar modo:', err));
+        });
+    </script>
 
 </body>
 

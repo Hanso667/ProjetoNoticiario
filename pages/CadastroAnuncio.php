@@ -1,10 +1,6 @@
 <?php
 session_start();
 
-include '../src/scripts/Connection.php';
-$connection = new Connection();
-$conn = $connection->connectar();
-
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +47,38 @@ $conn = $connection->connectar();
     </header>
 
     <main style="max-width: 800px; margin: auto; padding: 20px;">
+
+        <h2>Cadastrar Anúncio</h2>
+
+        <?= $mensagem ?? '' ?>
+
+        <form action="../cadastrar_anuncio.php" method="POST" enctype="multipart/form-data" onsubmit="return calcularValor()">
+            <label for="imagem">Imagem do Anúncio:</label><br>
+            <input type="file" name="imagem" accept="image/*" required><br><br>
+
+            <label for="dias">Tempo de exibição do anúncio:</label><br>
+            <select name="dias" id="dias" onchange="calcularValor()" required>
+                <option value="">Selecione</option>
+                <option value="3">3 dias (R$6,00)</option>
+                <option value="7">7 dias (R$14,00)</option>
+                <option value="15">15 dias (R$30,00)</option>
+                <option value="30">30 dias (R$60,00)</option>
+            </select><br><br>
+
+            <p id="valor_total">Valor total: R$0,00</p>
+
+            <button type="submit">Cadastrar Anúncio</button>
+        </form>
+
+        <script>
+            function calcularValor() {
+                const dias = document.getElementById('dias').value;
+                const precoPorDia = 2.00;
+                const valorTotal = dias ? (dias * precoPorDia).toFixed(2).replace('.', ',') : '0,00';
+                document.getElementById('valor_total').textContent = `Valor total: R$${valorTotal}`;
+                return true;
+            }
+        </script>
 
     </main>
 
@@ -108,6 +136,10 @@ $conn = $connection->connectar();
             hiddenInput.value = quillEditar.root.innerHTML.trim();
         }
     </script>
+    <?php
+    if ($_GET['success'] === 1) {
+        echo "<script>console.log('anuncio cadastrado com sucesso')</script>";
+    } ?>
 
 </body>
 

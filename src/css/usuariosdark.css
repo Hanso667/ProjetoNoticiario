@@ -6,12 +6,12 @@ body {
     width: 100%;
     min-height: 100vh;
     font-family: Arial, sans-serif, 'Comic Sans MS', cursive, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: #121212;
+    color: #e0e0e0;
 }
 
 header {
-    background-color: #2c3e50;
+    background-color: #1f1f1f;
     color: white;
     padding: 1rem 2rem;
     display: flex;
@@ -25,11 +25,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
     top: 0;
     z-index: 2;
     height: 20vh;
-    background-color: #2c3e50;
     color: white;
     display: flex;
     flex-direction: column;
@@ -37,7 +35,6 @@ header {
     align-items: center;
     font-size: 2rem;
     font-weight: bold;
-    box-shadow: -2px 5px 10px #2c3e50;
 }
 
 .home-button {
@@ -68,7 +65,7 @@ header {
 .sigin-button {
     padding: 8px 16px;
     border: none;
-    background-color: #3498db;
+    background-color: #1976d2;
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -77,7 +74,7 @@ header {
 
 .login-button:hover,
 .sigin-button:hover {
-    background-color: #2980b9;
+    background-color: #1565c0;
 }
 
 .search {
@@ -94,6 +91,9 @@ header {
     width: 500px;
     height: 20px;
     padding: 5px;
+    background-color: #1e1e1e;
+    color: white;
+    border: 1px solid #444;
 }
 
 #Search_usuario_button {
@@ -110,7 +110,7 @@ header {
 #all_usuarios_button {
     height: 28px;
     padding: 5px 10px;
-    background-color: #3498db;
+    background-color: #1976d2;
     color: white;
     border: none;
     border-radius: 5px;
@@ -118,7 +118,7 @@ header {
 }
 
 #all_usuarios_button:hover {
-    background-color: #2980b9;
+    background-color: #1565c0;
     cursor: pointer;
 }
 
@@ -126,6 +126,9 @@ header {
     width: 800px;
     height: 40px;
     padding: 5px;
+    background-color: #1e1e1e;
+    color: white;
+    border: 1px solid #444;
 }
 
 #Search_postagem_button {
@@ -164,7 +167,7 @@ main h1 {
     font-size: 2rem;
     margin-top: 30px;
     margin-bottom: 10px;
-    color: #2c3e50;
+    color: #90caf9;
     text-align: center;
 }
 
@@ -179,9 +182,9 @@ ul {
 
 li {
     padding: 5px 30px;
-    border: 1px solid black;
+    border: 1px solid #444;
     margin-bottom: 10px;
-    background-color: #fff;
+    background-color: #1e1e1e;
 }
 
 li a {
@@ -191,18 +194,18 @@ li a {
     align-items: center;
     gap: 40px;
     text-decoration: none;
-    color: inherit;
+    color: #e0e0e0;
 }
 
 .userPic {
     width: 40px;
     height: 40px;
     border-radius: 50px;
-    border: 1px solid black;
+    border: 1px solid #444;
 }
 
 footer {
-    background-color: #2c3e50;
+    background-color: #1f1f1f;
     color: white;
     padding: 2rem 1rem;
     text-align: center;
@@ -217,7 +220,7 @@ footer {
 }
 
 .footer-social a:hover {
-    color: #3498db;
+    color: #90caf9;
 }
 
 .footer-social {
@@ -235,13 +238,13 @@ footer {
 }
 
 .publicidade button {
-    background-color: white;
-    color: #2c3e50;
-    border: 2px dotted black;
+    background-color: #1e1e1e;
+    color: #90caf9;
+    border: 2px dotted #90caf9;
     width: 100px;
     height: 50px;
     border-radius: 15px;
-    box-shadow: 0 0 8px #ffffff;
+    box-shadow: 0 0 8px #90caf9;
 }
 
 .publicidade button:hover {
@@ -276,7 +279,7 @@ footer {
     }
 
     header {
-        background-color: #2c3e50;
+        background-color: #1f1f1f;
         color: white;
         padding: 1rem 2rem;
         display: flex;
@@ -352,6 +355,4 @@ footer {
     main h1 {
         font-size: 1.5rem;
     }
-
-
 }

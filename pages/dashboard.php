@@ -92,7 +92,11 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
 <head>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <link rel="stylesheet" href="../src/css/dashboard.css">
+    <?php if ($_SESSION['Mode'] == "Light"): ?>
+        <link id="style" data-mode="light" rel="stylesheet" href="../src/css/dashboard.css">
+    <?php else: ?>
+        <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/dashboarddark.css">
+    <?php endif; ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -157,6 +161,11 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                     </a>
                 <?php else: ?>
                     <img src="../src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
+                <?php endif; ?>
+                <?php if ($_SESSION['Mode'] == "Dark"): ?>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: xx-large;">🌕</button>
+                <?php else: ?>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: xx-large;">🌑</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -375,6 +384,18 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     </footer>
 
     <script src="../src/scripts/dashScript.js"></script>
+    <script>
+        document.getElementById('DarkButton').addEventListener('click', function() {
+            fetch('../toggle_mode.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(err => console.error('Erro ao trocar modo:', err));
+        });
+    </script>
 </body>
 
 </html>
