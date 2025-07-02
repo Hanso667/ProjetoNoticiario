@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['Mode'])) {
+    $_SESSION['Mode'] = "Light";
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +12,11 @@ session_start();
     <meta charset="UTF-8">
     <title>Cadastro Anuncios</title>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <link rel="stylesheet" href="../src/css/noticia.css">
+    <?php if ($_SESSION['Mode'] == "Light"): ?>
+        <link id="style" data-mode="light" rel="stylesheet" href="../src/css/noticia.css">
+    <?php else: ?>
+        <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/noticiadark.css">
+    <?php endif; ?>
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -19,14 +25,16 @@ session_start();
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>
-                <h1 id="nome-pagina">Usuários</h1>
+                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a>
+                <h1 style="color: white; font-size: larger; border: none;" id="nome-pagina"> Anuncios</h1>
             </div>
 
             <div class="header-right">
+
                 <form class="search" action="../pages/usuarios.php">
-                    <button id="all_usuarios_button"> Usuários </button>
+                    <button id="all_usuarios_button"> Usuarios </button>
                 </form>
+
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../logout.php"><button class="login-button">Logout</button></a>
@@ -34,13 +42,17 @@ session_start();
                     <a href="../pages/login.php"><button class="login-button">Login</button></a>
                     <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
                 <?php endif; ?>
-
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../pages/dashboard.php?id=<?= $_SESSION['usuario_id'] ?>">
                         <img src="../src/img/<?= $_SESSION['usuario_imagem'] ?>" class="profile-picture" alt="Foto de perfil">
                     </a>
                 <?php else: ?>
                     <img src="../src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
+                <?php endif; ?>
+                <?php if ($_SESSION['Mode'] == "Dark"): ?>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: xx-large;">🌕</button>
+                <?php else: ?>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: xx-large;">🌑</button>
                 <?php endif; ?>
             </div>
         </div>
@@ -91,12 +103,9 @@ session_start();
             <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <br>
-        <?php if (isset($_SESSION['usuario_id'])): ?>
-            <a class="publicidade" href=""><button>Publicidade</button></a>
-        <?php else: ?>
-            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
-        <?php endif; ?>
+
     </footer>
+
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
@@ -136,9 +145,21 @@ session_start();
             hiddenInput.value = quillEditar.root.innerHTML.trim();
         }
     </script>
+    <script>
+        document.getElementById('DarkButton').addEventListener('click', function() {
+            fetch('../toggle_mode.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(err => console.error('Erro ao trocar modo:', err));
+        });
+    </script>
     <?php
-    if ($_GET['success'] === 1) {
-        echo "<script>console.log('anuncio cadastrado com sucesso')</script>";
+    if (isset($_GET['success']) && $_GET['success'] === "1") {
+        echo "<script>alert('anuncio cadastrado com sucesso')</script>";
     } ?>
 
 </body>

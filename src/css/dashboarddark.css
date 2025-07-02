@@ -127,11 +127,11 @@ header {
 }
 
 .profile-picture {
-    height: 50px;
-    width: 50px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ccc;
+    object-fit: fill;
+    margin-left: 10px;
 }
 
 main {

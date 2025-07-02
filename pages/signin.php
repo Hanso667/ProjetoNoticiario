@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['Mode'])) {
+    $_SESSION['Mode'] = "Light";
+}
 $mensagem = '';
 if (isset($_GET['mensagem'])) {
     // Evita XSS: sanitiza a mensagem para uso em JS
@@ -75,8 +77,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../src/css/reset.css">
     <?php if ($_SESSION['Mode'] == "Light"): ?>
         <link id="style" data-mode="light" rel="stylesheet" href="../src/css/login.css">
+        <link id="style" rel="stylesheet" href="../src/css/header.css">
     <?php else: ?>
         <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/logindark.css">
+        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
     <?php endif; ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8">

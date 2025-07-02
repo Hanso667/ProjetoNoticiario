@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['Mode'])) {
+    $_SESSION['Mode'] = "Light";
+}
 include '../src/scripts/Connection.php';
 $connection = new Connection();
 $conn = $connection->connectar();
@@ -67,8 +69,10 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../src/css/reset.css">
     <?php if ($_SESSION['Mode'] == "Light"): ?>
         <link id="style" data-mode="light" rel="stylesheet" href="../src/css/noticia.css">
+        <link id="style" rel="stylesheet" href="../src/css/header.css">
     <?php else: ?>
         <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/noticiadark.css">
+        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
     <?php endif; ?>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
@@ -93,6 +97,13 @@ if (isset($_GET['id'])) {
             background-color: #007BFF;
             color: white;
             border-color: #007BFF;
+        }
+
+        .ad {
+            margin: 20px 0;
+            width: 800px;
+            height: 200px;
+            border-radius: 15px;
         }
     </style>
 </head>
@@ -134,6 +145,9 @@ if (isset($_GET['id'])) {
     </header>
 
     <main style="max-width: 800px; margin: auto; padding: 20px;">
+
+        <img src="https://placehold.co/800x200?text=ad" class="ad">
+        </img>
 
         <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $noticia['postagem_usuario_id']): ?>
             <div style="position: relative; display: inline-block; margin-bottom: 10px;">
@@ -287,6 +301,9 @@ if (isset($_GET['id'])) {
             <?php endif; ?>
         </section>
 
+        <img src="https://placehold.co/800x200?text=ad" class="ad">
+        </img>
+
     </main>
 
     <footer>
@@ -386,6 +403,27 @@ if (isset($_GET['id'])) {
                     }
                 })
                 .catch(err => console.error('Erro ao trocar modo:', err));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('../get_ads.php')
+                .then(response => response.json())
+                .then(imagens => {
+                    const adElements = document.querySelectorAll('img.ad');
+                    adElements.forEach((img, i) => {
+                        // Se houver menos imagens do que elementos, reinicia a contagem
+                        const index = i % imagens.length;
+                        if (imagens.length != 0) {
+                            img.src = "." + imagens[index];
+                        } else {
+                            img.src = "https://placehold.co/800x200?text=ad";
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar imagens de anúncios:', error);
+                });
         });
     </script>
 

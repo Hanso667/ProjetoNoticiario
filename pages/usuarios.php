@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['Mode'])) {
+    $_SESSION['Mode'] = "Light";
+}
 include '../src/scripts/Connection.php';
 $connection = new Connection();
 $conn = $connection->connectar();
@@ -47,8 +49,10 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
     <link rel="stylesheet" href="../src/css/reset.css">
     <?php if ($_SESSION['Mode'] == "Light"): ?>
         <link id="style" data-mode="light" rel="stylesheet" href="../src/css/usuarios.css">
+        <link id="style" rel="stylesheet" href="../src/css/header.css">
     <?php else: ?>
         <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/usuariosdark.css">
+        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
     <?php endif; ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8">
@@ -75,6 +79,13 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
             background-color: #007bff;
             color: blue !important;
             transform: scale(1.3);
+        }
+
+        .ad {
+            margin: 20px 0;
+            width: 200px;
+            height: 800px;
+            border-radius: 15px;
         }
     </style>
 </head>
@@ -116,85 +127,95 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
     </header>
 
     <main>
+
+        <img src="https://placehold.co/800x200?text=ad" class="ad">
+        </img>
+
         <br>
 
-        <form class="search" action="../pages/usuarios.php" method="GET">
-            <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuários" value="<?= htmlspecialchars($searchTerm) ?>">
-            <button id="Search_usuario_button">🔍</button>
-        </form>
+        <div id="center">
 
-        <h1>
-            <?= $searchTerm !== ''
-                ? 'Usuários encontrados para "' . htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8') . '"'
-                : 'Lista de todos os usuários'
-            ?>
-        </h1>
+            <form class="search" action="../pages/usuarios.php" method="GET">
+                <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuários" value="<?= htmlspecialchars($searchTerm) ?>">
+                <button id="Search_usuario_button">🔍</button>
+            </form>
 
-        <ul>
-            <?php
-            if ($result && $result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $id = $row['id'];
-                    $imagem = htmlspecialchars($row['imagem'] ?? 'NoProfile.jpg');
-                    $nome = htmlspecialchars($row['nome'], ENT_QUOTES, 'UTF-8');
-                    echo "<li><a href=\"./dashboard.php?id=$id\"><img class=\"userPic\" src=\"../src/img/$imagem\"> $nome </a></li>";
-                }
-            } else {
-                echo "<li>Nenhum usuário encontrado.</li>";
-            }
-            ?>
-        </ul>
+            <h1>
+                <?= $searchTerm !== ''
+                    ? 'Usuários encontrados para "' . htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8') . '"'
+                    : 'Lista de todos os usuários'
+                ?>
+            </h1>
 
-        <?php if ($totalPaginas > 1): ?>
-            <div class="paginacao">
-
-                <!-- Botão "Anterior" -->
-                <?php if ($paginaAtual > 1): ?>
-                    <a href="?<?php echo "Search_usuario=" . urlencode($searchTerm) . "&page=" . ($paginaAtual - 1); ?>" class="seta">
-                        &larr; Anterior
-                    </a>
-                <?php endif; ?>
-
+            <ul>
                 <?php
-                // Lógica para exibir 9 páginas com a atual no meio (quando possível)
-                $maxPaginas = 9;
-                $meio = floor($maxPaginas / 2);
-
-                // Calcula o início e fim do intervalo
-                $inicio = max(1, $paginaAtual - $meio);
-                $fim = $inicio + $maxPaginas - 1;
-
-                // Ajusta caso o fim ultrapasse o total de páginas
-                if ($fim > $totalPaginas) {
-                    $fim = $totalPaginas;
-                    $inicio = max(1, $fim - $maxPaginas + 1);
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $id = $row['id'];
+                        $imagem = htmlspecialchars($row['imagem'] ?? 'NoProfile.jpg');
+                        $nome = htmlspecialchars($row['nome'], ENT_QUOTES, 'UTF-8');
+                        echo "<li><a href=\"./dashboard.php?id=$id\"><img class=\"userPic\" src=\"../src/img/$imagem\"> $nome </a></li>";
+                    }
+                } else {
+                    echo "<li>Nenhum usuário encontrado.</li>";
                 }
                 ?>
+            </ul>
 
-                <!-- Links das páginas -->
-                <?php for ($i = $inicio; $i <= $fim; $i++): ?>
-                    <a href="?<?php echo "Search_usuario=" . urlencode($searchTerm) . "&page=" . $i; ?>"
-                        class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
-                        <?= $i ?>
-                    </a>
-                <?php endfor; ?>
+            <?php if ($totalPaginas > 1): ?>
+                <div class="paginacao">
 
-                <!-- Botão "Próxima" -->
-                <?php if ($paginaAtual < $totalPaginas): ?>
-                    <a href="?<?php echo "Search_usuario=" . urlencode($searchTerm) . "&page=" . ($paginaAtual + 1); ?>" class="seta">
-                        Próxima &rarr;
-                    </a>
-                <?php endif; ?>
+                    <!-- Botão "Anterior" -->
+                    <?php if ($paginaAtual > 1): ?>
+                        <a href="?<?php echo "Search_usuario=" . urlencode($searchTerm) . "&page=" . ($paginaAtual - 1); ?>" class="seta">
+                            &larr; Anterior
+                        </a>
+                    <?php endif; ?>
 
-                <!-- Formulário de "Ir para página" -->
-                <form method="get" class="form-ir-para" style="display:inline;">
-                    <input type="hidden" name="Search_usuario" value="<?= htmlspecialchars($searchTerm) ?>">
-                    <input type="number" name="page" min="1" max="<?= $totalPaginas ?>" placeholder="Página" required>
-                    <button type="submit">Ir para</button>
-                </form>
+                    <?php
+                    // Lógica para exibir 9 páginas com a atual no meio (quando possível)
+                    $maxPaginas = 9;
+                    $meio = floor($maxPaginas / 2);
 
-            </div>
-        <?php endif; ?>
+                    // Calcula o início e fim do intervalo
+                    $inicio = max(1, $paginaAtual - $meio);
+                    $fim = $inicio + $maxPaginas - 1;
+
+                    // Ajusta caso o fim ultrapasse o total de páginas
+                    if ($fim > $totalPaginas) {
+                        $fim = $totalPaginas;
+                        $inicio = max(1, $fim - $maxPaginas + 1);
+                    }
+                    ?>
+
+                    <!-- Links das páginas -->
+                    <?php for ($i = $inicio; $i <= $fim; $i++): ?>
+                        <a href="?<?php echo "Search_usuario=" . urlencode($searchTerm) . "&page=" . $i; ?>"
+                            class="<?= $i == $paginaAtual ? 'pagina-atual' : '' ?>">
+                            <?= $i ?>
+                        </a>
+                    <?php endfor; ?>
+
+                    <!-- Botão "Próxima" -->
+                    <?php if ($paginaAtual < $totalPaginas): ?>
+                        <a href="?<?php echo "Search_usuario=" . urlencode($searchTerm) . "&page=" . ($paginaAtual + 1); ?>" class="seta">
+                            Próxima &rarr;
+                        </a>
+                    <?php endif; ?>
+
+                    <!-- Formulário de "Ir para página" -->
+                    <form method="get" class="form-ir-para" style="display:inline;">
+                        <input type="hidden" name="Search_usuario" value="<?= htmlspecialchars($searchTerm) ?>">
+                        <input type="number" name="page" min="1" max="<?= $totalPaginas ?>" placeholder="Página" required>
+                        <button type="submit">Ir para</button>
+                    </form>
+
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <img src="https://placehold.co/800x200?text=ad" class="ad">
+        </img>
     </main>
 
     <footer>
@@ -224,7 +245,27 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
                 })
                 .catch(err => console.error('Erro ao trocar modo:', err));
         });
-
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('../get_ads.php')
+                .then(response => response.json())
+                .then(imagens => {
+                    const adElements = document.querySelectorAll('img.ad');
+                    adElements.forEach((img, i) => {
+                        // Se houver menos imagens do que elementos, reinicia a contagem
+                        const index = i % imagens.length;
+                        if (imagens.length != 0) {
+                            img.src = "." + imagens[index];
+                        } else {
+                            img.src = "https://placehold.co/800x200?text=ad";
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar imagens de anúncios:', error);
+                });
+        });
     </script>
 
 </body>

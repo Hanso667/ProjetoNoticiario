@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-
+if (!isset($_SESSION['Mode'])) {
+  $_SESSION['Mode'] = "Light";
+}
 
 include './src/scripts/Connection.php';
 $connection = new Connection();
@@ -124,9 +126,11 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 <head>
   <link rel="stylesheet" href="src/css/reset.css">
   <?php if ($_SESSION['Mode'] == "Light"): ?>
-    <link id="style" data-mode="light" rel="stylesheet" href="src/css/index.css">
+    <link id="style" data-mode="light" rel="stylesheet" href="./src/css/index.css">
+    <link id="style" rel="stylesheet" href="./src/css/header.css">
   <?php else: ?>
-    <link id="style" data-mode="dark" rel="stylesheet" href="src/css/indexdark.css">
+    <link id="style" data-mode="dark" rel="stylesheet" href="./src/css/indexdark.css">
+    <link id="style" rel="stylesheet" href="./src/css/headerdark.css">
   <?php endif; ?>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta charset="UTF-8">
@@ -190,14 +194,15 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
         <form id="form-search-all-usuarios" class="search" action="./pages/usuarios.php">
           <button id="all_usuarios_button">Usuarios</button>
+          <?php if (isset($_SESSION['usuario_id'])): ?>
+            <a href="./logout.php"><button class="login-button">Logout</button></a>
+          <?php else: ?>
+            <a href="./pages/login.php"><button class="login-button">Login</button></a>
+            <a href="./pages/signin.php"><button class="sigin-button">Signin</button></a>
+          <?php endif; ?>
         </form>
 
-        <?php if (isset($_SESSION['usuario_id'])): ?>
-          <a href="./logout.php"><button class="login-button">Logout</button></a>
-        <?php else: ?>
-          <a href="./pages/login.php"><button class="login-button">Login</button></a>
-          <a href="./pages/signin.php"><button class="sigin-button">Signin</button></a>
-        <?php endif; ?>
+
 
         <?php if (isset($_SESSION['usuario_id'])): ?>
           <a href="./pages/dashboard.php?id=<?= $_SESSION['usuario_id'] ?>">
@@ -207,7 +212,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
           <img src="./src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
         <?php endif; ?>
 
-        <?php if ($_SESSION['Mode'] == "Dark"): ?>
+        <?php if (isset($_SESSION['Mode']) && $_SESSION['Mode'] == "Dark"): ?>
           <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌕</button>
         <?php else: ?>
           <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌑</button>
@@ -428,7 +433,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
     <?php endif; ?>
 
-    <img src="https://placehold.co/800x200?text=ad" class="ad">
+    <img src="" class="ad">
     </img>
 
 
@@ -443,11 +448,13 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
       <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     </div>
     <br>
+
     <?php if (isset($_SESSION['usuario_id'])): ?>
-      <a class="publicidade" href=""><button>Publicidade</button></a>
+      <a class="publicidade" href="./pages/CadastroAnuncio.php"><button>Publicidade</button></a>
     <?php else: ?>
       <a class="publicidade" href="./pages/login.php"><button>Publicidade</button></a>
     <?php endif; ?>
+
   </footer>
 
   <script src="./src/scripts/script.js"></script>
@@ -515,7 +522,11 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
           adElements.forEach((img, i) => {
             // Se houver menos imagens do que elementos, reinicia a contagem
             const index = i % imagens.length;
-            img.src = imagens[index];
+            if (imagens.length != 0) {
+              img.src = imagens[index];
+            } else {
+              img.src = "https://placehold.co/800x200?text=ad";
+            }
           });
         })
         .catch(error => {

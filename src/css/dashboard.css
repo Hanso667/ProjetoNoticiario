@@ -63,73 +63,7 @@ body {
     background-color: #f5f5f5;
 }
 
-header {
-    background-color: #2c3e50;
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.header-container {
-    max-width: 1200px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.home-button {
-    height: 50px;
-    width: 50px;
-    object-fit: contain;
-    cursor: pointer;
-}
-
-#nome-pagina {
-    font-size: 1.5rem;
-}
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.search button,
-.login-button,
-.sigin-button,
-#all_usuarios_button {
-    background-color: #3498db;
-    border: none;
-    color: white;
-    padding: 0.6rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.search button:hover,
-.login-button:hover,
-.sigin-button:hover,
-#all_usuarios_button:hover {
-    background-color: #2980b9;
-}
-
-.profile-picture {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid white;
-}
 
 main {
     max-width: 1200px;
@@ -313,17 +247,6 @@ footer {
 }
 
 @media screen and (max-width: 767px) {
-    .header-container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .header-right {
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-    }
-
     .noticia .titulo,
     .noticia .autor {
         font-size: 1rem;

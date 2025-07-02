@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+if (!isset($_SESSION['Mode'])) {
+    $_SESSION['Mode'] = "Light";
+}
 include '../src/scripts/Connection.php';
 $connection = new Connection();
 $conn = $connection->connectar();
@@ -94,9 +96,12 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     <link rel="stylesheet" href="../src/css/reset.css">
     <?php if ($_SESSION['Mode'] == "Light"): ?>
         <link id="style" data-mode="light" rel="stylesheet" href="../src/css/dashboard.css">
+        <link id="style" rel="stylesheet" href="../src/css/header.css">
     <?php else: ?>
         <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/dashboarddark.css">
+        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
     <?php endif; ?>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -119,6 +124,13 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
         .pagina-atual {
             background-color: rgba(0, 123, 255, 0.32) !important;
             transform: scale(1.3);
+        }
+
+        .ad {
+            margin: 20px 0;
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
         }
     </style>
     <title>
@@ -172,6 +184,10 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     </header>
 
     <main>
+
+        <img src="https://placehold.co/800x200?text=ad" class="ad">
+        </img>
+
         <?php if ($user): ?>
             <section class="user-info" style="margin-bottom: 2rem;">
                 <img src="../src/img/<?php echo htmlspecialchars($user['imagem'] ?? 'NoProfile.jpg'); ?>" alt="Foto de perfil" />
@@ -354,6 +370,8 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
             </div>
         <?php endif; ?>
 
+        <img src="https://placehold.co/800x200?text=ad" class="ad">
+        </img>
 
     </main>
 
@@ -394,6 +412,27 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                     }
                 })
                 .catch(err => console.error('Erro ao trocar modo:', err));
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('../get_ads.php')
+                .then(response => response.json())
+                .then(imagens => {
+                    const adElements = document.querySelectorAll('img.ad');
+                    adElements.forEach((img, i) => {
+                        // Se houver menos imagens do que elementos, reinicia a contagem
+                        const index = i % imagens.length;
+                        if (imagens.length != 0) {
+                            img.src = "." + imagens[index];
+                        } else {
+                            img.src = "https://placehold.co/800x200?text=ad";
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar imagens de anúncios:', error);
+                });
         });
     </script>
 </body>
