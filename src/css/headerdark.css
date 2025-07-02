@@ -43,11 +43,25 @@ header {
     flex-wrap: wrap;
 }
 
+#form-search-all-usuarios a {
+    height: 100%;
+    margin-bottom: 5px;
+}
+
+#form-search-all-usuarios {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 .login-button,
 .sigin-button {
-    padding: 8px 16px;
+    height: 40px;
+    width: 60px;
     border: none;
-    background-color: #5a9bd5;
+    background-color: #3498db;
     color: white;
     border-radius: 5px;
     cursor: pointer;
@@ -77,9 +91,6 @@ main .search {
     width: 500px;
     height: 20px;
     padding: 5px;
-    background-color: #1e1e1e;
-    color: white;
-    border: 1px solid #333;
 }
 
 #Search_usuario_button {
@@ -94,9 +105,9 @@ main .search {
 }
 
 #all_usuarios_button {
-    height: 28px;
+    height: 100%;
     padding: 5px 10px;
-    background-color: #5a9bd5;
+    background-color: #3498db;
     color: white;
     border: none;
     border-radius: 5px;
@@ -104,7 +115,7 @@ main .search {
 }
 
 #all_usuarios_button:hover {
-    background-color: #407bbf;
+    background-color: #2980b9;
     cursor: pointer;
 }
 

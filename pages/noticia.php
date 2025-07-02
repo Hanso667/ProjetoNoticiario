@@ -107,26 +107,33 @@ if (isset($_GET['id'])) {
         }
     </style>
 </head>
-
+<div class="header-left">
+                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>
+                <h1 style="font-size: larger; text-decoration: none; color: white; border: none;" id="nome-pagina"><?php echo $noticia['titulo'] ?></h1>
+            </div>
 <body>
     <header>
         <div class="header-container">
             <div class="header-left">
                 <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>
-                <h1 style="font-size: larger; text-decoration: none; color: white; border: none;" id="nome-pagina"><?php echo $noticia['titulo'] ?></h1>
+                <h1 id="nome-pagina">Login</h1>
             </div>
 
             <div class="header-right">
-                <form class="search" action="../pages/usuarios.php">
-                    <button id="all_usuarios_button"> Usuários </button>
+
+
+
+                <form id="form-search-all-usuarios" class="search" action="../pages/usuarios.php">
+                    <button id="all_usuarios_button">Usuarios</button>
+                    <?php if (isset($_SESSION['usuario_id'])): ?>
+                        <a href="../logout.php"><button class="login-button">Logout</button></a>
+                    <?php else: ?>
+                        <a href="../pages/login.php"><button class="login-button">Login</button></a>
+                        <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
+                    <?php endif; ?>
                 </form>
 
-                <?php if (isset($_SESSION['usuario_id'])): ?>
-                    <a href="../logout.php"><button class="login-button">Logout</button></a>
-                <?php else: ?>
-                    <a href="../pages/login.php"><button class="login-button">Login</button></a>
-                    <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
-                <?php endif; ?>
+
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../pages/dashboard.php?id=<?= $_SESSION['usuario_id'] ?>">
@@ -135,7 +142,8 @@ if (isset($_GET['id'])) {
                 <?php else: ?>
                     <img src="../src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
                 <?php endif; ?>
-                <?php if ($_SESSION['Mode'] == "Dark"): ?>
+
+                <?php if (isset($_SESSION['Mode']) && $_SESSION['Mode'] == "Dark"): ?>
                     <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌕</button>
                 <?php else: ?>
                     <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌑</button>
@@ -143,6 +151,7 @@ if (isset($_GET['id'])) {
             </div>
         </div>
     </header>
+
 
     <main style="max-width: 800px; margin: auto; padding: 20px;">
 

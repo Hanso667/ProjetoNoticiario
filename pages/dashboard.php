@@ -150,23 +150,26 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     <header>
         <div class="header-container">
             <div class="header-left">
-                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></button></a>
+                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>
                 <h1 id="nome-pagina">Dashboard</h1>
             </div>
 
             <div class="header-right">
 
-                <form class="search" action="../pages/usuarios.php">
-                    <button id="all_usuarios_button"> Usuarios </button>
+
+
+                <form id="form-search-all-usuarios" class="search" action="../pages/usuarios.php">
+                    <button id="all_usuarios_button">Usuarios</button>
+                    <?php if (isset($_SESSION['usuario_id'])): ?>
+                        <a href="../logout.php"><button class="login-button">Logout</button></a>
+                    <?php else: ?>
+                        <a href="../pages/login.php"><button class="login-button">Login</button></a>
+                        <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
+                    <?php endif; ?>
                 </form>
 
 
-                <?php if (isset($_SESSION['usuario_id'])): ?>
-                    <a href="../logout.php"><button class="login-button">Logout</button></a>
-                <?php else: ?>
-                    <a href="../pages/login.php"><button class="login-button">Login</button></a>
-                    <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
-                <?php endif; ?>
+
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../pages/dashboard.php?id=<?= $_SESSION['usuario_id'] ?>">
                         <img src="../src/img/<?= $_SESSION['usuario_imagem'] ?>" class="profile-picture" alt="Foto de perfil">
@@ -174,10 +177,11 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                 <?php else: ?>
                     <img src="../src/img/NoProfile.jpg" class="profile-picture" alt="Foto de perfil">
                 <?php endif; ?>
-                <?php if ($_SESSION['Mode'] == "Dark"): ?>
-                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: xx-large;">🌕</button>
+
+                <?php if (isset($_SESSION['Mode']) && $_SESSION['Mode'] == "Dark"): ?>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌕</button>
                 <?php else: ?>
-                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: xx-large;">🌑</button>
+                    <button id="DarkButton" style="background-color: transparent; border: none; font-size: larger;">🌑</button>
                 <?php endif; ?>
             </div>
         </div>

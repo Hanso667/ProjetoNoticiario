@@ -14,8 +14,10 @@ if (!isset($_SESSION['Mode'])) {
     <link rel="stylesheet" href="../src/css/reset.css">
     <?php if ($_SESSION['Mode'] == "Light"): ?>
         <link id="style" data-mode="light" rel="stylesheet" href="../src/css/noticia.css">
+        <link id="style" rel="stylesheet" href="../src/css/header.css">
     <?php else: ?>
         <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/noticiadark.css">
+        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
     <?php endif; ?>
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
