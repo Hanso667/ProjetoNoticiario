@@ -107,16 +107,14 @@ if (isset($_GET['id'])) {
         }
     </style>
 </head>
-<div class="header-left">
-                <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>
-                <h1 style="font-size: larger; text-decoration: none; color: white; border: none;" id="nome-pagina"><?php echo $noticia['titulo'] ?></h1>
-            </div>
+
+
 <body>
     <header>
         <div class="header-container">
             <div class="header-left">
                 <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>
-                <h1 id="nome-pagina">Login</h1>
+                <h1 style="font-size: larger; text-decoration: none; color: white; border: none;" id="nome-pagina"><?php echo $noticia['titulo'] ?></h1>
             </div>
 
             <div class="header-right">
@@ -125,15 +123,14 @@ if (isset($_GET['id'])) {
 
                 <form id="form-search-all-usuarios" class="search" action="../pages/usuarios.php">
                     <button id="all_usuarios_button">Usuarios</button>
-                    <?php if (isset($_SESSION['usuario_id'])): ?>
-                        <a href="../logout.php"><button class="login-button">Logout</button></a>
-                    <?php else: ?>
-                        <a href="../pages/login.php"><button class="login-button">Login</button></a>
-                        <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
-                    <?php endif; ?>
                 </form>
 
-
+                <?php if (isset($_SESSION['usuario_id'])): ?>
+                    <a href="../logout.php"><button class="login-button">Logout</button></a>
+                <?php else: ?>
+                    <a href="../pages/login.php"><button class="login-button">Login</button></a>
+                    <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
+                <?php endif; ?>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../pages/dashboard.php?id=<?= $_SESSION['usuario_id'] ?>">
@@ -324,10 +321,8 @@ if (isset($_GET['id'])) {
             <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <br>
-        <?php if (isset($_SESSION['usuario_id'])): ?>
-            <a class="publicidade" href=""><button>Publicidade</button></a>
-        <?php else: ?>
-            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
+        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
+            <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
         <?php endif; ?>
     </footer>
 

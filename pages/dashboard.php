@@ -127,9 +127,9 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
         }
 
         .ad {
-            margin: 20px 0;
-            width: 100%;
-            height: 200px;
+            margin: 20px 17.5%;
+            width: 800px;
+            height: 300px;
             border-radius: 15px;
         }
     </style>
@@ -160,13 +160,14 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
                 <form id="form-search-all-usuarios" class="search" action="../pages/usuarios.php">
                     <button id="all_usuarios_button">Usuarios</button>
-                    <?php if (isset($_SESSION['usuario_id'])): ?>
-                        <a href="../logout.php"><button class="login-button">Logout</button></a>
-                    <?php else: ?>
-                        <a href="../pages/login.php"><button class="login-button">Login</button></a>
-                        <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
-                    <?php endif; ?>
                 </form>
+
+                <?php if (isset($_SESSION['usuario_id'])): ?>
+                    <a href="../logout.php"><button class="login-button">Logout</button></a>
+                <?php else: ?>
+                    <a href="../pages/login.php"><button class="login-button">Login</button></a>
+                    <a href="../pages/signin.php"><button class="sigin-button">Signin</button></a>
+                <?php endif; ?>
 
 
 
@@ -397,10 +398,8 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
             </a>
         </div>
         <br>
-        <?php if (isset($_SESSION['usuario_id'])): ?>
-            <a class="publicidade" href=""><button>Publicidade</button></a>
-        <?php else: ?>
-            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
+        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
+            <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
         <?php endif; ?>
 
     </footer>

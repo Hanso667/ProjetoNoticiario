@@ -83,8 +83,8 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
 
         .ad {
             margin: 20px 0;
-            width: 200px;
-            height: 800px;
+            width: 800px;
+            height: 300px;
             border-radius: 15px;
         }
     </style>
@@ -137,7 +137,7 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
 
             <form class="search" action="../pages/usuarios.php" method="GET">
                 <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuários" value="<?= htmlspecialchars($searchTerm) ?>">
-                <button id="Search_usuario_button">🔍</button>
+                <button id="Search_usuario_button"></button>
             </form>
 
             <h1>
@@ -227,10 +227,8 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
             <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <br>
-        <?php if (isset($_SESSION['usuario_id'])): ?>
-            <a class="publicidade" href=""><button>Publicidade</button></a>
-        <?php else: ?>
-            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
+        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
+            <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
         <?php endif; ?>
     </footer>
 

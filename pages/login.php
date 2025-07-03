@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!isset($_SESSION['Mode'])){
-  $_SESSION['Mode'] = "Light";
+if (!isset($_SESSION['Mode'])) {
+    $_SESSION['Mode'] = "Light";
 }
 ?>
 
@@ -90,10 +90,8 @@ if(!isset($_SESSION['Mode'])){
             </a>
         </div>
         <br>
-        <?php if (isset($_SESSION['usuario_id'])): ?>
-            <a class="publicidade" href=""><button>Publicidade</button></a>
-        <?php else: ?>
-            <a class="publicidade" href="../pages/login.php"><button>Publicidade</button></a>
+        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
+            <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
         <?php endif; ?>
 
     </footer>

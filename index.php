@@ -174,7 +174,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     .ad {
       margin: 20px 0;
       width: 800px;
-      height: 200px;
+      height: 300px;
       border-radius: 15px;
     }
   </style>
@@ -449,10 +449,8 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     </div>
     <br>
 
-    <?php if (isset($_SESSION['usuario_id'])): ?>
+    <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0 ): ?>
       <a class="publicidade" href="./pages/CadastroAnuncio.php"><button>Publicidade</button></a>
-    <?php else: ?>
-      <a class="publicidade" href="./pages/login.php"><button>Publicidade</button></a>
     <?php endif; ?>
 
   </footer>
