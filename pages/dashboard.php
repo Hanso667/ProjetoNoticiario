@@ -132,6 +132,43 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
             height: 300px;
             border-radius: 15px;
         }
+
+        .modal {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            background-color: transparent;
+            position: absolute;
+            padding: 15px;
+            width: 800px;
+            height: 500px;
+        }
+
+        .modal-content img {
+            height: 100%;
+            object-fit: fill;
+            border: 5px thin black;
+            border-radius: 15px;
+            box-shadow: 0 0 10px black;
+        }
     </style>
     <title>
         <?php
@@ -146,7 +183,13 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 </head>
 
 <body>
+    <div class="modal" id="Modal">
 
+        <div class="modal-content" id="modal-content">
+            <img src="../src/img/<?php echo htmlspecialchars($user['imagem'] ?? 'NoProfile.jpg') ?>">
+        </div>
+
+    </div>
     <header>
         <div class="header-container">
             <div class="header-left">
@@ -190,12 +233,11 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
     <main>
 
-        <img src="https://placehold.co/800x200?text=ad" class="ad">
-        </img>
+        <a href=""><img href="" src="" class="ad"></a>
 
         <?php if ($user): ?>
             <section class="user-info" style="margin-bottom: 2rem;">
-                <img src="../src/img/<?php echo htmlspecialchars($user['imagem'] ?? 'NoProfile.jpg'); ?>" alt="Foto de perfil" />
+                <img src="../src/img/<?php echo htmlspecialchars($user['imagem'] ?? 'NoProfile.jpg'); ?>" alt="Foto de perfil" id="user_picture" />
                 <?php if (isset($_SESSION['usuario_id']) && ($_SESSION['usuario_id'] == $user['id'] || $_SESSION['usuario_id'] == 0)): ?>
                     <div style="margin-bottom: 1rem;">
                         <button onclick=edt() style="padding: 10px 20px; margin-right: 10px;">Editar Perfil</button>
@@ -375,8 +417,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
             </div>
         <?php endif; ?>
 
-        <img src="https://placehold.co/800x200?text=ad" class="ad">
-        </img>
+        <a href=""><img href="" src="" class="ad"></a>
 
     </main>
 
@@ -419,25 +460,50 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Carrega anúncios em destaque para o modal
+            fetch('../get_ads_destaque.php')
+                .then(response => response.json())
+                .then(destaques => {
+                    const modalAd = document.querySelector('#myModal .ad');
+
+                    if (destaques.length > 0) {
+                        modalAd.src = destaques[0].imagem;
+                        modalAd.parentElement.href = destaques[0].link || "#";
+                    } else {
+                        modalAd.src = "https://placehold.co/800x200?text=ad";
+                        modalAd.parentElement.href = "#";
+                    }
+                })
+                .catch(error => console.error('Erro ao carregar anúncios em destaque:', error));
+
+            // Carrega todos os anúncios para os elementos com .ad (fora do modal)
             fetch('../get_ads.php')
                 .then(response => response.json())
-                .then(imagens => {
-                    const adElements = document.querySelectorAll('img.ad');
+                .then(anuncios => {
+                    const adElements = document.querySelectorAll('.ad:not(#myModal .ad)');
+
                     adElements.forEach((img, i) => {
-                        // Se houver menos imagens do que elementos, reinicia a contagem
-                        const index = i % imagens.length;
-                        if (imagens.length != 0) {
-                            img.src = "." + imagens[index];
-                        } else {
+                        if (anuncios.length === 0) {
                             img.src = "https://placehold.co/800x200?text=ad";
+                            if (img.parentElement.tagName === "a") {
+                                img.parentElement.href = "#";
+                            }
+                            return;
+                        }
+
+                        const index = i % anuncios.length;
+                        const anuncio = anuncios[index];
+
+                        img.src = "."+anuncio.imagem || "https://placehold.co/800x200?text=ad";
+                        if (img.parentElement.tagName === "a") {
+                            img.parentElement.href = anuncio.link || "#";
                         }
                     });
                 })
-                .catch(error => {
-                    console.error('Erro ao carregar imagens de anúncios:', error);
-                });
+                .catch(error => console.error('Erro ao carregar anúncios gerais:', error));
         });
     </script>
+
 </body>
 
 </html>

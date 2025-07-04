@@ -128,7 +128,7 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
 
     <main>
 
-        <img src="https://placehold.co/800x200?text=ad" class="ad">
+        <a href=""><img href="" src="" class="ad"></a>
         </img>
 
         <br>
@@ -214,8 +214,7 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
             <?php endif; ?>
         </div>
 
-        <img src="https://placehold.co/800x200?text=ad" class="ad">
-        </img>
+        <a href=""><img href="" src="" class="ad"></a>
     </main>
 
     <footer>
@@ -246,25 +245,50 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Carrega anúncios em destaque para o modal
+            fetch('../get_ads_destaque.php')
+                .then(response => response.json())
+                .then(destaques => {
+                    const modalAd = document.querySelector('#myModal .ad');
+
+                    if (destaques.length > 0) {
+                        modalAd.src = destaques[0].imagem;
+                        modalAd.parentElement.href = destaques[0].link || "#";
+                    } else {
+                        modalAd.src = "https://placehold.co/800x200?text=ad";
+                        modalAd.parentElement.href = "#";
+                    }
+                })
+                .catch(error => console.error('Erro ao carregar anúncios em destaque:', error));
+
+            // Carrega todos os anúncios para os elementos com .ad (fora do modal)
             fetch('../get_ads.php')
                 .then(response => response.json())
-                .then(imagens => {
-                    const adElements = document.querySelectorAll('img.ad');
+                .then(anuncios => {
+                    const adElements = document.querySelectorAll('.ad:not(#myModal .ad)');
+
                     adElements.forEach((img, i) => {
-                        // Se houver menos imagens do que elementos, reinicia a contagem
-                        const index = i % imagens.length;
-                        if (imagens.length != 0) {
-                            img.src = "." + imagens[index];
-                        } else {
+                        if (anuncios.length === 0) {
                             img.src = "https://placehold.co/800x200?text=ad";
+                            if (img.parentElement.tagName === "a") {
+                                img.parentElement.href = "#";
+                            }
+                            return;
+                        }
+
+                        const index = i % anuncios.length;
+                        const anuncio = anuncios[index];
+
+                        img.src = "."+anuncio.imagem || "https://placehold.co/800x200?text=ad";
+                        if (img.parentElement.tagName === "a") {
+                            img.parentElement.href = anuncio.link || "#";
                         }
                     });
                 })
-                .catch(error => {
-                    console.error('Erro ao carregar imagens de anúncios:', error);
-                });
+                .catch(error => console.error('Erro ao carregar anúncios gerais:', error));
         });
     </script>
+
 
 </body>
 

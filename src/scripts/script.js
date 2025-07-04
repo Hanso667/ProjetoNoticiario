@@ -9,5 +9,3 @@ cards.forEach(card => {
 });
 
 
-
-

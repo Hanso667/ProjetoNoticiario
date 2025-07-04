@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// Remove todas as variáveis da sessão
+$_SESSION = [];
+
+
 include './src/scripts/Connection.php';
 $connection = new Connection();
 $conn = $connection->connectar();
