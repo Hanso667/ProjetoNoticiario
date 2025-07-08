@@ -47,50 +47,27 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
 
 <head>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <?php if ($_SESSION['Mode'] == "Light"): ?>
-        <link id="style" data-mode="light" rel="stylesheet" href="../src/css/usuarios.css">
-        <link id="style" rel="stylesheet" href="../src/css/header.css">
-    <?php else: ?>
-        <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/usuariosdark.css">
-        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
-    <?php endif; ?>
+    <link id="style" data-mode="light" rel="stylesheet" href="../src/css/usuarios.css">
+    <link id="style" rel="stylesheet" href="../src/css/header.css">
+    <link id="style" rel="stylesheet" href="../src/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuários</title>
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
-    <style>
-        .paginacao {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .paginacao a {
-            display: inline-block;
-            margin: 0 5px;
-            padding: 8px 12px;
-            text-decoration: none;
-            background-color: #f2f2f2;
-            border-radius: 5px;
-            color: #333;
-        }
-
-        .pagina-atual {
-            background-color: #007bff;
-            color: blue !important;
-            transform: scale(1.3);
-        }
-
-        .ad {
-            margin: 20px 0;
-            width: 800px;
-            height: 300px;
-            border-radius: 15px;
-        }
-    </style>
 </head>
 
 <body>
+
+    <div class="modal" id="myModal">
+
+        <div class="modal-content">
+            <span id="timer" style="font-size: xx-large;"> 00:05 </span>
+            <a href=""><img src="https://placehold.co/800x200?text=ad" class="ad"></a>
+        </div>
+
+    </div>
+
     <header>
         <div class="header-container">
             <div class="header-left">
@@ -99,9 +76,9 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
             </div>
 
             <div class="header-right">
-                <form class="search" action="../pages/usuarios.php">
-                    <button id="all_usuarios_button"> Usuários </button>
-                </form>
+                <a href="./usuarios.php">
+                    <button id="all_usuarios_button">Usuários</button>
+                </a>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../logout.php"><button class="login-button">Logout</button></a>
@@ -231,18 +208,7 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
         <?php endif; ?>
     </footer>
 
-    <script>
-        document.getElementById('DarkButton').addEventListener('click', function() {
-            fetch('../toggle_mode.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    }
-                })
-                .catch(err => console.error('Erro ao trocar modo:', err));
-        });
-    </script>
+    <script src="../src/scripts/toggleDark.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Carrega anúncios em destaque para o modal
@@ -279,7 +245,7 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
                         const index = i % anuncios.length;
                         const anuncio = anuncios[index];
 
-                        img.src = "."+anuncio.imagem || "https://placehold.co/800x200?text=ad";
+                        img.src = "." + anuncio.imagem || "https://placehold.co/800x200?text=ad";
                         if (img.parentElement.tagName === "a") {
                             img.parentElement.href = anuncio.link || "#";
                         }
@@ -288,6 +254,16 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
                 .catch(error => console.error('Erro ao carregar anúncios gerais:', error));
         });
     </script>
+    <script>
+        window.addEventListener("keydown", function(event) {
+            if (event.keyCode === 116) {
+                event.preventDefault();
+                const baseUrl = window.location.origin + window.location.pathname;
+                window.location.href = baseUrl;
+            }
+        });
+    </script>
+    <script src="../src/scripts/modal.js"></script>
 
 
 </body>

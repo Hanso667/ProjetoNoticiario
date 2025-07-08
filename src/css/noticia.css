@@ -1,276 +1,278 @@
-#DarkButton:hover {
-    cursor: pointer;
+/* === Variáveis de Tema === */
+:root {
+  --bg-body: #f5f5f5;
+  --text-color: #333;
+  --heading-color: #2c3e50;
+  --heading-border: #2c3e50;
+  --modal-bg: #fefefe;
+  --content-bg: #e6f2ff;
+  --content-border: #ccc;
+  --comment-bg: #fff8dc;
+  --comment-form-border: #2c3e50;
+  --editor-bg: #ffffff;
+  --editor-text: #000;
+  --comentario-content-bg: #ffffff;
+  --comentario-content-border: #ccc;
+  --image-border: #ccc;
+  --comment-btn-bg: #3498db;
+  --comment-btn-hover: #2980b9;
+  --paginacao-bg: #f2f2f2;
+  --paginacao-color: #333;
+  --paginacao-border: #ccc;
+  --paginacao-active-bg: #007bff;
+  --paginacao-active-color: white;
+  --ad-bg: #ddd;
 }
 
-.login-button,
-.sigin-button {
-    margin-bottom: 10px;
+body.dark-mode {
+  --bg-body: #121212;
+  --text-color: #e0e0e0;
+  --heading-color: #90caf9;
+  --heading-border: #90caf9;
+  --modal-bg: #1f1f1f;
+  --content-bg: #1e2a38;
+  --content-border: #444;
+  --comment-bg: #2a2a2a;
+  --comment-form-border: #90caf9;
+  --editor-bg: #1e1e1e;
+  --editor-text: #fff;
+  --comentario-content-bg: #1e1e1e;
+  --comentario-content-border: #444;
+  --image-border: #444;
+  --comment-btn-bg: #1976d2;
+  --comment-btn-hover: #1565c0;
+  --paginacao-bg: #333;
+  --paginacao-color: #fff;
+  --paginacao-border: #555;
+  --paginacao-active-bg: #66b2ff;
+  --paginacao-active-color: #fff;
+  --ad-bg: #2a2a2a;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* General Layout */
+/* === Corpo === */
 body {
-    width: 100%;
-    min-height: 100vh;
-    font-family: Arial, sans-serif, 'Comic Sans MS', cursive, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
-    line-height: 1.6;
+  width: 100%;
+  min-height: 100vh;
+  font-family: Arial, sans-serif, 'Comic Sans MS', cursive, sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-color);
+  line-height: 1.6;
 }
 
-/* Headings */
-h1,
-h2,
-h3 {
-    color: #2c3e50;
-    border-bottom: 2px dashed #2c3e50;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
+/* === Modal === */
+.modal {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-h1 {
-    font-size: 2.2em;
+.modal-content {
+  background-color: var(--modal-bg);
+  border-radius: 15px;
+  padding: 15px;
+  width: 90%;
+  max-width: 830px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h2 {
-    font-size: 1.5em;
+.modal-content img {
+  max-height: 450px;
+  max-width: 100%;
+  object-fit: contain;
 }
 
-h3 {
-    font-size: 1.2em;
+/* === Títulos === */
+h1, h2, h3 {
+  color: var(--heading-color);
+  border-bottom: 2px dashed var(--heading-border);
+  padding-bottom: 5px;
+  margin-bottom: 15px;
 }
 
-/* Paragraphs */
+h1 { font-size: 2.2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.2em; }
+
 p {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
-/* Images */
-.comentario img,
-main img {
-    max-width: 100%;
-    height: auto;
-    border: 2px solid #ccc;
-    border-radius: 6px;
+/* === Botões === */
+#DarkButton:hover {
+  cursor: pointer;
 }
 
-/* Main Content */
+/* === Conteúdo Principal === */
 main {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
 }
 
 .Imagem-postagem {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
-/* Post Content */
 .conteudo-postagem {
-    background-color: #e6f2ff;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    overflow-wrap: break-word;
+  background-color: var(--content-bg);
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  border: 1px solid var(--content-border);
+  overflow-wrap: break-word;
 }
 
 .conteudo-postagem h1 {
-    border-bottom: 0;
-    color: inherit;
+  border-bottom: 0;
 }
 
-/* Comments */
+/* === Comentários === */
 .comentario {
-    background-color: #e6f2ff;
-    border-left: 4px solid #2c3e50;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
-    border-radius: 4px;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
+  background-color: var(--content-bg);
+  border-left: 4px solid var(--heading-color);
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
 }
 
 .comentario img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-/* Comment Form */
+/* === Formulário de Comentário === */
 .comment {
-    background-color: #fff8dc;
-    padding: 20px;
-    border: 2px dashed #2c3e50;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
+  background-color: var(--comment-bg);
+  padding: 20px;
+  border: 2px dashed var(--comment-form-border);
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
 }
 
 #editor {
-    background: #ffffff;
-    height: 200px;
-    margin-bottom: 10px;
-    border: 2px solid #2c3e50;
-    border-radius: 4px;
-    padding: 10px;
+  background: var(--editor-bg);
+  color: var(--editor-text);
+  height: 200px;
+  margin-bottom: 10px;
+  border: 2px solid var(--comment-form-border);
+  border-radius: 4px;
+  padding: 10px;
 }
 
-.comment-button {
-    background-color: #3498db;
-    color: white;
-    font-weight: bold;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background 0.3s;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.comment-button:hover {
-    background-color: #2980b9;
-}
-
-/* Footer */
-footer {
-    background-color: #2c3e50;
-    color: white;
-    padding: 2rem 1rem;
-    text-align: center;
-    margin-top: 4rem;
-}
-
-.footer-social a {
-    color: white;
-    margin: 0 0.5rem;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-}
-
-.footer-social a:hover {
-    color: #3498db;
-}
-
-.footer-social {
-    margin-top: 10px;
-}
-
-.footer-contato {
-    color: #ffffff;
-}
-
-.social-btn {
-    color: white;
-    margin: 0 10px;
-    font-size: 20px;
-}
-
+/* === Conteúdo do Comentário === */
 .comentario-conteudo {
-    width: 100%;
-    background-color: #ffffff;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    word-wrap: break-word;
-    overflow-x: auto;
-    box-sizing: border-box;
-    gap: 10px;
+  width: 100%;
+  background-color: var(--comentario-content-bg);
+  padding: 10px;
+  border: 1px solid var(--comentario-content-border);
+  border-radius: 4px;
+  word-wrap: break-word;
+  overflow-x: auto;
+  box-sizing: border-box;
 }
 
 .comentario-conteudo p,
 .comentario-conteudo h1,
 .comentario-conteudo h2,
 .comentario-conteudo h3 {
-    width: 100%;
-    word-break: break-word;
-    margin: 10px 0;
+  width: 100%;
+  word-break: break-word;
+  margin: 10px 0;
 }
 
-.publicidade button {
-    background-color: white;
-    color: #2c3e50;
-    border: 2px dotted black;
-    width: 100px;
-    height: 50px;
-    border-radius: 15px;
-    box-shadow: 0 0 8px #ffffff;
-    transition: 1s;
+/* === Imagens === */
+.comentario img,
+main img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--image-border);
+  border-radius: 6px;
 }
 
-.publicidade button:hover {
-    cursor: pointer;
-    background-color: rgb(0, 138, 7);
-    color: white;
-    border: 2px dotted white;
-    box-shadow: 0 0 15px rgb(0, 138, 7);
-    transition: 1s;
-
+/* === Paginação === */
+.paginacao {
+  margin-top: 20px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
 }
 
-/* Responsive Styles */
+.paginacao a {
+  padding: 6px 12px;
+  text-decoration: none;
+  border: 1px solid var(--paginacao-border);
+  color: var(--paginacao-color);
+  background-color: var(--paginacao-bg);
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.paginacao a:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.paginacao a.pagina-atual {
+  font-weight: bold;
+  background-color: var(--paginacao-active-bg);
+  color: var(--paginacao-active-color);
+  border-color: var(--paginacao-active-bg);
+}
+
+/* === Anúncio === */
+.ad {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 4 / 1;
+  border-radius: 15px;
+  background-color: var(--ad-bg);
+  object-fit: cover;
+}
+
+/* === Responsividade === */
 @media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;
-        align-items: center;
-    }
+  .comentario {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-    .header-left,
-    .header-right {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .search {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    #Search_usuario {
-        width: 90%;
-    }
-
-    .comentario {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
+  .modal-content {
+    width: 95%;
+    height: auto;
+  }
 }
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 1.6em;
-    }
+  h1 { font-size: 1.6em; }
+  h2 { font-size: 1.3em; }
+  h3 { font-size: 1em; }
 
-    h2 {
-        font-size: 1.3em;
-    }
-
-    h3 {
-        font-size: 1em;
-    }
-
-    .home-button,
-    .login-button,
-    .sigin-button,
-    .comment-button {
-        width: 100%;
-        text-align: center;
-    }
-
-    .header-left,
-    .header-right {
-        gap: 5px;
-    }
+  .ad {
+    aspect-ratio: 4 / 2;
+  }
 }

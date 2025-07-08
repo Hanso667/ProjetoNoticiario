@@ -75,13 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <?php if ($_SESSION['Mode'] == "Light"): ?>
         <link id="style" data-mode="light" rel="stylesheet" href="../src/css/login.css">
         <link id="style" rel="stylesheet" href="../src/css/header.css">
-    <?php else: ?>
-        <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/logindark.css">
-        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
-    <?php endif; ?>
+        <link id="style" rel="stylesheet" href="../src/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
 </head>
 
-<body>
+    <body>
 
     <header>
         <div class="header-container">
@@ -100,9 +96,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="header-right">
 
-                <form class="search" action="../pages/usuarios.php">
-                    <button id="all_usuarios_button"> Usuarios </button>
-                </form>
+                <a href="./usuarios.php">
+                    <button id="all_usuarios_button">Usuários</button>
+                </a>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../logout.php"><button class="login-button">Logout</button></a>
@@ -169,18 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </script>
     <?php endif; ?>
 
-    <script>
-        document.getElementById('DarkButton').addEventListener('click', function() {
-            fetch('../toggle_mode.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    }
-                })
-                .catch(err => console.error('Erro ao trocar modo:', err));
-        });
-    </script>
+    <script src="../src/scripts/toggleDark.js"></script>
 
 </body>
 

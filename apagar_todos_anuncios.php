@@ -7,18 +7,37 @@ if (!isset($_SESSION['usuario_id'])) {
 
 include './src/scripts/Connection.php';
 
-$id_usuario = $_SESSION['usuario_id'];
 $conn = (new Connection())->connectar();
 
-$stmt = $conn->prepare("DELETE FROM anuncios WHERE anunciante = ? AND ativo = 0");
-$stmt->bind_param("i", $id_usuario);
+// Verifica se há anúncios inativos
+$checkStmt = $conn->prepare("SELECT imagem FROM anuncios WHERE ativo = 0");
+$checkStmt->execute();
+$result = $checkStmt->get_result();
 
-if ($stmt->execute()) {
-    header("Location: ./pages/CadastroAnuncio.php?apagado=1");
+if ($result->num_rows > 0) {
+    // Apagar as imagens físicas
+    while ($row = $result->fetch_assoc()) {
+        $imagem = $row['imagem'];
+        $caminhoImagem = "./src/img/ads/" . $imagem;
+        if (!empty($imagem) && file_exists($caminhoImagem)) {
+            unlink($caminhoImagem);
+        }
+    }
+    $checkStmt->close();
+
+    // Agora apagar os anúncios inativos do banco de dados
+    $deleteStmt = $conn->prepare("DELETE FROM anuncios WHERE ativo = 0");
+    if ($deleteStmt->execute()) {
+        header("Location: ./pages/CadastroAnuncio.php?apagado=1");
+    } else {
+        echo "Erro ao apagar anúncios: " . $deleteStmt->error;
+    }
+    $deleteStmt->close();
 } else {
-    echo "Erro ao apagar anúncios: " . $stmt->error;
+    $checkStmt->close();
+    // Nenhum anúncio inativo
+    header("Location: ./pages/CadastroAnuncio.php?apagado=-1");
 }
 
-$stmt->close();
 $conn->close();
 ?>

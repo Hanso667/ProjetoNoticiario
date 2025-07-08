@@ -1,262 +1,247 @@
-#DarkButton:hover {
-    cursor: pointer;
+/* === Variáveis de Tema === */
+:root {
+  --bg-body: #f5f5f5;
+  --text-color: #333;
+
+  --login-bg: #fffdf5;
+  --signup-bg: #fff8dc;
+  --border-color: #003366;
+  --text-heading: #003366;
+
+  --input-bg: #ffffff;
+  --input-color: #000;
+
+  --button-bg: #3498db;
+  --button-hover: #2980b9;
+  --button-text: #ffffff;
+
+  --form-shadow: rgba(0, 51, 102, 0.2);
 }
 
+body.dark-mode {
+  --bg-body: #121212;
+  --text-color: #e0e0e0;
+
+  --login-bg: #1e1e1e;
+  --signup-bg: #1e1e1e;
+  --border-color: #66b2ff;
+  --text-heading: #66b2ff;
+
+  --input-bg: #121212;
+  --input-color: #ffffff;
+
+  --button-bg: #3498db;
+  --button-hover: #2980b9;
+  --button-text: #ffffff;
+
+  --form-shadow: rgba(102, 178, 255, 0.2);
+}
+
+/* === Reset === */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* General Body Styling */
+/* === Body === */
 body {
-    width: 100%;
-    min-height: 100vh;
-    font-family: Arial, sans-serif, 'Comic Sans MS', cursive, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+  width: 100%;
+  min-height: 100vh;
+  font-family: Arial, sans-serif, 'Comic Sans MS', cursive, sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-color);
 }
 
-/* Main Content */
+/* === Botão modo escuro === */
+#DarkButton:hover {
+  cursor: pointer;
+}
+
+/* === Main Content === */
 main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
 }
 
-/* Login Form Styling */
+/* === Login Form === */
 .login-form {
-    background-color: #fffdf5;
-    border: 2px solid #003366;
-    border-radius: 10px;
-    padding: 40px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    box-sizing: border-box;
-    margin: 20px;
+  background-color: var(--login-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 2px 2px 10px var(--form-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  margin: 20px;
 }
 
 .login-form h2 {
-    font-size: 24px;
-    color: #003366;
-    text-align: center;
+  font-size: 24px;
+  color: var(--text-heading);
+  text-align: center;
 }
 
 .login-form label {
-    font-weight: bold;
-    color: #003366;
-    align-self: flex-start;
+  font-weight: bold;
+  color: var(--text-heading);
+  align-self: flex-start;
 }
 
 .login-form input[type="email"],
 .login-form input[type="password"] {
-    padding: 10px;
-    border: 2px solid #003366;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
+  padding: 10px;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+  width: 100%;
+  background-color: var(--input-bg);
+  color: var(--input-color);
+  box-sizing: border-box;
 }
 
 .login-form .botao-postar {
-    padding: 10px;
-    border: none;
-    background-color: #3498db;
-    color: white;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
+  padding: 10px;
+  border: none;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .login-form .botao-postar:hover {
-    background-color: #2980b9;
+  background-color: var(--button-hover);
 }
 
 .login-form p {
-    text-align: center;
-    font-size: 0.95rem;
+  text-align: center;
+  font-size: 0.95rem;
 }
 
 .login-form a {
-    color: #003366;
+  color: var(--border-color);
 }
 
-/* Footer */
-footer {
-    background-color: #2c3e50;
-    color: white;
-    padding: 2rem 1rem;
-    text-align: center;
-    margin-top: 4rem;
-}
-
-.footer-social a {
-    color: white;
-    margin: 0 0.5rem;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-}
-
-.footer-social a:hover {
-    color: #3498db;
-}
-
-.footer-social {
-    margin-top: 10px;
-}
-
-.footer-contato {
-    color: #ffffff;
-}
-
-.social-btn {
-    color: white;
-    margin: 0 10px;
-    font-size: 20px;
-}
-
+/* === Signup Form === */
 .signup-form {
-    background-color: #fff8dc;
-    border: 2px dashed #003366;
-    border-radius: 10px;
-    padding: 40px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    box-sizing: border-box;
-    margin: 20px;
+  background-color: var(--signup-bg);
+  border: 2px dashed var(--border-color);
+  border-radius: 10px;
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 2px 2px 10px var(--form-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-sizing: border-box;
+  margin: 20px;
 }
 
 .signup-form h2 {
-    font-size: 24px;
-    color: #003366;
-    text-align: center;
-    margin-bottom: 10px;
+  font-size: 24px;
+  color: var(--text-heading);
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.signup-form label {
+  font-weight: bold;
+  color: var(--text-heading);
 }
 
 .signup-form input[type="text"],
 .signup-form input[type="email"],
 .signup-form input[type="password"],
 .signup-form input[type="file"] {
-    padding: 10px;
-    border: 2px solid #003366;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 1rem;
-}
-
-.signup-form label {
-    font-weight: bold;
-    color: #003366;
+  padding: 10px;
+  border: 2px solid var(--border-color);
+  border-radius: 5px;
+  width: 100%;
+  background-color: var(--input-bg);
+  color: var(--input-color);
+  box-sizing: border-box;
+  font-size: 1rem;
 }
 
 .signup-form .botao-postar {
-    padding: 10px;
-    border: none;
-    background-color: #3498db;
-    color: white;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
 }
 
 .signup-form .botao-postar:hover {
-    background-color: #2980b9;
+  background-color: var(--button-hover);
 }
 
-.publicidade button {
-    background-color: white;
-    color: #2c3e50;
-    border: 2px dotted black;
-    width: 100px;
-    height: 50px;
-    border-radius: 15px;
-    box-shadow: 0 0 8px #ffffff;
-}
-
-.publicidade button:hover {
-    cursor: pointer;
-    background-color: rgb(0, 138, 7);
-    color: white;
-    border: 2px dotted white;
-    box-shadow: 0 0 15px rgb(0, 138, 7);
-}
-
-/* Responsive Design */
+/* === Responsividade === */
 @media (max-width: 768px) {
-    .signup-form {
-        padding: 30px;
-        max-width: 90%;
-    }
+  .signup-form {
+    padding: 30px;
+    max-width: 90%;
+  }
 
-    .signup-form h2 {
-        font-size: 22px;
-    }
+  .signup-form h2 {
+    font-size: 22px;
+  }
+
+  .header-container {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .header-left,
+  .header-right {
+    justify-content: center;
+  }
+
+  .login-form {
+    padding: 30px;
+  }
+
+  #Search_usuario,
+  #Search_postagem {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
-    .signup-form {
-        padding: 20px;
-        gap: 10px;
-    }
+  .signup-form {
+    padding: 20px;
+    gap: 10px;
+  }
 
-    .signup-form h2 {
-        font-size: 20px;
-    }
-}
+  .signup-form h2 {
+    font-size: 20px;
+  }
 
+  .login-form {
+    padding: 20px;
+  }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;
-        height: auto;
-        text-align: center;
-        gap: 10px;
-    }
+  .login-form h2 {
+    font-size: 20px;
+  }
 
-    .header-left,
-    .header-right {
-        justify-content: center;
-    }
-
-    .login-form {
-        padding: 30px;
-    }
-
-    #Search_usuario {
-        width: 100%;
-    }
-
-    #Search_postagem {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .login-form {
-        padding: 20px;
-    }
-
-    .login-form h2 {
-        font-size: 20px;
-    }
-
-    .login-button,
-    .sigin-button,
-    #all_usuarios_button {
-        width: 100%;
-        text-align: center;
-    }
+  .login-button,
+  .sigin-button,
+  #all_usuarios_button {
+    width: 100%;
+    text-align: center;
+  }
 }

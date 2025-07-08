@@ -131,51 +131,14 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
 <head>
   <link rel="stylesheet" href="src/css/reset.css">
-  <?php if ($_SESSION['Mode'] == "Light"): ?>
-    <link id="style" data-mode="light" rel="stylesheet" href="./src/css/index.css">
-    <link id="style" rel="stylesheet" href="./src/css/header.css">
-  <?php else: ?>
-    <link id="style" data-mode="dark" rel="stylesheet" href="./src/css/indexdark.css">
-    <link id="style" rel="stylesheet" href="./src/css/headerdark.css">
-  <?php endif; ?>
+  <link id="style" data-mode="light" rel="stylesheet" href="./src/css/index.css">
+  <link id="style" rel="stylesheet" href="./src/css/header.css">
+  <link id="style" rel="stylesheet" href="./src/css/footer.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal</title>
   <link rel="icon" type="image/x-icon" href="./src/img/Logo.png">
-  <style>
-    .tempo-icone {
-      width: 50px;
-      height: 50px;
-    }
-
-    .paginacao {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .paginacao a {
-      display: inline-block;
-      margin: 0 5px;
-      padding: 8px 12px;
-      text-decoration: none;
-      background-color: rgb(90, 90, 90);
-      border-radius: 5px;
-      color: white;
-    }
-
-    .pagina-atual {
-      background-color: #2c3e50 !important;
-      transform: scale(1.3);
-    }
-
-    .ad {
-      margin: 20px 0;
-      width: 800px;
-      height: 300px;
-      border-radius: 15px;
-    }
-  </style>
 </head>
 
 <body>
@@ -183,7 +146,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
   <div class="modal" id="myModal">
 
     <div class="modal-content">
-      <span id="timer" style="font-size: xx-large;"> 5/5 </span>
+      <span id="timer" style="font-size: xx-large;"> 00:05 </span>
       <a href=""><img src="https://placehold.co/800x200?text=ad" class="ad"></a>
     </div>
 
@@ -205,10 +168,9 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
 
 
-        <form id="form-search-all-usuarios" class="search" action="./pages/usuarios.php">
-          <button id="all_usuarios_button">Usuarios</button>
-
-        </form>
+        <a href="./pages/usuarios.php">
+          <button id="all_usuarios_button">Usuários</button>
+        </a>
 
         <?php if (isset($_SESSION['usuario_id'])): ?>
           <a href="./logout.php"><button class="login-button">Logout</button></a>
@@ -467,18 +429,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
   </footer>
 
   <script src="./src/scripts/script.js"></script>
-  <script>
-    document.getElementById('DarkButton').addEventListener('click', function() {
-      fetch('toggle_mode.php')
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            location.reload();
-          }
-        })
-        .catch(err => console.error('Erro ao trocar modo:', err));
-    });
-  </script>
+  <script src="./src/scripts/toggleDark.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -565,6 +516,15 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
           });
         })
         .catch(error => console.error('Erro ao carregar anúncios gerais:', error));
+    });
+  </script>
+  <script>
+    window.addEventListener("keydown", function(event) {
+      if (event.keyCode === 116) {
+        event.preventDefault();
+        const baseUrl = window.location.origin + window.location.pathname;
+        window.location.href = baseUrl;
+      }
     });
   </script>
 

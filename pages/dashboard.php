@@ -94,82 +94,12 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
 <head>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <?php if ($_SESSION['Mode'] == "Light"): ?>
-        <link id="style" data-mode="light" rel="stylesheet" href="../src/css/dashboard.css">
-        <link id="style" rel="stylesheet" href="../src/css/header.css">
-    <?php else: ?>
-        <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/dashboarddark.css">
-        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
-    <?php endif; ?>
-
+    <link id="style" data-mode="light" rel="stylesheet" href="../src/css/dashboard.css">
+    <link id="style" rel="stylesheet" href="../src/css/header.css">
+    <link id="style" rel="stylesheet" href="../src/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-        .paginacao {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .paginacao a {
-            display: inline-block;
-            margin: 0 5px;
-            padding: 8px 12px;
-            text-decoration: none;
-            background-color: #f2f2f2;
-            border-radius: 5px;
-            color: #333;
-        }
-
-        .pagina-atual {
-            background-color: rgba(0, 123, 255, 0.32) !important;
-            transform: scale(1.3);
-        }
-
-        .ad {
-            margin: 20px 17.5%;
-            width: 800px;
-            height: 300px;
-            border-radius: 15px;
-        }
-
-        .modal {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            z-index: 3;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 15px;
-            background-color: transparent;
-            position: absolute;
-            padding: 15px;
-            width: 800px;
-            height: 500px;
-        }
-
-        .modal-content img {
-            height: 100%;
-            object-fit: fill;
-            border: 5px thin black;
-            border-radius: 15px;
-            box-shadow: 0 0 10px black;
-        }
-    </style>
     <title>
         <?php
         if ($user) {
@@ -183,6 +113,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 </head>
 
 <body>
+
     <div class="modal" id="Modal">
 
         <div class="modal-content" id="modal-content">
@@ -190,6 +121,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
         </div>
 
     </div>
+
     <header>
         <div class="header-container">
             <div class="header-left">
@@ -201,9 +133,9 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
 
 
-                <form id="form-search-all-usuarios" class="search" action="../pages/usuarios.php">
-                    <button id="all_usuarios_button">Usuarios</button>
-                </form>
+                <a href="./usuarios.php">
+                    <button id="all_usuarios_button">Usuários</button>
+                </a>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../logout.php"><button class="login-button">Logout</button></a>
@@ -422,6 +354,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     </main>
 
     <footer>
+
         <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
 
         <p>Desenvolvido por Hanso667.</p>
@@ -446,18 +379,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     </footer>
 
     <script src="../src/scripts/dashScript.js"></script>
-    <script>
-        document.getElementById('DarkButton').addEventListener('click', function() {
-            fetch('../toggle_mode.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    }
-                })
-                .catch(err => console.error('Erro ao trocar modo:', err));
-        });
-    </script>
+    <script src="../src/scripts/toggleDark.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Carrega anúncios em destaque para o modal
@@ -494,7 +416,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                         const index = i % anuncios.length;
                         const anuncio = anuncios[index];
 
-                        img.src = "."+anuncio.imagem || "https://placehold.co/800x200?text=ad";
+                        img.src = "." + anuncio.imagem || "https://placehold.co/800x200?text=ad";
                         if (img.parentElement.tagName === "a") {
                             img.parentElement.href = anuncio.link || "#";
                         }

@@ -7,7 +7,6 @@ $query = "
     SELECT imagem, link
     FROM anuncios 
     WHERE ativo = 1 
-      AND validade >= CURDATE()
       AND destaque = 1
 ";
 

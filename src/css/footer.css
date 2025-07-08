@@ -1,0 +1,91 @@
+/* === Variáveis === */
+:root {
+  --footer-bg: #2c3e50;
+  --footer-text: white;
+  --social-hover: #3498db;
+  --publicidade-bg: white;
+  --publicidade-text: #2c3e50;
+  --publicidade-border: black;
+  --publicidade-shadow: 0 0 8px #ffffff;
+}
+
+body.dark-mode {
+  --footer-bg: #1f1f1f;
+  --footer-text: white;
+  --social-hover: #3498db;
+  --publicidade-bg: #2b2b2b;
+  --publicidade-text: #f0f0f0;
+  --publicidade-border: #ccc;
+  --publicidade-shadow: 0 0 8px #444;
+}
+
+/* === Footer base === */
+footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 2rem 1rem;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+/* === Social Links === */
+.footer-social {
+  margin-top: 10px;
+}
+
+.footer-social a {
+  color: var(--footer-text);
+  margin: 0 0.5rem;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: var(--social-hover);
+}
+
+/* === Contato e Botões === */
+.footer-contato {
+  color: var(--footer-text);
+}
+
+.social-btn {
+  color: var(--footer-text);
+  margin: 0 10px;
+  font-size: 20px;
+}
+
+.publicidade button {
+  background-color: var(--publicidade-bg);
+  color: var(--publicidade-text);
+  border: 2px dotted var(--publicidade-border);
+  width: 100px;
+  height: 50px;
+  border-radius: 15px;
+  box-shadow: var(--publicidade-shadow);
+  transition: 0.3s ease;
+}
+
+.publicidade button:hover {
+  cursor: pointer;
+  background-color: rgb(0, 138, 7);
+  color: white;
+  border: 2px dotted white;
+  box-shadow: 0 0 15px rgb(0, 138, 7);
+}
+
+/* === Responsivo === */
+@media only screen and (max-width: 480px) {
+  .footer-social a {
+    font-size: 1.5rem;
+  }
+
+  .footer-social a:hover {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .social-btn {
+    font-size: 18px;
+  }
+}

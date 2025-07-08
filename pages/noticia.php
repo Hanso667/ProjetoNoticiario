@@ -66,64 +66,39 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($noticia['titulo']) ?></title>
-    <link rel="stylesheet" href="../src/css/reset.css">
-    <?php if ($_SESSION['Mode'] == "Light"): ?>
-        <link id="style" data-mode="light" rel="stylesheet" href="../src/css/noticia.css">
-        <link id="style" rel="stylesheet" href="../src/css/header.css">
-    <?php else: ?>
-        <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/noticiadark.css">
-        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
-    <?php endif; ?>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="../src/css/reset.css">
+    <link  rel="stylesheet" href="../src/css/noticia.css">
+    <link  rel="stylesheet" href="../src/css/header.css">
+    <link  rel="stylesheet" href="../src/css/footer.css">
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        .paginacao {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .paginacao a {
-            padding: 6px 12px;
-            margin: 0 3px;
-            text-decoration: none;
-            border: 1px solid #ccc;
-            color: #333;
-            background-color: #f2f2f2;
-        }
-
-        .paginacao a.pagina-atual {
-            font-weight: bold;
-            background-color: #007BFF;
-            color: white;
-            border-color: #007BFF;
-        }
-
-        .ad {
-            margin: 20px 0;
-            width: 800px;
-            height: 200px;
-            border-radius: 15px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-
 <body>
+
+    <div class="modal" id="myModal">
+
+        <div class="modal-content">
+            <span id="timer" style="font-size: xx-large;"> 00:05 </span>
+            <a href=""><img src="https://placehold.co/800x200?text=ad" class="ad"></a>
+        </div>
+
+    </div>
+
     <header>
         <div class="header-container">
             <div class="header-left">
                 <a href="../index.php"><img src="../src/img/Logo.png" class="home-button"></a>
-                <h1 style="font-size: larger; text-decoration: none; color: white; border: none;" id="nome-pagina"><?php echo $noticia['titulo'] ?></h1>
+                <h1 id="nome-pagina"><?php echo $noticia['titulo'] ?></h1>
             </div>
 
             <div class="header-right">
 
-
-
-                <form id="form-search-all-usuarios" class="search" action="../pages/usuarios.php">
-                    <button id="all_usuarios_button">Usuarios</button>
-                </form>
+                <a href="./usuarios.php">
+                    <button id="all_usuarios_button">Usuários</button>
+                </a>
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <a href="../logout.php"><button class="login-button">Logout</button></a>
@@ -395,18 +370,8 @@ if (isset($_GET['id'])) {
         }
     </script>
 
-    <script>
-        document.getElementById('DarkButton').addEventListener('click', function() {
-            fetch('../toggle_mode.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    }
-                })
-                .catch(err => console.error('Erro ao trocar modo:', err));
-        });
-    </script>
+    <script src="../src/scripts/toggleDark.js"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Carrega anúncios em destaque para o modal
@@ -416,7 +381,7 @@ if (isset($_GET['id'])) {
                     const modalAd = document.querySelector('#myModal .ad');
 
                     if (destaques.length > 0) {
-                        modalAd.src = destaques[0].imagem;
+                        modalAd.src = "." + destaques[0].imagem;
                         modalAd.parentElement.href = destaques[0].link || "#";
                     } else {
                         modalAd.src = "https://placehold.co/800x200?text=ad";

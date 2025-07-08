@@ -12,13 +12,9 @@ if (!isset($_SESSION['Mode'])) {
     <meta charset="UTF-8">
     <title>Cadastro Anuncios</title>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <?php if ($_SESSION['Mode'] == "Light"): ?>
-        <link id="style" data-mode="light" rel="stylesheet" href="../src/css/noticia.css">
-        <link id="style" rel="stylesheet" href="../src/css/header.css">
-    <?php else: ?>
-        <link id="style" data-mode="dark" rel="stylesheet" href="../src/css/noticiadark.css">
-        <link id="style" rel="stylesheet" href="../src/css/headerdark.css">
-    <?php endif; ?>
+    <link id="style" data-mode="light" rel="stylesheet" href="../src/css/noticia.css">
+    <link id="style" rel="stylesheet" href="../src/css/header.css">
+    <link id="style" rel="stylesheet" href="../src/css/footer.css">
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -54,9 +50,9 @@ if (!isset($_SESSION['Mode'])) {
 
             <div class="header-right">
 
-                <form class="search" action="../pages/usuarios.php">
-                    <button id="all_usuarios_button"> Usuarios </button>
-                </form>
+                <a href="./usuarios.php">
+                    <button id="all_usuarios_button">Usuários</button>
+                </a>
 
 
                 <?php if (isset($_SESSION['usuario_id'])): ?>
@@ -135,8 +131,7 @@ if (!isset($_SESSION['Mode'])) {
             $offset = ($pagina_atual - 1) * $por_pagina;
 
             // Total de anúncios inativos
-            $total_sql = $conn->prepare("SELECT COUNT(*) as total FROM anuncios WHERE anunciante = ? AND ativo = 0");
-            $total_sql->bind_param("i", $id_usuario);
+            $total_sql = $conn->prepare("SELECT COUNT(*) as total FROM anuncios where ativo = 0");
             $total_sql->execute();
             $result_total = $total_sql->get_result();
             $total_registros = $result_total->fetch_assoc()['total'];
@@ -146,8 +141,8 @@ if (!isset($_SESSION['Mode'])) {
 
             // Buscar anúncios inativos com paginação
             $anuncios_inativos = [];
-            $stmt = $conn->prepare("SELECT * FROM anuncios WHERE anunciante = ? AND ativo = 0 ORDER BY validade DESC LIMIT ? OFFSET ?");
-            $stmt->bind_param("iii", $id_usuario, $por_pagina, $offset);
+            $stmt = $conn->prepare("SELECT * FROM anuncios as a left join usuarios as u on u.id = a.anunciante where ativo = 0 ORDER BY validade DESC LIMIT ? OFFSET ?");
+            $stmt->bind_param("ii", $por_pagina, $offset);
             $stmt->execute();
             $result = $stmt->get_result();
 
@@ -165,6 +160,7 @@ if (!isset($_SESSION['Mode'])) {
                 <?php foreach ($anuncios_inativos as $anuncio): ?>
                     <div style="border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
                         <p><strong>ID:</strong> <?= $anuncio['id'] ?></p>
+                        <p><strong>Anunciante:</strong> <?= $anuncio['nome'] ?></p>
                         <p><strong>Link:</strong> <?= $anuncio['link'] ?: 'Nenhum' ?></p>
                         <p><strong>Validade anterior:</strong> <?= date("d/m/Y", strtotime($anuncio['validade'])) ?></p>
                         <form action="../reativar_anuncio.php" method="POST" style="margin-bottom: 10px;">
@@ -183,6 +179,7 @@ if (!isset($_SESSION['Mode'])) {
                         <!-- Pagar individualmente -->
                         <form action="../apagar_anuncio.php" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar este anúncio?');" style="display:inline;">
                             <input type="hidden" name="id_anuncio" value="<?= $anuncio['id'] ?>">
+                            <input type="hidden" name="imagem" value="<?= $anuncio['imagem'] ?>">
                             <button type="submit" style="background-color: red; color: white;">🗑️ Apagar</button>
                         </form>
                     </div>
@@ -271,26 +268,37 @@ if (!isset($_SESSION['Mode'])) {
             hiddenInput.value = quillEditar.root.innerHTML.trim();
         }
     </script>
+    <script src="../src/scripts/toggleDark.js"></script>
     <script>
-        document.getElementById('DarkButton').addEventListener('click', function() {
-            fetch('../toggle_mode.php')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    }
-                })
-                .catch(err => console.error('Erro ao trocar modo:', err));
+        window.addEventListener("keydown", function(event) {
+            if (event.keyCode === 116) {
+                event.preventDefault();
+                const baseUrl = window.location.origin + window.location.pathname;
+                window.location.href = baseUrl;
+            }
         });
     </script>
+
     <?php
     if (isset($_GET['success']) && $_GET['success'] === "1") {
         echo "<script>alert('anuncio cadastrado com sucesso')</script>";
     } ?>
+
     <?php
     if (isset($_GET['apagado_individual']) && $_GET['apagado_individual'] === "1") {
         echo "<script>alert('Anúncio apagado com sucesso.');</script>";
     } ?>
+
+    <?php
+    if (isset($_GET['apagado']) && $_GET['apagado'] === "1") {
+        echo "<script>alert('Anúncios apagados com sucesso.');</script>";
+    } ?>
+
+    <?php
+    if (isset($_GET['apagado']) && $_GET['apagado'] === "-1") {
+        echo "<script>alert('nenhum anuncio inativo encontrado');</script>";
+    } ?>
+
 </body>
 
 </html>

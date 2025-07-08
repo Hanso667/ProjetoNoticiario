@@ -8,8 +8,10 @@ window.addEventListener("load", function () {
     modal.style.display = "flex";
 
     setInterval(() => {
-        time = time -1;
-        timer.textContent = time + "/5"
+        if (time > 0) {
+            time = time - 1;
+            timer.textContent = "00:0" + time
+        }
     }, 1000);
 
     setTimeout(() => {
