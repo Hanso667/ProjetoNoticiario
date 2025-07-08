@@ -1,0 +1,256 @@
+.modal {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #fefefe;
+    position: absolute;
+    padding: 15px;
+    width: 830px;
+    height: 530px;
+}
+
+.modal-content img {
+    height: 450px;
+    object-fit: fill;
+    image-rendering: optimizeQuality;
+}
+
+#DarkButton:hover {
+    cursor: pointer;
+}
+
+.login-button,
+.sigin-button {
+    margin-bottom: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Layout */
+body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: Arial, sans-serif, 'Comic Sans MS', cursive, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+    color: #2c3e50;
+    border-bottom: 2px dashed #2c3e50;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 2.2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+/* Paragraphs */
+p {
+    margin: 10px 0;
+}
+
+/* Images */
+.comentario img,
+main img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+}
+
+/* Main Content */
+main {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.Imagem-postagem {
+    width: 100%;
+    height: auto;
+}
+
+/* Post Content */
+.conteudo-postagem {
+    background-color: #e6f2ff;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    overflow-wrap: break-word;
+}
+
+.conteudo-postagem h1 {
+    border-bottom: 0;
+    color: inherit;
+}
+
+/* Comments */
+.comentario {
+    background-color: #e6f2ff;
+    border-left: 4px solid #2c3e50;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.comentario img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Comment Form */
+.comment {
+    background-color: #fff8dc;
+    padding: 20px;
+    border: 2px dashed #2c3e50;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
+}
+
+#editor {
+    background: #ffffff;
+    height: 200px;
+    margin-bottom: 10px;
+    border: 2px solid #2c3e50;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.comment-button {
+    background-color: #3498db;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comment-button:hover {
+    background-color: #2980b9;
+}
+
+.comentario-conteudo {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    word-wrap: break-word;
+    overflow-x: auto;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.comentario-conteudo p,
+.comentario-conteudo h1,
+.comentario-conteudo h2,
+.comentario-conteudo h3 {
+    width: 100%;
+    word-break: break-word;
+    margin: 10px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-left,
+    .header-right {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #Search_usuario {
+        width: 90%;
+    }
+
+    .comentario {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.6em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    h3 {
+        font-size: 1em;
+    }
+
+    .home-button,
+    .login-button,
+    .sigin-button,
+    .comment-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .header-left,
+    .header-right {
+        gap: 5px;
+    }
+}

@@ -1,0 +1,173 @@
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 0;
+    z-index: 2;
+    height: 20vh;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.home-button {
+    width: 4rem;
+    height: 4rem;
+}
+
+.header-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+#form-search-all-usuarios a{
+    height: 100%;
+    margin-bottom: 5px;
+}
+
+#form-search-all-usuarios{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-button,
+.sigin-button {
+    height: 40px;
+    width: 60px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-button:hover,
+.sigin-button:hover {
+    background-color: #2980b9;
+}
+
+.search {
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+main .search {
+    height: 40px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#Search_usuario {
+    width: 500px;
+    height: 20px;
+    padding: 5px;
+}
+
+#Search_usuario_button {
+    width: 28px;
+    height: 28px;
+    background-image: url("../img/Search.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+}
+
+#all_usuarios_button {
+    height: 100%;
+    padding: 5px 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#all_usuarios_button:hover {
+    background-color: #2980b9;
+    cursor: pointer;
+}
+
+#Search_postagem {
+    width: 800px;
+    height: 40px;
+    padding: 5px;
+}
+
+#Search_postagem_button {
+    width: 45px;
+    height: 45px;
+    background-image: url("../img/Search.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+}
+
+.profile-picture {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: fill;
+    margin-left: 10px;
+}
+#DarkButton:hover{
+ cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-right {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+}
