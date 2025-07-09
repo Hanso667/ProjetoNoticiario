@@ -25,7 +25,9 @@ ProjetoNoticiario/
 ├── reativar_anuncio.php
 ├── src/
 │ ├── css/
-│ │ ├── footer.cs
+│ │ ├── cpAnuncios.css
+│ │ ├── cdAnuncios.css
+│ │ ├── footer.css
 │ │ ├── header.css
 │ │ ├── reset.css
 │ │ ├── dashboard.css
@@ -34,6 +36,8 @@ ProjetoNoticiario/
 │ │ ├── noticia.css
 │ │ └── usuarios.css
 │ ├── img/
+│ │ │ ├── ads
+│ │ │ └── imagens os ad... 
 │ │ ├── Logo.png
 │ │ ├── NoImage.jpg
 │ │ ├── NoProfile.jpg
@@ -41,8 +45,14 @@ ProjetoNoticiario/
 │ │ └── imagens dos usuarios...
 │ ├── scripts/
 │ │ ├── script.js
+│ │ ├── Connection.php
+│ │ ├── modal.js
+│ │ ├── toggleDark.js
+│ │ ├── noticiaScript.js
 │ │ └── dashScript.js
 ├── pages/
+│ ├── CadastroAnuncio-pedido.php
+│ ├── CadastroAnuncio.php
 │ ├── dashboard.php
 │ ├── login.php
 │ ├── signin.php
