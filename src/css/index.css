@@ -23,7 +23,7 @@
 }
 
 body.dark-mode {
-  --bg-body: #121212;
+  --bg-body: #242424;
   --text-color: #e0e0e0;
   --accent-color: #66b2ff;
   --modal-bg: #1f1f1f;
@@ -243,7 +243,7 @@ main h1 {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #f0f8ff;
+  background-color: var(--imagem-border);
 }
 
 .noticia-imagem {
@@ -362,6 +362,8 @@ main h1 {
 
 /* === Ícone do Tempo === */
 .tempo-icone {
+  background-color: white;
+  border-radius: 40px;
   width: 50px;
   height: 50px;
   object-fit: contain;
@@ -427,7 +429,7 @@ body.dark-mode .pagina-atual {
   height: auto;
   aspect-ratio: 4 / 1.5;
   border-radius: 15px;
-  object-fit: cover;
+  object-fit: fill;
   display: block;
 }
 

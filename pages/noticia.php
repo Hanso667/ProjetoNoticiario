@@ -68,9 +68,9 @@ if (isset($_GET['id'])) {
     <title><?= htmlspecialchars($noticia['titulo']) ?></title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link rel="stylesheet" href="../src/css/reset.css">
-    <link  rel="stylesheet" href="../src/css/noticia.css">
-    <link  rel="stylesheet" href="../src/css/header.css">
-    <link  rel="stylesheet" href="../src/css/footer.css">
+    <link rel="stylesheet" href="../src/css/noticia.css">
+    <link rel="stylesheet" href="../src/css/header.css">
+    <link rel="stylesheet" href="../src/css/footer.css">
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -285,19 +285,21 @@ if (isset($_GET['id'])) {
 
     </main>
 
-    <footer>
-        <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
-        <p>Desenvolvido por Hanso667.</p>
-        <p>Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
-        <div class="footer-social">
-            <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        <br>
-        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
-            <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
-        <?php endif; ?>
-    </footer>
+    <section id="footer">
+        <footer>
+            <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
+            <p>Desenvolvido por Hanso667.</p>
+            <p>Contato para anuncios: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
+            <div class="footer-social">
+                <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <br>
+            <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
+                <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
+            <?php endif; ?>
+        </footer>
+    </section>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
@@ -399,7 +401,7 @@ if (isset($_GET['id'])) {
                     adElements.forEach((img, i) => {
                         if (anuncios.length === 0) {
                             img.src = "https://placehold.co/800x200?text=ad";
-                            if (img.parentElement.tagName === "a") {
+                            if (img.parentElement.tagName === "A") {
                                 img.parentElement.href = "#";
                             }
                             return;
@@ -409,7 +411,7 @@ if (isset($_GET['id'])) {
                         const anuncio = anuncios[index];
 
                         img.src = "." + anuncio.imagem || "https://placehold.co/800x200?text=ad";
-                        if (img.parentElement.tagName === "a") {
+                        if (img.parentElement.tagName === "A") {
                             img.parentElement.href = anuncio.link || "#";
                         }
                     });

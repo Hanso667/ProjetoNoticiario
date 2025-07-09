@@ -25,7 +25,7 @@
 }
 
 body.dark-mode {
-  --bg-body: #121212;
+  --bg-body: #242424;
   --text-color: #e0e0e0;
   --heading-color: #90caf9;
   --heading-border: #90caf9;
@@ -250,7 +250,7 @@ main img {
   aspect-ratio: 4 / 1;
   border-radius: 15px;
   background-color: var(--ad-bg);
-  object-fit: cover;
+  object-fit: fill;
 }
 
 /* === Responsividade === */

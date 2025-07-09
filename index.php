@@ -407,26 +407,26 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
 
     <?php endif; ?>
 
-    <a href=""><img href="" src="" class="ad"></a>
+    <a href=""><img src="" class="ad"></a>
 
 
   </main>
 
-  <footer>
-    <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
-    <p>Desenvolvido por Hanso667.</p>
-    <p>Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
-    <div class="footer-social">
-      <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-    </div>
-    <br>
-
-    <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
-      <a class="publicidade" href="./pages/CadastroAnuncio.php"><button>Publicidade</button></a>
-    <?php endif; ?>
-
-  </footer>
+  <section id="footer">
+    <footer>
+      <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
+      <p>Desenvolvido por Hanso667.</p>
+      <p>Contato para anuncios: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a> | </p>
+      <div class="footer-social">
+        <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <br>
+      <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
+        <a class="publicidade" href="./pages/CadastroAnuncio.php"><button>Publicidade</button></a>
+      <?php endif; ?>
+    </footer>
+  </section>
 
   <script src="./src/scripts/script.js"></script>
   <script src="./src/scripts/toggleDark.js"></script>
@@ -500,7 +500,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
           adElements.forEach((img, i) => {
             if (anuncios.length === 0) {
               img.src = "https://placehold.co/800x200?text=ad";
-              if (img.parentElement.tagName === "a") {
+              if (img.parentElement.tagName === "A") {
                 img.parentElement.href = "#";
               }
               return;
@@ -510,7 +510,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
             const anuncio = anuncios[index];
 
             img.src = anuncio.imagem || "https://placehold.co/800x200?text=ad";
-            if (img.parentElement.tagName === "a") {
+            if (img.parentElement.tagName === "A") {
               img.parentElement.href = anuncio.link || "#";
             }
           });

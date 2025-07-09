@@ -18,7 +18,7 @@
 }
 
 body.dark-mode {
-  --bg-body: #121212;
+  --bg-body: #242424;
   --text-color: #e0e0e0;
   --heading-color: #ffffff;
   --list-bg: #1e1e1e;
@@ -140,6 +140,17 @@ li a {
 }
 
 /* === Paginação === */
+#Search_usuario_button{
+  width: 40px;
+  height: 40px;
+  min-width: 0;
+}
+.search{
+  display: flex;
+  flex-direction: row;
+  width: 45vh
+
+}
 .paginacao {
   display: flex;
   flex-wrap: wrap;
@@ -176,7 +187,7 @@ li a {
   aspect-ratio: 4 / 1.5;
   border-radius: 15px;
   background-color: var(--ad-bg);
-  object-fit: cover;
+  object-fit: fill;
   display: block;
 }
 

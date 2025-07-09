@@ -135,13 +135,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </main>
 
-    <footer>
+    <footer id="footer">
         <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
 
         <p>Desenvolvido por Hanso667.</p>
 
         <p>
-            Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
+            Contato para anuncios: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
         </p>
 
         <div class="footer-social">

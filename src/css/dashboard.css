@@ -12,7 +12,7 @@
 }
 
 body.dark-mode {
-  --background: #121212;
+  --background: #242424;
   --foreground: #e0e0e0;
   --container-bg: #1e1e1e;
   --text-muted: #bbb;
@@ -37,6 +37,13 @@ body {
 }
 
 /* === Sidebar Favoritos === */
+.div-ad{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .sidebar-favoritos {
   display: flex;
   flex-direction: column;
@@ -86,17 +93,6 @@ body {
   margin-right: 10px;
 }
 
-/* === Anúncios === */
-.ad {
-  margin: 20px auto;
-  width: 100%;
-  max-width: 800px;
-  aspect-ratio: 4 / 1;
-  border-radius: 15px;
-  background-color: var(--ad-bg);
-  object-fit: cover;
-}
-
 /* === Layout Geral === */
 main {
   max-width: 1200px;
@@ -120,7 +116,7 @@ main {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: fill;
   border: 2px solid var(--foreground);
 }
 
@@ -251,7 +247,7 @@ main {
   aspect-ratio: 4 / 1;
   border-radius: 15px;
   background-color: var(--ad-bg);
-  object-fit: cover;
+  object-fit: fill;
 }
 
 /* === Modal === */
@@ -344,13 +340,6 @@ main {
   .card-comentario {
     flex-direction: row;
   }
-
-  .sidebar-favoritos {
-    position: absolute;
-    right: 2rem;
-    top: 10rem;
-    width: 250px;
-  }
 }
 
 /* Celulares médios */
@@ -381,10 +370,6 @@ main {
     width: 100%;
   }
 
-  .sidebar-favoritos {
-    position: static;
-    width: 100%;
-  }
 }
 
 /* Celulares pequenos */

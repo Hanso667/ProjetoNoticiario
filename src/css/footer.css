@@ -46,7 +46,8 @@ footer {
 
 /* === Contato e Botões === */
 .footer-contato {
-  color: var(--footer-text);
+  color: #ffffff;
+  text-shadow: 2px 2px 2px #00e1ff;
 }
 
 .social-btn {

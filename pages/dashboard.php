@@ -164,8 +164,9 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
     </header>
 
     <main>
-
-        <a href=""><img href="" src="" class="ad"></a>
+        <div class="div-ad">
+            <a href=""><img href="" src="" class="ad"></a>
+        </div>
 
         <?php if ($user): ?>
             <section class="user-info" style="margin-bottom: 2rem;">
@@ -213,7 +214,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                     <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
                 </div>
             </section>
-            <aside class="sidebar-favoritos">
+            <div class="sidebar-favoritos">
                 <h2>Favoritos</h2>
 
                 <?php
@@ -237,8 +238,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                 <?php else: ?>
                     <p>Sem favoritos ainda.</p>
                 <?php endif; ?>
-                </div>
-            </aside>
+            </div>
 
             <h2>Postagens recentes de <?php echo htmlspecialchars($user['nome']); ?>:</h2>
 
@@ -349,18 +349,20 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
             </div>
         <?php endif; ?>
 
-        <a href=""><img href="" src="" class="ad"></a>
+        <div class="div-ad">
+            <a href=""><img href="" src="" class="ad"></a>
+        </div>
 
     </main>
 
-    <footer>
+    <footer id="footer">
 
         <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
 
         <p>Desenvolvido por Hanso667.</p>
 
         <p>
-            Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
+            Contato para anuncios: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
         </p>
 
         <div class="footer-social">
@@ -407,7 +409,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                     adElements.forEach((img, i) => {
                         if (anuncios.length === 0) {
                             img.src = "https://placehold.co/800x200?text=ad";
-                            if (img.parentElement.tagName === "a") {
+                            if (img.parentElement.tagName === "A") {
                                 img.parentElement.href = "#";
                             }
                             return;
@@ -417,7 +419,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                         const anuncio = anuncios[index];
 
                         img.src = "." + anuncio.imagem || "https://placehold.co/800x200?text=ad";
-                        if (img.parentElement.tagName === "a") {
+                        if (img.parentElement.tagName === "A") {
                             img.parentElement.href = anuncio.link || "#";
                         }
                     });

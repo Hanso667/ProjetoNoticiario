@@ -40,6 +40,7 @@ CREATE TABLE `likes_postagens` (
 
 LOCK TABLES `likes_postagens` WRITE;
 /*!40000 ALTER TABLE `likes_postagens` DISABLE KEYS */;
+INSERT INTO `likes_postagens` VALUES (0,131),(0,130),(0,129);
 /*!40000 ALTER TABLE `likes_postagens` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-07 22:18:17
+-- Dump completed on 2025-07-08 22:03:17

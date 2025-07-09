@@ -114,7 +114,7 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
 
             <form class="search" action="../pages/usuarios.php" method="GET">
                 <input type="text" name="id" id="Search_usuario" placeholder=">Pesquisar usuários" value="<?= htmlspecialchars($searchTerm) ?>">
-                <button id="Search_usuario_button"></button>
+                <button id="Search_usuario_button">🔍</button>
             </form>
 
             <h1>
@@ -193,20 +193,21 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
 
         <a href=""><img href="" src="" class="ad"></a>
     </main>
-
-    <footer>
-        <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
-        <p>Desenvolvido por Hanso667.</p>
-        <p>Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
-        <div class="footer-social">
-            <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        <br>
-        <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
-            <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
-        <?php endif; ?>
-    </footer>
+    <section id="footer">
+        <footer>
+            <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
+            <p>Desenvolvido por Hanso667.</p>
+            <p>Contato para anuncios: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
+            <div class="footer-social">
+                <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <br>
+            <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
+                <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
+            <?php endif; ?>
+        </footer>
+    </section>
 
     <script src="../src/scripts/toggleDark.js"></script>
     <script>
@@ -218,7 +219,7 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
                     const modalAd = document.querySelector('#myModal .ad');
 
                     if (destaques.length > 0) {
-                        modalAd.src = destaques[0].imagem;
+                        modalAd.src = "."+destaques[0].imagem;
                         modalAd.parentElement.href = destaques[0].link || "#";
                     } else {
                         modalAd.src = "https://placehold.co/800x200?text=ad";
@@ -236,7 +237,7 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
                     adElements.forEach((img, i) => {
                         if (anuncios.length === 0) {
                             img.src = "https://placehold.co/800x200?text=ad";
-                            if (img.parentElement.tagName === "a") {
+                            if (img.parentElement.tagName === "A") {
                                 img.parentElement.href = "#";
                             }
                             return;
@@ -246,7 +247,7 @@ $totalPaginas = ceil($totalUsuarios / $usuariosPorPagina);
                         const anuncio = anuncios[index];
 
                         img.src = "." + anuncio.imagem || "https://placehold.co/800x200?text=ad";
-                        if (img.parentElement.tagName === "a") {
+                        if (img.parentElement.tagName === "A") {
                             img.parentElement.href = anuncio.link || "#";
                         }
                     });
