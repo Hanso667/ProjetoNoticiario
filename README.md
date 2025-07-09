@@ -15,8 +15,18 @@ ProjetoNoticiario/
 ├── editarPost.php
 ├── deletarUser.php
 ├── deletarPost.php
+├── apagar_anuncio.php
+├── apagar_todos_anuncio.php
+├── cadastrar_anuncio.php
+├── favoritarPost.php
+├── get_ads.php
+├── get_ads_destaque.php
+├── LikePot.php
+├── reativar_anuncio.php
 ├── src/
 │ ├── css/
+│ │ ├── footer.cs
+│ │ ├── header.css
 │ │ ├── reset.css
 │ │ ├── dashboard.css
 │ │ ├── index.css
@@ -43,6 +53,7 @@ ProjetoNoticiario/
 
 - ✅ Autenticação de usuários (login/logout)
 - 📝 Criação, edição e exclusão de postagens
+- 📝 Criação, reativação e aprovação manual de anuncios
 - 💬 Comentários em postagens
 - 🔐 Controle de sessão
 - 🧑 Gerenciamento de perfil de usuário (editar/excluir)
