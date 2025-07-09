@@ -40,7 +40,7 @@ CREATE TABLE `favoritos_postagens` (
 
 LOCK TABLES `favoritos_postagens` WRITE;
 /*!40000 ALTER TABLE `favoritos_postagens` DISABLE KEYS */;
-INSERT INTO `favoritos_postagens` VALUES (0,131),(0,130),(0,129);
+INSERT INTO `favoritos_postagens` VALUES (0,129),(0,134),(0,131),(0,130),(0,123),(0,117);
 /*!40000 ALTER TABLE `favoritos_postagens` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-09 10:55:00
+-- Dump completed on 2025-07-09 15:46:19

@@ -33,11 +33,10 @@ CREATE TABLE `anuncios` (
   `aprovado` tinyint(1) DEFAULT 0,
   `link` varchar(255) DEFAULT NULL,
   `destaque` tinyint(1) NOT NULL,
-  `pago` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `anunciante` (`anunciante`),
   CONSTRAINT `anuncios_ibfk_1` FOREIGN KEY (`anunciante`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +45,7 @@ CREATE TABLE `anuncios` (
 
 LOCK TABLES `anuncios` WRITE;
 /*!40000 ALTER TABLE `anuncios` DISABLE KEYS */;
-INSERT INTO `anuncios` VALUES (16,'1752014730_Anuncie sua Marca Aqui.png',0,'2100-12-30',1,1,'#footer',0,1);
+INSERT INTO `anuncios` VALUES (16,'1752014730_Anuncie sua Marca Aqui.png',0,'2100-12-30',1,1,'#footer',0),(21,'images (1).jpeg',18,'2025-08-08',1,0,'',1);
 /*!40000 ALTER TABLE `anuncios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-09 10:54:59
+-- Dump completed on 2025-07-09 15:46:19

@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_anuncio'])) {
     $conn = (new Connection())->connectar();
 
     // Verifica se o anúncio pertence ao usuário
-    $stmt = $conn->prepare("DELETE FROM anuncios WHERE id = ? AND ativo = 0");
+    $stmt = $conn->prepare("DELETE FROM anuncios WHERE id = ?");
     $stmt->bind_param("i", $id_anuncio);
     $stmt->execute();
 

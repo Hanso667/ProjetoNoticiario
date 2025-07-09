@@ -1,5 +1,9 @@
 <?php
 session_start();
+$favoritosPorPagina = 4;
+$paginaFavAtual = isset($_GET['fav_page']) && is_numeric($_GET['fav_page']) ? (int)$_GET['fav_page'] : 1;
+$favOffset = ($paginaFavAtual - 1) * $favoritosPorPagina;
+
 if (!isset($_SESSION['Mode'])) {
     $_SESSION['Mode'] = "Light";
 }
@@ -19,23 +23,34 @@ if ($userId >= 0) {
         $user = $resultUser->fetch_assoc();
     }
 }
-$favoritos = [];
+
+$totalFavoritos = 0;
+$totalPaginasFavoritos = 1;
 
 if (isset($_SESSION['usuario_id'])) {
-    $idUsuarioLogado = $_SESSION['usuario_id'];
+    $stmtTotalFav = $conn->prepare("SELECT COUNT(*) as total FROM favoritos_postagens WHERE id_usuario = ?");
+    $stmtTotalFav->bind_param("i", $userId);
+    $stmtTotalFav->execute();
+    $resultTotalFav = $stmtTotalFav->get_result();
+    $totalFavoritos = $resultTotalFav->fetch_assoc()['total'];
+    $totalPaginasFavoritos = max(1, ceil($totalFavoritos / $favoritosPorPagina));
+}
 
+
+if (isset($_SESSION['usuario_id'])) {
     $stmtFav = $conn->prepare("
         SELECT p.id, p.titulo, p.imagem
         FROM favoritos_postagens f
         JOIN postagens p ON f.id_post = p.id
         WHERE f.id_usuario = ?
         ORDER BY p.data_post DESC
-        LIMIT 5
+        LIMIT ? OFFSET ?
     ");
-    $stmtFav->bind_param("i", $idUsuarioLogado);
+    $stmtFav->bind_param("iii", $userId, $favoritosPorPagina, $favOffset);
     $stmtFav->execute();
     $resultFav = $stmtFav->get_result();
 
+    $favoritos = [];
     while ($fav = $resultFav->fetch_assoc()) {
         $favoritos[] = $fav;
     }
@@ -215,7 +230,26 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
                 </div>
             </section>
             <div class="sidebar-favoritos">
+
                 <h2>Favoritos</h2>
+
+                <?php if ($totalPaginasFavoritos > 1): ?>
+                    <div class="paginacao">
+                        <?php if ($paginaFavAtual > 1): ?>
+                            <a href="?id=<?= $userId ?>&fav_page=<?= $paginaFavAtual - 1 ?>&page=<?= $paginaAtual ?>">&larr; Anterior</a>
+                        <?php endif; ?>
+
+                        <?php for ($i = 1; $i <= $totalPaginasFavoritos; $i++): ?>
+                            <a href="?id=<?= $userId ?>&fav_page=<?= $i ?>&page=<?= $paginaAtual ?>" class="<?= $i == $paginaFavAtual ? 'pagina-atual' : '' ?>">
+                                <?= $i ?>
+                            </a>
+                        <?php endfor; ?>
+
+                        <?php if ($paginaFavAtual < $totalPaginasFavoritos): ?>
+                            <a href="?id=<?= $userId ?>&fav_page=<?= $paginaFavAtual + 1 ?>&page=<?= $paginaAtual ?>">Próxima &rarr;</a>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
 
                 <?php
                 $stmt = $conn->prepare("SELECT COUNT(*) AS total FROM favoritos_postagens WHERE id_usuario = ?");

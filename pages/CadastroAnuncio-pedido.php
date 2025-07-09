@@ -1,9 +1,16 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: ./login.php");
+    exit();
+}
+
 if (!isset($_SESSION['Mode'])) {
     $_SESSION['Mode'] = "Light";
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">

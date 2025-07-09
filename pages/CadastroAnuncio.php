@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['Mode'])) {
     $_SESSION['Mode'] = "Light";
 }
@@ -82,7 +83,7 @@ if (!isset($_SESSION['Mode'])) {
         <?php
         include '../src/scripts/Connection.php';
 
-        if (!isset($_SESSION['usuario_id'])) {
+        if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_id'] != 0 ) {
             echo "<p style='color: red;'>Acesso negado. Faça login como administrador.</p>";
             exit;
         }
@@ -91,9 +92,9 @@ if (!isset($_SESSION['Mode'])) {
         $conn = (new Connection())->connectar();
 
         // BUSCAR ANÚNCIOS PENDENTES
-        $sql = "SELECT a.*, u.nome FROM anuncios a 
+        $sql = "SELECT a.*, u.nome, u.email FROM anuncios a 
         JOIN usuarios u ON u.id = a.anunciante 
-        WHERE a.aprovado = 0 and pago = 1
+        WHERE a.aprovado = 0
         ORDER BY a.id DESC";
 
         $result = $conn->query($sql);
@@ -107,6 +108,7 @@ if (!isset($_SESSION['Mode'])) {
                     <img src="../src/img/ads/<?= $anuncio['imagem'] ?>" alt="Imagem do anúncio" style="width: 100%; max-width: 600px;"><br>
                     <p><strong>ID:</strong> <?= $anuncio['id'] ?></p>
                     <p><strong>Anunciante:</strong> <?= htmlspecialchars($anuncio['nome']) ?></p>
+                    <p><strong>Email:</strong><a href="mailto:<?= htmlspecialchars($anuncio['email']) ?>"><?= htmlspecialchars($anuncio['email']) ?></a> </p>
                     <p><strong>Link:</strong> <?= $anuncio['link'] ? "<a href='{$anuncio['link']}' target='_blank'>{$anuncio['link']}</a>" : "Nenhum" ?></p>
                     <p><strong>Validade:</strong> <?= date("d/m/Y", strtotime($anuncio['validade'])) ?></p>
                     <p><strong>Destaque:</strong> <?= $anuncio['destaque'] ? "Sim" : "Não" ?></p>
