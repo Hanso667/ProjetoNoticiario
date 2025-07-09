@@ -10,9 +10,9 @@ if (!isset($_SESSION['Mode'])) {
 
 <head>
     <link rel="stylesheet" href="../src/css/reset.css">
-        <link id="style" data-mode="light" rel="stylesheet" href="../src/css/login.css">
-        <link id="style" rel="stylesheet" href="../src/css/header.css">
-        <link id="style" rel="stylesheet" href="../src/css/footer.css">
+    <link id="style" data-mode="light" rel="stylesheet" href="../src/css/login.css">
+    <link id="style" rel="stylesheet" href="../src/css/header.css">
+    <link id="style" rel="stylesheet" href="../src/css/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@ if (!isset($_SESSION['Mode'])) {
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
 </head>
 
-    <body>
+<body>
 
     <header>
         <div class="header-container">
@@ -74,7 +74,7 @@ if (!isset($_SESSION['Mode'])) {
         <p>Desenvolvido por Hanso667.</p>
 
         <p>
-            Contato para anuncios: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
+            Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
         </p>
 
         <div class="footer-social">
@@ -87,7 +87,9 @@ if (!isset($_SESSION['Mode'])) {
         </div>
         <br>
         <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
-            <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
+            <a class="publicidade" href="./CadastroAnuncio.php"><button>Anuncios</button></a>
+        <?php else: ?>
+            <a class="publicidade" href="./CadastroAnuncio-pedido.php"><button>Anuncios</button></a>
         <?php endif; ?>
 
     </footer>

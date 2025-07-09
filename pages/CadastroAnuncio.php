@@ -12,7 +12,7 @@ if (!isset($_SESSION['Mode'])) {
     <meta charset="UTF-8">
     <title>Cadastro Anuncios</title>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <link id="style" data-mode="light" rel="stylesheet" href="../src/css/noticia.css">
+    <link id="style" data-mode="light" rel="stylesheet" href="../src/css/cdAnuncio.css">
     <link id="style" rel="stylesheet" href="../src/css/header.css">
     <link id="style" rel="stylesheet" href="../src/css/footer.css">
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
@@ -79,44 +79,66 @@ if (!isset($_SESSION['Mode'])) {
 
     <main style="max-width: 800px; margin: auto; padding: 20px;">
 
-        <h2>Cadastrar Anúncio</h2>
+        <?php
+        include '../src/scripts/Connection.php';
 
-        <?= $mensagem ?? '' ?>
+        if (!isset($_SESSION['usuario_id'])) {
+            echo "<p style='color: red;'>Acesso negado. Faça login como administrador.</p>";
+            exit;
+        }
 
-        <form action="../cadastrar_anuncio.php" method="POST" enctype="multipart/form-data" onsubmit="return calcularValor()">
-            <label for="imagem">Imagem do Anúncio: (800x300)</label><br>
-            <input type="file" name="imagem" accept="image/*" required><br><br>
+        // CONEXÃO
+        $conn = (new Connection())->connectar();
 
-            <label for="link">Link do anúncio:</label><br>
-            <input type="url" name="link" placeholder="https://exemplo.com"><br><br>
+        // BUSCAR ANÚNCIOS PENDENTES
+        $sql = "SELECT a.*, u.nome FROM anuncios a 
+        JOIN usuarios u ON u.id = a.anunciante 
+        WHERE a.aprovado = 0 and pago = 1
+        ORDER BY a.id DESC";
 
-            <label for="destaque">
-                <input type="checkbox" name="destaque" id="destaque" value="1" onchange="calcularValor()"> Destaque este anúncio (+ R$20,00)
-            </label><br><br>
+        $result = $conn->query($sql);
 
-            <label for="dias">Tempo de exibição do anúncio:</label><br>
-            <select name="dias" id="dias" onchange="calcularValor()" required>
-                <option value="">Selecione</option>
-                <option value="3">3 dias (R$6,00)</option>
-                <option value="7">7 dias (R$14,00)</option>
-                <option value="15">15 dias (R$30,00)</option>
-                <option value="30">30 dias (R$60,00)</option>
-            </select><br><br>
+        if ($result && $result->num_rows > 0):
+            echo "<h2>Anúncios Pendentes de Aprovação</h2>";
 
-            <p id="valor_total">Valor total: R$0,00</p>
+            while ($anuncio = $result->fetch_assoc()):
+        ?>
+                <div style="border: 1px solid #ccc; padding: 15px; margin: 20px 0;">
+                    <img src="../src/img/ads/<?= $anuncio['imagem'] ?>" alt="Imagem do anúncio" style="width: 100%; max-width: 600px;"><br>
+                    <p><strong>ID:</strong> <?= $anuncio['id'] ?></p>
+                    <p><strong>Anunciante:</strong> <?= htmlspecialchars($anuncio['nome']) ?></p>
+                    <p><strong>Link:</strong> <?= $anuncio['link'] ? "<a href='{$anuncio['link']}' target='_blank'>{$anuncio['link']}</a>" : "Nenhum" ?></p>
+                    <p><strong>Validade:</strong> <?= date("d/m/Y", strtotime($anuncio['validade'])) ?></p>
+                    <p><strong>Destaque:</strong> <?= $anuncio['destaque'] ? "Sim" : "Não" ?></p>
 
-            <button type="submit">Cadastrar Anúncio</button>
-        </form>
+                    <form action="../aprovar_anuncio.php" method="POST" style="display: inline;">
+                        <input type="hidden" name="id_anuncio" value="<?= $anuncio['id'] ?>">
+                        <button type="submit" style="background-color: green; color: white; padding: 5px 10px;">✔️ Aprovar</button>
+                    </form>
+
+                    <form action="../apagar_anuncio.php" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este anúncio?');" style="display: inline;">
+                        <input type="hidden" name="id_anuncio" value="<?= $anuncio['id'] ?>">
+                        <input type="hidden" name="imagem" value="<?= $anuncio['imagem'] ?>">
+                        <button type="submit" style="background-color: red; color: white; padding: 5px 10px;">🗑️ Excluir</button>
+                    </form>
+                </div>
+        <?php
+            endwhile;
+        else:
+            echo "<p>Nenhum anúncio pendente de aprovação.</p>";
+        endif;
+
+        $conn->close();
+        ?>
 
         <form action="../apagar_todos_anuncios.php" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar todos os anúncios inativos?');" style="margin-top: 20px;">
             <button type="submit" style="background-color: red; color: white; padding: 10px; margin-top: 100px;">🗑️ Apagar Todos os Inativos</button>
         </form>
 
         <?php
-        if (isset($_SESSION['usuario_id'])) {
-            include '../src/scripts/Connection.php';
+        if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0) {
 
-            if (!isset($_SESSION['usuario_id'])) {
+            if (!isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] != 0) {
                 die("Usuário não autenticado.");
             }
 
@@ -141,7 +163,22 @@ if (!isset($_SESSION['Mode'])) {
 
             // Buscar anúncios inativos com paginação
             $anuncios_inativos = [];
-            $stmt = $conn->prepare("SELECT * FROM anuncios as a left join usuarios as u on u.id = a.anunciante where ativo = 0 ORDER BY validade DESC LIMIT ? OFFSET ?");
+            $stmt = $conn->prepare("SELECT 
+    a.id AS id_anuncio,
+    a.imagem,
+    a.link,
+    a.validade,
+    a.destaque,
+    a.ativo,
+    u.id AS id_usuario,
+    u.nome AS nome_usuario,
+    u.email,
+    u.imagem
+FROM anuncios AS a
+LEFT JOIN usuarios AS u ON u.id = a.anunciante
+WHERE a.ativo = 0
+ORDER BY a.validade DESC
+LIMIT ? OFFSET ?");
             $stmt->bind_param("ii", $por_pagina, $offset);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -159,14 +196,14 @@ if (!isset($_SESSION['Mode'])) {
                 <h2 style="margin-top: 40px;">Anúncios Inativos</h2>
                 <?php foreach ($anuncios_inativos as $anuncio): ?>
                     <div style="border: 1px solid #ccc; padding: 10px; margin-top: 10px;">
-                        <p><strong>ID:</strong> <?= $anuncio['id'] ?></p>
-                        <p><strong>Anunciante:</strong> <?= $anuncio['nome'] ?></p>
+                        <p><strong>ID:</strong> <?= $anuncio['id_anuncio'] ?></p>
+                        <p><strong>Anunciante:</strong> <?= $anuncio['nome_usuario'] ?></p>
                         <p><strong>Link:</strong> <?= $anuncio['link'] ?: 'Nenhum' ?></p>
                         <p><strong>Validade anterior:</strong> <?= date("d/m/Y", strtotime($anuncio['validade'])) ?></p>
                         <form action="../reativar_anuncio.php" method="POST" style="margin-bottom: 10px;">
-                            <input type="hidden" name="id_anuncio" value="<?= $anuncio['id'] ?>">
-                            <label for="dias_<?= $anuncio['id'] ?>">Nova validade:</label>
-                            <select name="dias" id="dias_<?= $anuncio['id'] ?>" required>
+                            <input type="hidden" name="id_anuncio" value="<?= $anuncio['id_anuncio'] ?>">
+                            <label for="dias_<?= $anuncio['id_anuncio'] ?>">Nova validade:</label>
+                            <select name="dias" id="dias_<?= $anuncio['id_anuncio'] ?>" required>
                                 <option value="">Selecione</option>
                                 <option value="3">3 dias (R$6,00)</option>
                                 <option value="7">7 dias (R$14,00)</option>
@@ -178,7 +215,7 @@ if (!isset($_SESSION['Mode'])) {
 
                         <!-- Pagar individualmente -->
                         <form action="../apagar_anuncio.php" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar este anúncio?');" style="display:inline;">
-                            <input type="hidden" name="id_anuncio" value="<?= $anuncio['id'] ?>">
+                            <input type="hidden" name="id_anuncio" value="<?= $anuncio['id_anuncio'] ?>">
                             <input type="hidden" name="imagem" value="<?= $anuncio['imagem'] ?>">
                             <button type="submit" style="background-color: red; color: white;">🗑️ Apagar</button>
                         </form>
@@ -220,7 +257,7 @@ if (!isset($_SESSION['Mode'])) {
     <footer id="footer">
         <p>&copy; 2025 Portal de Notícias. Todos os direitos reservados.</p>
         <p>Desenvolvido por Hanso667.</p>
-        <p>Contato para anuncios: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
+        <p>Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a></p>
         <div class="footer-social">
             <a href="https://github.com/Hanso667" class="social-btn" aria-label="Github"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/fabricio-lacerda-moraes-991979300/" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>

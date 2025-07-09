@@ -8,6 +8,7 @@ $query = "
     FROM anuncios 
     WHERE ativo = 1 
       AND destaque = 1
+      AND aprovado = 1
 ";
 
 $result = $conn->query($query);

@@ -95,16 +95,26 @@ body {
 }
 
 /* === Títulos === */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   color: var(--heading-color);
   border-bottom: 2px dashed var(--heading-border);
   padding-bottom: 5px;
   margin-bottom: 15px;
 }
 
-h1 { font-size: 2.2em; }
-h2 { font-size: 1.5em; }
-h3 { font-size: 1.2em; }
+h1 {
+  font-size: 2.2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.2em;
+}
 
 p {
   margin: 10px 0;
@@ -140,6 +150,60 @@ main {
 .conteudo-postagem h1 {
   border-bottom: 0;
 }
+
+#form-editar-postagem {
+  background-color: var(--comment-bg);
+  padding: 20px;
+  border: 2px dashed var(--comment-form-border);
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 2px 2px 10px rgba(0, 51, 102, 0.2);
+}
+
+#form-editar-postagem label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--heading-color);
+}
+
+#form-editar-postagem input[type="text"],
+#form-editar-postagem input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--content-border);
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 1em;
+  background-color: var(--editor-bg);
+  color: var(--editor-text);
+}
+
+#editor-editar {
+  background-color: var(--editor-bg);
+  color: var(--editor-text);
+  border: 2px solid var(--comment-form-border);
+  border-radius: 4px;
+  padding: 10px;
+  height: 200px;
+  margin-bottom: 15px;
+}
+
+#form-editar-postagem button[type="submit"] {
+  background-color: var(--comment-btn-bg);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#form-editar-postagem button[type="submit"]:hover {
+  background-color: var(--comment-btn-hover);
+}
+
 
 /* === Comentários === */
 .comentario {
@@ -268,9 +332,17 @@ main img {
 }
 
 @media (max-width: 480px) {
-  h1 { font-size: 1.6em; }
-  h2 { font-size: 1.3em; }
-  h3 { font-size: 1em; }
+  h1 {
+    font-size: 1.6em;
+  }
+
+  h2 {
+    font-size: 1.3em;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
 
   .ad {
     aspect-ratio: 4 / 2;

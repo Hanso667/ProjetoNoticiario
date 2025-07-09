@@ -37,13 +37,14 @@ body {
 }
 
 /* === Sidebar Favoritos === */
-.div-ad{
+.div-ad {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
+
 .sidebar-favoritos {
   display: flex;
   flex-direction: column;
@@ -130,6 +131,53 @@ main {
   margin-top: 0.5rem;
   color: var(--text-muted);
 }
+
+#form-editar-usuario {
+  background-color: var(--container-bg);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#form-editar-usuario label {
+  font-weight: bold;
+  color: var(--foreground);
+}
+
+#form-editar-usuario input[type="text"],
+#form-editar-usuario input[type="email"],
+#form-editar-usuario input[type="file"] {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  width: 100%;
+  background-color: var(--sidebar-bg);
+  color: var(--foreground);
+}
+#form-editar-usuario input[type="file"] {
+  width: 90%;
+}
+
+#form-editar-usuario button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+#form-editar-usuario button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
 
 /* === Visualização de Notícias === */
 .card-view-noticias {

@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario_id'])) {
 include './src/scripts/Connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_anuncio'])) {
-    $id_usuario = $_SESSION['usuario_id'];
     $id_anuncio = intval($_POST['id_anuncio']);
     $imagem = $_POST['imagem'];
 
@@ -18,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_anuncio'])) {
     $conn = (new Connection())->connectar();
 
     // Verifica se o anúncio pertence ao usuário
-    $stmt = $conn->prepare("DELETE FROM anuncios WHERE id = ? AND anunciante = ? AND ativo = 0");
-    $stmt->bind_param("ii", $id_anuncio, $id_usuario);
+    $stmt = $conn->prepare("DELETE FROM anuncios WHERE id = ? AND ativo = 0");
+    $stmt->bind_param("i", $id_anuncio);
     $stmt->execute();
 
     $stmt->close();

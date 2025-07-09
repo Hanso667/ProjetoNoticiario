@@ -8,6 +8,7 @@ $query = "
     FROM anuncios 
     WHERE ativo = 1 
       AND validade >= CURDATE()
+      AND aprovado = 1
 ";
 
 $result = $conn->query($query);

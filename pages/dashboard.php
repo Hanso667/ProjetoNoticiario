@@ -362,7 +362,7 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
         <p>Desenvolvido por Hanso667.</p>
 
         <p>
-            Contato para anuncios: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
+            Contato: <a href="mailto:fabriciolacerdamoraes2005@gmail.com" class="footer-contato">fabriciolacerdamoraes2005@gmail.com</a><br>
         </p>
 
         <div class="footer-social">
@@ -375,7 +375,9 @@ $totalPaginas = ceil($totalPostagens / $postagensPorPagina);
         </div>
         <br>
         <?php if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == 0): ?>
-            <a class="publicidade" href="./CadastroAnuncio.php"><button>Publicidade</button></a>
+            <a class="publicidade" href="./CadastroAnuncio.php"><button>Anuncios</button></a>
+        <?php else: ?>
+            <a class="publicidade" href="./CadastroAnuncio-pedido.php"><button>Anuncios</button></a>
         <?php endif; ?>
 
     </footer>
