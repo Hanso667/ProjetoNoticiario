@@ -112,6 +112,7 @@ if (!isset($_SESSION['Mode'])) {
                     <p><strong>Link:</strong> <?= $anuncio['link'] ? "<a href='{$anuncio['link']}' target='_blank'>{$anuncio['link']}</a>" : "Nenhum" ?></p>
                     <p><strong>Validade:</strong> <?= date("d/m/Y", strtotime($anuncio['validade'])) ?></p>
                     <p><strong>Destaque:</strong> <?= $anuncio['destaque'] ? "Sim" : "Não" ?></p>
+                    <p><strong>Valor:</strong> <?= htmlspecialchars($anuncio['valor']) ?></p>
 
                     <form action="../aprovar_anuncio.php" method="POST" style="display: inline;">
                         <input type="hidden" name="id_anuncio" value="<?= $anuncio['id'] ?>">

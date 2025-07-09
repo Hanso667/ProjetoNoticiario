@@ -28,14 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $link = isset($_POST['link']) ? $_POST['link'] : null;
     $destaque = isset($_POST['destaque']) ? 1 : 0;
     $dias = isset($_POST['dias']) ? intval($_POST['dias']) : 0;
+    $valor = $_POST['valorTotal'];
 
     // Calcular validade
     $dataValidade = date('Y-m-d', strtotime("+$dias days"));
 
     // Inserir no banco
-    $stmt = $conn->prepare("INSERT INTO anuncios (imagem, anunciante, validade, ativo, aprovado, link, destaque) 
-                            VALUES (?, ?, ?, 1, 0, ?, ?)");
-    $stmt->bind_param("sissi", $imagemNome, $anunciante, $dataValidade, $link, $destaque);
+    $stmt = $conn->prepare("INSERT INTO anuncios (imagem, anunciante, validade, ativo, aprovado, link, destaque, valor) 
+                            VALUES (?, ?, ?, 1, 0, ?, ?, ?)");
+    $stmt->bind_param("sissis", $imagemNome, $anunciante, $dataValidade, $link, $destaque, $valor);
 
     if ($stmt->execute()) {
         header("Location: ./pages/CadastroAnuncio-pedido.php?success=1");

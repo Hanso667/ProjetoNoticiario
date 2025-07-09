@@ -19,7 +19,7 @@ if (!isset($_SESSION['Mode'])) {
     <meta charset="UTF-8">
     <title>Cadastro Anuncios</title>
     <link rel="stylesheet" href="../src/css/reset.css">
-    <link id="style" data-mode="light" rel="stylesheet" href="../src/css/noticia.css">
+    <link id="style" data-mode="light" rel="stylesheet" href="../src/css/cpAnuncio.css">
     <link id="style" rel="stylesheet" href="../src/css/header.css">
     <link id="style" rel="stylesheet" href="../src/css/footer.css">
     <link rel="icon" type="image/x-icon" href="../src/img/Logo.png">
@@ -111,6 +111,7 @@ if (!isset($_SESSION['Mode'])) {
             </select><br><br>
 
             <p id="valor_total">Valor total: R$0,00</p>
+            <input hidden id="total" type="text" name="valorTotal" value=""></p>
 
             <button type="submit">Cadastrar Anúncio</button>
         </form>
@@ -126,6 +127,7 @@ if (!isset($_SESSION['Mode'])) {
                 const valorTotal = valorBase + valorDestaque;
 
                 document.getElementById('valor_total').textContent = `Valor total: R$${valorTotal.toFixed(2).replace('.', ',')}`;
+                document.getElementById('total').value = `${valorTotal.toFixed(2)}`;
                 return true;
             }
         </script>
